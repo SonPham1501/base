@@ -42,7 +42,7 @@ class InputSearchWidget extends StatefulWidget {
   final bool autoFocus;
   final int timeDeBouncer;
 
-  const InputSearchWidget({
+  const InputSearchWidget({Key? key, 
     this.controller,
     this.hintText = "",
     this.title = "",
@@ -74,7 +74,7 @@ class InputSearchWidget extends StatefulWidget {
     this.textColor,
     this.autoFocus = false,
     this.timeDeBouncer = 500,
-  });
+  }) : super(key: key);
 
   @override
   _InputInfoWidgetState createState() => _InputInfoWidgetState();

@@ -46,7 +46,7 @@ class InputInfoWidget extends StatefulWidget {
   final bool isEnableMultiLine;
   final bool isHasExtend;
 
-  const InputInfoWidget({
+  const InputInfoWidget({Key? key, 
     this.controller,
     this.hintText = "",
     this.title = "",
@@ -82,7 +82,7 @@ class InputInfoWidget extends StatefulWidget {
     this.timeDeBouncer = 500,
     this.isShowHintTitle = true,
     this.fontSize = 14,
-  });
+  }) : super(key: key);
 
   @override
   _InputInfoWidgetState createState() => _InputInfoWidgetState();

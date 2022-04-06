@@ -1,6 +1,5 @@
+import 'package:base/src/Common/Enum.dart';
 import 'package:flutter/material.dart';
-
-import '../../Base/BaseController.dart';
 import '../../Common/Constant.dart';
 import '../../Utils/BaseResourceUtil.dart';
 import '../../Utils/FontUtil.dart';

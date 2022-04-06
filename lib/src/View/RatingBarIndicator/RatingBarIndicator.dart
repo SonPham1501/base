@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// Use [RatingBar], if interactive version is required.
 /// i.e. if user input is required.
 class RatingBarIndicator extends StatefulWidget {
-  RatingBarIndicator({
+  const RatingBarIndicator({
     required this.itemBuilder,
     this.textDirection,
     this.unratedColor,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RestartApp extends StatefulWidget {
-  RestartApp({required this.child});
+  const RestartApp({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 

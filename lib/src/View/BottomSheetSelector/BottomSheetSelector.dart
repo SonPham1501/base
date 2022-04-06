@@ -1,7 +1,9 @@
 import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Common/Enum.dart';
 import 'package:base/src/Model/SelectorModel.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
 import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:base/src/Widget/BaseAppBarBottomSheetWidget.dart';
 import 'package:base/src/Widget/ButtonWidget.dart';
 import 'package:base/src/Widget/LineBaseWidget.dart';
@@ -48,9 +50,72 @@ class BottomSheetSelector extends StatefulWidget {
 }
 
 class _BottomSheetSelectorState extends State<BottomSheetSelector> {
+  final textSearchController = TextEditingController();
+  var listSelector = <SelectorModel>[];
+  final List<SelectorModel> list = [];
+  ViewState viewState = ViewState.Loading;
+  final bool isMultiSelect = false;
+
   @override
   void setState(VoidCallback fn) {
     if (mounted) super.setState(fn);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      viewState = ViewState.Loading;
+      for (var item in list) {
+        listSelector.add(item);
+      }
+      setState(() {});
+    });
+  }
+
+  void onChangeTextSearch(String value) {
+    listSelector.clear();
+    if (textSearchController.text.isEmpty) {
+      for (var item in list) {
+        listSelector.add(item);
+      }
+    } else {
+      var textSearch = Util.nonUnicode(textSearchController.text.trim()).toLowerCase();
+      for (var item in list) {
+        if (Util.nonUnicode(item.title).toLowerCase().contains(textSearch)) {
+          listSelector.add(item);
+        }
+      }
+    }
+    setState(() {});
+  }
+
+  void onResetValue() {
+    for (var item in listSelector) {
+      item.isCheck = false;
+    }
+    setState(() {});
+  }
+
+  void onSubmit() {
+    widget.onSuccess?.call(listSelector);
+    Navigator.of(context).pop();
+  }
+
+  void onSelect(SelectorModel selectorModel) {
+    if (isMultiSelect) {
+      Util.onHideKeyboard(context);
+      selectorModel.isCheck = !selectorModel.isCheck;
+    } else {
+      for (var element in listSelector) {
+        element.isCheck = false;
+      }
+      selectorModel.isCheck = !selectorModel.isCheck;
+      Util.onHideKeyboard(context);
+      widget.onSuccess?.call(list);
+      Navigator.of(context).pop();
+    }
+    setState(() {});
   }
 
   @override
@@ -85,15 +150,15 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
                   padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                   child: InputSearchWidget(
                     hintText: "Tìm kiếm",
-                    controller: value.textSearchController,
-                    onChanged: controller.onChangeTextSearch,
+                    controller: textSearchController,
+                    onChanged: onChangeTextSearch,
                   ),
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: value.listSelector.length,
+                    itemCount: listSelector.length,
                     itemBuilder: (context, index) {
-                      return _childWidget(value, value.listSelector[index]);
+                      return _childWidget(listSelector[index]);
                     },
                   ),
                 ),
@@ -119,18 +184,14 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
                       child: ButtonWidget(
                         title: "Bỏ chọn",
                         buttonType: ButtonType.Cancel,
-                        onTap: () {
-                          controller.onResetValue();
-                        },
+                        onTap: onResetValue,
                       ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: ButtonWidget(
                         title: "Áp dụng",
-                        onTap: () {
-                          controller.onSubmit();
-                        },
+                        onTap: onSubmit,
                       ),
                     ),
                   ],
@@ -144,13 +205,12 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
     );
   }
 
-  Widget _childWidget(
-      BottomSheetSelectorController value, SelectorModel selectorModel) {
+  Widget _childWidget(SelectorModel selectorModel) {
     bool isCheck = selectorModel.isCheck;
-    if (value.isMultiSelect) {
+    if (isMultiSelect) {
       return InkWell(
         onTap: () {
-          controller.onSelect(selectorModel);
+          onSelect(selectorModel);
         },
         child: Column(
           children: [
@@ -188,7 +248,7 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
     } else {
       return InkWell(
         onTap: () {
-          controller.onSelect(selectorModel);
+          onSelect(selectorModel);
         },
         child: Container(
           height: 50,

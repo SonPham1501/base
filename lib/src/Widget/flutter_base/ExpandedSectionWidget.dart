@@ -4,7 +4,7 @@ class ExpandedSectionWidget extends StatefulWidget {
   final Widget child;
   final bool expand;
 
-  const ExpandedSectionWidget({this.expand = false, required this.child});
+  const ExpandedSectionWidget({Key? key, this.expand = false, required this.child}) : super(key: key);
 
   @override
   _ExpandedSectionWidgetState createState() => _ExpandedSectionWidgetState();

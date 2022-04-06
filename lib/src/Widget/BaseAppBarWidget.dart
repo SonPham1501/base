@@ -15,8 +15,8 @@ class BaseAppBarWidget extends AppBar {
   final Color backgroundColor;
   final Color? titleColor;
   final bool isLeadingIcon;
-  Widget? iconLeading;
-  BuildContext? context;
+  final Widget? iconLeading;
+  final BuildContext? context;
 
   BaseAppBarWidget(
       {Key? key,

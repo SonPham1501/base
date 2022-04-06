@@ -22,8 +22,8 @@ class ChooseImage {
   Function(List<File> file)? onChooseMultiImage;
 
   final BuildContext context;
-  var isCrop;
-  var isMultiImage;
+  final isCrop;
+  final isMultiImage;
   String? title;
 
   ChooseImage({required this.context, this.onActionTakePicture, this.isCrop = false, this.isMultiImage = false});

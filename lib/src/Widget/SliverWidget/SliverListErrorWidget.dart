@@ -8,7 +8,7 @@ class SliverListErrorWidget extends StatelessWidget {
   final String? errorMessage;
   final Size? size;
 
-  const SliverListErrorWidget({this.errorMessage, this.size});
+  const SliverListErrorWidget({Key? key, this.errorMessage, this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

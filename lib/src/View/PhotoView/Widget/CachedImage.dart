@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:base/src/CenBase.dart';
 import 'package:base/src/Utils/BaseProjectUtil.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
@@ -5,12 +7,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CachedImage extends StatelessWidget {
-  String? imageUrl;
-  BoxFit? fit;
-  double? width;
-  double? scale;
+  final String? imageUrl;
+  final BoxFit? fit;
+  final double? width;
+  final double? scale;
 
-  CachedImage(this.imageUrl, {this.fit, this.width, this.scale});
+  const CachedImage(this.imageUrl, {Key? key, this.fit, this.width, this.scale}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,7 @@ class CenBase {
   static String? accessToken; // null là chưa đăng nhập
   static String? refreshToken;
   static String? systemToken;
-  static AppName appName = AppName.Cenhomes;
+  //static AppName appName = AppName.Cenhomes;
   static UserModel? user;
   static Function()? logout;
   static Function()? onLogoutApi; //khi hết hạn token sẽ call logout
@@ -64,9 +64,9 @@ class CenBase {
   static String deviceName = "";
 
 
-  static final googleMapKey = "AIzaSyBbmxOMWOV2OTV0tR0LkMtohUcikyvYC64";
-  static var firebaseTokenSubject = new BehaviorSubject<String>.seeded("");
-  static var userInfoSubject = new BehaviorSubject();
+  static const googleMapKey = "AIzaSyBbmxOMWOV2OTV0tR0LkMtohUcikyvYC64";
+  static var firebaseTokenSubject = BehaviorSubject<String>.seeded("");
+  static var userInfoSubject = BehaviorSubject();
   static late CenBuildType buildType;
 
   static const String urlPaymentPolicy = "https://cenhomes.vn/tin-tuc/dieu-khoan-thanh-toan-11";

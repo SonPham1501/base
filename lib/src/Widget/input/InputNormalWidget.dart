@@ -40,7 +40,7 @@ class InputNormalWidget extends StatefulWidget {
   final bool autoFocus;
   final int timeDeBouncer;
 
-  const InputNormalWidget({
+  const InputNormalWidget({Key? key, 
     this.controller,
     this.hintText = "",
     this.title = "",
@@ -72,7 +72,7 @@ class InputNormalWidget extends StatefulWidget {
     this.textColor,
     this.autoFocus = false,
     this.timeDeBouncer = 500,
-  });
+  }) : super(key: key);
 
   @override
   _InputNormalWidgetState createState() => _InputNormalWidgetState();

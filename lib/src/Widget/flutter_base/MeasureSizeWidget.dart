@@ -1,7 +1,7 @@
+import 'package:base/src/Widget/flutter_base/MeasureSize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-typedef void OnWidgetSizeChange(Size size);
 
 class MeasureSizeWidget extends StatefulWidget {
   final Widget child;

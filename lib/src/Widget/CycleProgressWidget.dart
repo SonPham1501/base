@@ -9,7 +9,7 @@ class CycleProgressWidget extends StatelessWidget {
   double completePercent;
   double width;
 
-  CycleProgressWidget({this.lineColor, this.completeColor,required this.completePercent, this.width = 2});
+  CycleProgressWidget({Key? key, this.lineColor, this.completeColor,required this.completePercent, this.width = 2}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

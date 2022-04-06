@@ -1,41 +1,72 @@
-import 'package:base/src/Base/BaseController.dart';
+import 'package:base/src/Common/Enum.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
 import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:interactiveviewer_gallery/interactiveviewer_gallery.dart';
-import 'package:provider/provider.dart';
 
-import 'PhotoController.dart';
 import 'Widget/CachedImage.dart';
 import 'Widget/DisplayGesture.dart';
 
 // ignore: must_be_immutable
-class PhotoViewPage extends StatelessWidget {
-  List<String>? medias;
+class PhotoViewPage extends StatefulWidget {
+  final List<String>? medias;
+  final String? tagHero;
+  final int index;
+  final String? tag;
 
-  String? tagHero;
-  int index;
-  String? tag;
+  const PhotoViewPage(
+      {Key? key, this.medias, this.tagHero, required this.index, this.tag})
+      : super(
+          key: key,
+        );
 
-  PhotoViewPage({this.medias, this.tagHero, required this.index, this.tag});
+  @override
+  State<PhotoViewPage> createState() => _PhotoViewPageState();
+}
+
+class _PhotoViewPageState extends State<PhotoViewPage> {
+
+  int indexSelector = 0;
+  ViewState viewState = ViewState.Loading;
+
+  var mediasRx = <String>[];
+
+  @override
+  void setState(VoidCallback fn) {
+    if (mounted) super.setState(fn);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      viewState = ViewState.Loading;
+      if (widget.medias != null && widget.medias!.isNotEmpty) {
+        mediasRx = widget.medias!;
+
+      }
+      viewState = ViewState.Loaded;
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (context) => PhotoController(medias: medias), child: Consumer<PhotoController>(builder: (context, value, child) {
-      return Scaffold(
+    return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
           DisplayGesture(
             child: InteractiveviewerGallery<String>(
-              sources: medias!,
-              initIndex: index,
+              sources: widget.medias!,
+              initIndex: widget.index,
               itemBuilder: (BuildContext context, int index, bool isFocus) {
-                return _buildItemWidget(index, value);
+                return _buildItemWidget(index);
               },
               onPageChanged: (int pageIndex) {
-                value.setIndexSelector(pageIndex);
+                indexSelector = pageIndex;
+                setState(() {});
               },
             ),
           ),
@@ -50,12 +81,12 @@ class PhotoViewPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "${value.indexSelector + 1}/${medias?.length ?? ""}",
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "${indexSelector + 1}/${widget.medias?.length ?? ""}",
+                        style: const TextStyle(color: Colors.white),
                       ),
+                    ),
                     IconButton(
                       icon: SvgPicture.asset(
                         BaseResourceUtil.icon("ic_close_x.svg"),
@@ -71,11 +102,10 @@ class PhotoViewPage extends StatelessWidget {
         ],
       ),
     );
-    },),);
   }
 
-  _buildItemWidget(int index, PhotoController controller) {
-    if (controller.viewState == ViewState.Loading) {
+  _buildItemWidget(int index) {
+    if (viewState == ViewState.Loading) {
       return const LoadingWidget();
     } else {
       return GestureDetector(
@@ -83,13 +113,13 @@ class PhotoViewPage extends StatelessWidget {
         // onTap: () => Get.back(),
         child: Center(
           child: Hero(
-            tag: controller.mediasRx[index],
+            tag: mediasRx[index],
             // child: CachedImage(
             //   ProjectUtil.getUrlImageWithGuild(guid: controller.mediasRx[index].guid ?? ""),
             //   fit: BoxFit.contain,
             // ),
             child: CachedImage(
-              controller.mediasRx[index],
+              mediasRx[index],
               fit: BoxFit.contain,
             ),
           ),

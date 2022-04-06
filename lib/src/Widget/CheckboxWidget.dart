@@ -14,7 +14,7 @@ class CheckboxWidget extends StatelessWidget {
   final bool isRadio,isExpanded;
   final double sizeIcon;
 
-  const CheckboxWidget({
+  const CheckboxWidget({Key? key, 
     @required this.title,
     this.value = false,
     this.onTap,
@@ -23,7 +23,7 @@ class CheckboxWidget extends StatelessWidget {
     this.isRadio = false,
     this.isExpanded = false,
     this.sizeIcon = 18,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

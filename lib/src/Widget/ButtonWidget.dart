@@ -8,15 +8,15 @@ import '../Utils/FontUtil.dart';
 enum ButtonType { Normal, NormalBorder, Cancel, CancelDisable, Disable, DisableNoBackground, Back, Success , DisableDarkBackground}
 
 class ButtonWidget extends StatelessWidget {
-  String? title;
-  Function? onTap;
-  Function? onDisableTap;
-  double height, borderRadius;
-  ButtonType buttonType;
-  TextStyle? textStyle;
-  EdgeInsets? paddingContent;
+  final String? title;
+  final Function? onTap;
+  final Function? onDisableTap;
+  final double height, borderRadius;
+  final ButtonType buttonType;
+  final TextStyle? textStyle;
+  final EdgeInsets? paddingContent;
 
-  ButtonWidget({
+  const ButtonWidget({Key? key, 
     this.title,
     this.onTap,
     this.onDisableTap,
@@ -25,7 +25,7 @@ class ButtonWidget extends StatelessWidget {
     this.borderRadius = 8,
     this.textStyle,
     this.paddingContent,
-  });
+  }) : super(key: key);
 
   Color getBackground() {
     switch (buttonType) {

@@ -1,9 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class DisplayGesture extends StatefulWidget {
   final Widget? child;
 
-  DisplayGesture({this.child});
+  const DisplayGesture({this.child});
 
   @override
   _DisplayGestureState createState() => _DisplayGestureState();
@@ -48,7 +50,7 @@ class _DisplayGestureState extends State<DisplayGesture> {
                 width: 30,
                 height: 30,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Color(0x99ffffff),
                     borderRadius: BorderRadius.all(Radius.circular(30))
                 ),

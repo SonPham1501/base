@@ -1,4 +1,4 @@
-import 'package:base/src/Base/BaseController.dart';
+import 'package:base/src/Common/Enum.dart';
 import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 
