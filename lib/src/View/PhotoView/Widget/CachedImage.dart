@@ -1,6 +1,6 @@
-import 'package:CenBase/CenBase.dart';
-import 'package:CenBase/Utils/BaseProjectUtil.dart';
-import 'package:CenBase/Utils/BaseResourceUtil.dart';
+import 'package:base/src/CenBase.dart';
+import 'package:base/src/Utils/BaseProjectUtil.dart';
+import 'package:base/src/Utils/BaseResourceUtil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-import 'package:CenBase/Base/BaseController.dart';
+import 'package:base/src/Base/BaseController.dart';
 
 class BaseWebViewController extends BaseController {
 //region -------- VALUES --------

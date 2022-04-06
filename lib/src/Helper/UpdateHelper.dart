@@ -1,11 +1,11 @@
-import 'package:CenBase/CenBase.dart';
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/UpdateModel.dart';
-import 'package:CenBase/Page/Update/NotiUpdatePage.dart';
-import 'package:CenBase/Page/Update/Widget/DialogNoticeWidget.dart';
-import 'package:CenBase/Service/ApiService.dart';
-import 'package:CenBase/View/ChooseImage/ChooseImage.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/CenBase.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/UpdateModel.dart';
+import 'package:base/src/Page/Update/NotiUpdatePage.dart';
+import 'package:base/src/Page/Update/Widget/DialogNoticeWidget.dart';
+import 'package:base/src/Service/ApiService.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
+import 'package:base/src/View/ChooseImage/ChooseImage.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 

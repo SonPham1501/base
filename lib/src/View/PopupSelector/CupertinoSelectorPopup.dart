@@ -1,9 +1,9 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/SelectorModel.dart';
-import 'package:CenBase/Utils/BaseResourceUtil.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:CenBase/Widget/ButtonWidget.dart';
-import 'package:CenBase/Widget/LineBaseWidget.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/SelectorModel.dart';
+import 'package:base/src/Utils/BaseResourceUtil.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Widget/ButtonWidget.dart';
+import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,7 +35,7 @@ class CupertinoSelectorPopup {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            padding: EdgeInsets.fromLTRB(20, 5, 0, 20),
+            padding: const EdgeInsets.fromLTRB(20, 5, 0, 20),
             width: 300,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class CupertinoSelectorPopup {
                             BaseResourceUtil.icon("ic_close_bottomsheet")),
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                   ],
                 ),
                 Padding(
@@ -69,8 +69,8 @@ class CupertinoSelectorPopup {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 8),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 8),
                         child: LineBaseWidget(),
                       ),
                       SizedBox(
@@ -97,7 +97,7 @@ class CupertinoSelectorPopup {
                           }),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       SizedBox(

@@ -1,10 +1,8 @@
 import 'dart:io';
-
-import 'package:CenBase/CenBase.dart';
-import 'package:CenBase/Service/ApiService.dart';
-import 'package:FlutterBase/Utils/DeviceUtil.dart';
-import 'package:FlutterBase/Utils/ScreenUtil.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/CenBase.dart';
+import 'package:base/src/Service/ApiService.dart';
+import 'package:base/src/Utils/flutter_base/DeviceUtil.dart';
+import 'package:base/src/Utils/flutter_base/ScreenUtil.dart';
 import 'package:package_info/package_info.dart';
 
 //action: /submitform: khi submit form, subscribe: khi submit form đăng ký nhận bản tin qua email, chat: click to chat, call: click to call, scrollend: cuộn trang đến cuối, pageview: load page

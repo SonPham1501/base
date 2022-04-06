@@ -1,10 +1,10 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Helper/UpdateHelper.dart';
-import 'package:CenBase/Model/UpdateModel.dart';
-import 'package:CenBase/Page/Update/NotiUpdatePage.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:CenBase/Widget/LineBaseWidget.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Helper/UpdateHelper.dart';
+import 'package:base/src/Model/UpdateModel.dart';
+import 'package:base/src/Page/Update/NotiUpdatePage.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
+import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
 class AccountUpdateWidget extends StatefulWidget {
   const AccountUpdateWidget({Key? key}) : super(key: key);
@@ -72,7 +72,7 @@ class _AccountUpdateWidgetState extends State<AccountUpdateWidget> {
               opacity: 1,
               child: Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
@@ -80,7 +80,7 @@ class _AccountUpdateWidgetState extends State<AccountUpdateWidget> {
                     height: 28,
                     decoration: BoxDecoration(color: Constant.kColorOrangePrimary, borderRadius: BorderRadius.circular(6)),
                     alignment: Alignment.center,
-                    child: Icon(
+                    child: const Icon(
                       Icons.system_update_rounded,
                       //color: Constant.kColorBlackPrimary.withOpacity(0.7),
                       color: Colors.white,
@@ -112,23 +112,23 @@ class _AccountUpdateWidgetState extends State<AccountUpdateWidget> {
                     ),
                   ),
                   isHaveUpdate
-                      ? Icon(
+                      ? const Icon(
                           Icons.warning,
                           color: Colors.red,
                           size: 20,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.check_circle_outline_rounded,
                           color: Constant.kColorOrangePrimary,
                           size: 20,
                         ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                 ],
               ),
             ),
             //if (isShowLine)
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: LineBaseWidget(
                 color: Color(0xFFDDDEE6),
               ),

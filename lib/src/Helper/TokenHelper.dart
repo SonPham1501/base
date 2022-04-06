@@ -1,10 +1,10 @@
-import 'package:CenBase/CenBase.dart';
+import 'package:base/src/CenBase.dart';
 import 'package:dio/dio.dart';
 
 class TokenHelper {
   static Future<bool> getAccessTokenInRefreshToken() async {
-    var dio = new Dio();
-    var headers = Map<String, dynamic>();
+    var dio = Dio();
+    var headers = <String, dynamic>{};
     var url = "${CenBase.baseUrlCenID}connect/token";
     Response response;
     Options options = Options(
@@ -45,8 +45,8 @@ class TokenHelper {
   }
 
   static Future<bool> getSystemToken() async {
-    var dio = new Dio();
-    var headers = Map<String, dynamic>();
+    var dio = Dio();
+    var headers = <String, dynamic>{};
     var url = "${CenBase.baseUrlCenID}connect/token";
     Response response;
     Options options = Options(

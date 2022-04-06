@@ -1,14 +1,13 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:CenBase/Utils/BaseResourceUtil.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:FlutterBase/Utils/DeBouncerDuration.dart';
-import 'package:FlutterBase/Utils/TextFormatUtil.dart';
 import 'package:async/async.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Utils/BaseResourceUtil.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
+import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import '../Common/Constant.dart';
 
 class InputSearchWidget extends StatefulWidget {
   final TextEditingController? controller;
@@ -43,7 +42,7 @@ class InputSearchWidget extends StatefulWidget {
   final bool autoFocus;
   final int timeDeBouncer;
 
-  InputSearchWidget({
+  const InputSearchWidget({
     this.controller,
     this.hintText = "",
     this.title = "",
@@ -90,7 +89,7 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    onSearchDeBouncer = DeBouncerDuration(delay: new Duration(milliseconds: widget.timeDeBouncer));
+    onSearchDeBouncer = DeBouncerDuration(delay: Duration(milliseconds: widget.timeDeBouncer));
   }
 
   @override
@@ -103,7 +102,7 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
   void _onChanged(String value) {
     widget.onChanged?.call(value);
     if (widget.onChangedDeBouncer != null) {
-      this.onSearchDeBouncer.debounce(() {
+      onSearchDeBouncer.debounce(() {
         widget.onChangedDeBouncer!(value);
       });
     }
@@ -126,8 +125,8 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
   }
 
   Widget _buildBody(InputOptionObject? option) {
-    var isShowError;
-    var message;
+    bool? isShowError;
+    String? message;
     if (option != null) {
       isShowError = option.isError;
       message = option.message;
@@ -139,8 +138,8 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
         Container(
           decoration: BoxDecoration(
             color: widget.backgroundColor ?? Colors.transparent,
-            border: widget.border ?? Border.all(color: Color(0xffF4F4F5), width: 1),
-            borderRadius: widget.borderRadiusBackground == null ? BorderRadius.circular(8) : widget.borderRadiusBackground,
+            border: widget.border ?? Border.all(color: const Color(0xffF4F4F5), width: 1),
+            borderRadius: widget.borderRadiusBackground ?? BorderRadius.circular(8),
           ),
           height: 38,
           child: Row(
@@ -157,7 +156,7 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                 ),
               Expanded(
                 child: ConstrainedBox(
-                  constraints: new BoxConstraints(
+                  constraints: BoxConstraints(
                     minHeight: widget.minHeight,
                   ),
                   child: GestureDetector(
@@ -199,21 +198,21 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                                 scrollPadding: EdgeInsets.only(bottom: widget.scrollPaddingBottom, top: 40),
                                 textAlign: widget.textAlign,
                                 decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.transparent),
                                   ),
-                                  disabledBorder: UnderlineInputBorder(
+                                  disabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.transparent),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.transparent),
                                   ),
                                   counterText: "",
                                   hintText: widget.hintText,
-                                  contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  contentPadding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   isDense: true,
                                   hintStyle: TextStyle(
-                                    color: Color(0xffA0A3BD),
+                                    color: const Color(0xffA0A3BD),
                                     fontSize: 14,
                                     fontFamily: FontUtil.regular,
                                   ),
@@ -228,11 +227,11 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                 ),
               ),
               if (!focusScope) ...[
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 )
-              ] else if (widget.controller?.text.length == 0) ...[
-                SizedBox(
+              ] else if (widget.controller?.text.isEmpty == true) ...[
+                const SizedBox(
                   width: 16,
                 )
               ] else ...[
@@ -251,11 +250,11 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                         BaseResourceUtil.icon("ic_close_x.svg"),
                         height: 24,
                         width: 24,
-                        color: Color(0xFF5E5873),
+                        color: const Color(0xFF5E5873),
                       ),
                     ),
                   ),
-                  highlightColor: Color(0xffF4F4F5).withOpacity(0.3),
+                  highlightColor: const Color(0xffF4F4F5).withOpacity(0.3),
                 )
               ],
               if (widget.suffixIcon != null)
@@ -268,9 +267,9 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
           ),
         ),
         //lỗi
-        if (isShowError != null && message != null && isShowError)
+        if (message != null && isShowError == true)
           Container(
-            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
             alignment: widget.alignment,
             child: Text(
               message,

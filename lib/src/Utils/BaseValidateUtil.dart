@@ -1,5 +1,6 @@
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/Extends/StringExtend.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
 
 class BaseValidateUtil {
   static bool isValidEmail(String value) {
@@ -22,11 +23,11 @@ class BaseValidateUtil {
   static InputOptionObject validatePhoneNumber(String phoneNumber,
       {bool isPrimary = true}) {
     var option = InputOptionObject();
-    if (phoneNumber.length == 0) {
+    if (phoneNumber.isEmpty) {
       option.isError = true;
       option.message = "Số điện thoại không được để trống!";
     } else {
-      if (phoneNumber.length > 0) {
+      if (phoneNumber.isNotEmpty) {
         var split = phoneNumber.substring(0, 1);
         if (split != "0") {
           option.isError = true;
@@ -60,8 +61,8 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateEmail(String email) {
-    var option = new InputOptionObject();
-    if (email.trim().length == 0) {
+    var option = InputOptionObject();
+    if (email.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập email!";
     } else {
@@ -76,8 +77,8 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateEmailOptional(String email) {
-    var option = new InputOptionObject();
-    if (email.trim().length == 0) {
+    var option = InputOptionObject();
+    if (email.trim().isEmpty) {
       option.isError = false;
       option.message = "";
     } else {
@@ -99,7 +100,7 @@ class BaseValidateUtil {
     // Chiều dài tối thiểu tám
     String pattern =
         r"^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$";
-    RegExp regExp = new RegExp(pattern);
+    RegExp regExp = RegExp(pattern);
     return regExp.hasMatch(value);
   }
 
@@ -116,7 +117,7 @@ class BaseValidateUtil {
 
   static InputOptionObject validateUserName(
       String userName, InputOptionObject option) {
-    if (userName.trim().length == 0) {
+    if (userName.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập tên đăng nhập!";
     } else {
@@ -127,7 +128,7 @@ class BaseValidateUtil {
 
   static InputOptionObject validateUserNameEmail(
       String userName, InputOptionObject option) {
-    if (userName.trim().length == 0) {
+    if (userName.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập email hoặc tên đăng nhập!";
     } else {
@@ -139,8 +140,8 @@ class BaseValidateUtil {
   static InputOptionObject validatePasswordLogin(
     String password,
   ) {
-    var option = new InputOptionObject();
-    if (password == null || password.isEmpty) {
+    var option = InputOptionObject();
+    if (password.isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập mật khẩu!";
     } else {
@@ -164,7 +165,7 @@ class BaseValidateUtil {
 
   static InputOptionObject validateFullName(String fullName) {
     var option = InputOptionObject();
-    if (fullName.trim().length == 0) {
+    if (fullName.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập họ và tên!";
     } else {
@@ -175,7 +176,7 @@ class BaseValidateUtil {
 
   static InputOptionObject validateContentReportChat(String content) {
     var option = InputOptionObject();
-    if (content.trim().length == 0) {
+    if (content.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập nội dung!";
     } else {
@@ -186,7 +187,7 @@ class BaseValidateUtil {
 
   static InputOptionObject validateFirstName(String fullName) {
     var option = InputOptionObject();
-    if (fullName.trim().length == 0) {
+    if (fullName.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập tên!";
     } else {
@@ -197,7 +198,7 @@ class BaseValidateUtil {
 
   static InputOptionObject validateLastName(String fullName) {
     var option = InputOptionObject();
-    if (fullName.trim().length == 0) {
+    if (fullName.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập họ!";
     } else {
@@ -208,9 +209,9 @@ class BaseValidateUtil {
 
   static fullNameValidate(String fullName) {
     String patttern = r'^[a-z ,.\-]+$';
-    RegExp regExp = new RegExp(patttern);
+    RegExp regExp = RegExp(patttern);
     var option = InputOptionObject();
-    if (fullName.length == 0) {
+    if (fullName.isEmpty) {
       option.message = 'Chưa nhập họ và tên';
       option.isError = true;
     }
@@ -226,7 +227,7 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateOTP(String otp, InputOptionObject option) {
-    if (otp.trim().length == 0) {
+    if (otp.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập mã xác thực";
     } else if (otp.trim().length < 6) {
@@ -239,7 +240,7 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateTax(String otp, InputOptionObject option) {
-    if (otp.trim().length == 0) {
+    if (otp.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập tax!";
     } else {
@@ -250,7 +251,7 @@ class BaseValidateUtil {
 
   static InputOptionObject validateCMT(
       String fullName, InputOptionObject option) {
-    if (fullName.trim().length == 0) {
+    if (fullName.trim().isEmpty) {
       option.isError = true;
       option.message = "Trường này là bắt buộc!";
     } else {
@@ -262,9 +263,9 @@ class BaseValidateUtil {
   static InputOptionObject validateNormalFeild(
       String fullName, InputOptionObject option, String errorName,
       {String? mess}) {
-    if (fullName.trim().length == 0) {
+    if (fullName.trim().isEmpty) {
       option.isError = true;
-      option.message = mess == null ? "$errorName không được bỏ trống" : mess;
+      option.message = mess ?? "$errorName không được bỏ trống";
     } else {
       option.isError = false;
     }
@@ -274,8 +275,8 @@ class BaseValidateUtil {
   static InputOptionObject validateEmailAndPhone(
     String fullName,
   ) {
-    var option = new InputOptionObject();
-    if (fullName.trim().length == 0) {
+    var option = InputOptionObject();
+    if (fullName.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập Số điện thoại/Email";
     } else {
@@ -287,8 +288,8 @@ class BaseValidateUtil {
   static InputOptionObject validateNewPassword(
     String password,
   ) {
-    var option = new InputOptionObject();
-    if (password == null || password.isEmpty) {
+    var option = InputOptionObject();
+    if (password.isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập mật khẩu!";
     } else {
@@ -310,17 +311,18 @@ class BaseValidateUtil {
     // var pattern =
     //     '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}\$';
 
-    RegExp regex = new RegExp(pattern);
+    RegExp regex = RegExp(pattern);
 
-    if (!regex.hasMatch(value))
+    if (!regex.hasMatch(value)) {
       return false;
-    else
+    } else {
       return true;
+    }
   }
 
   static InputOptionObject validatePricePayment(String value) {
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập số tiền";
     } else {
@@ -337,8 +339,8 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateBankNumber(String value) {
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập số tài khoản";
     } else {
@@ -348,8 +350,8 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateBankAccountHolder(String value) {
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập chủ tài khoản";
     } else {
@@ -359,8 +361,8 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateBankBranch(String value) {
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Bạn chưa nhập chi nhánh";
     } else {
@@ -370,8 +372,8 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validatePriceWithDraw(String value, int maxPrice) {
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập số tiền";
     } else {
@@ -392,8 +394,8 @@ class BaseValidateUtil {
 
   static InputOptionObject validateDienTich(String value) {
     value = value.replaceAll(",", "");
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập diện tích";
     } else {
@@ -407,8 +409,8 @@ class BaseValidateUtil {
 
   static InputOptionObject validateChieuRong(String value) {
     value = value.replaceAll(",", "");
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập chiều rộng";
     } else {
@@ -422,8 +424,8 @@ class BaseValidateUtil {
 
   static InputOptionObject validateChieuSau(String value) {
     value = value.replaceAll(",", "");
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập chiều sâu";
     } else {
@@ -437,8 +439,8 @@ class BaseValidateUtil {
 
   static InputOptionObject validateSoPhongNgu(String value) {
     value = value.replaceAll(",", "");
-    var option = new InputOptionObject();
-    if (value.trim().length == 0) {
+    var option = InputOptionObject();
+    if (value.trim().isEmpty) {
       option.isError = true;
       option.message = "Chưa nhập số phòng ngủ";
     } else {
@@ -452,8 +454,8 @@ class BaseValidateUtil {
 
   static InputOptionObject validateSoPhongTam(String value) {
     value = value.replaceAll(",", "");
-    var option = new InputOptionObject();
-    if (value.trim().length > 0) {
+    var option = InputOptionObject();
+    if (value.trim().isNotEmpty) {
       if (value.toInt() == null) {
         option.isError = true;
         option.message = "Số phòng tắm không đúng định dạng";
@@ -474,8 +476,8 @@ class BaseValidateUtil {
   }
 
   static InputOptionObject validateUrlYoutubeOptional(String value) {
-    var option = new InputOptionObject();
-    if (value.trim().length > 0) {
+    var option = InputOptionObject();
+    if (value.trim().isNotEmpty) {
       if (!isValidUrlYoutube(value.trim())) {
         option.isError = true;
         option.message = "Link Youtube không đúng định dạng!";

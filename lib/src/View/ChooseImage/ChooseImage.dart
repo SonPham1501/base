@@ -1,14 +1,15 @@
 import 'dart:io';
-export 'dart:io';
 
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:CenBase/Widget/LineBaseWidget.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
+import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
+
+export 'dart:io';
 
 typedef VoidOnChooseImage = void Function(File image);
 
@@ -59,7 +60,7 @@ class ChooseImage {
                         ),
                       ),
                     ),
-                    LineBaseWidget(),
+                    const LineBaseWidget(),
                     InkWell(
                       onTap: () {
                         Navigator.pop(bc);
@@ -78,14 +79,15 @@ class ChooseImage {
                         ),
                       ),
                     ),
-                    LineBaseWidget(),
+                    const LineBaseWidget(),
                     InkWell(
                       onTap: () {
                         Navigator.pop(bc);
-                        if (onActionTakePicture != null)
+                        if (onActionTakePicture != null) {
                           onActionTakePicture?.call();
-                        else
+                        } else {
                           _chooseImage(ImageSource.gallery);
+                        }
                       },
                       child: Container(
                         height: 50,
@@ -100,7 +102,7 @@ class ChooseImage {
                         ),
                       ),
                     ),
-                    LineBaseWidget(),
+                    const LineBaseWidget(),
                     InkWell(
                       onTap: () {
                         Navigator.pop(bc);
@@ -133,7 +135,7 @@ class ChooseImage {
 
     // Create output file path
     // eg:- "Volume/VM/abcd_out.jpeg"
-    final lastIndex = filePath.lastIndexOf(new RegExp(r'.jp'));
+    final lastIndex = filePath.lastIndexOf(RegExp(r'.jp'));
     final splitted = filePath.substring(0, (lastIndex));
     final outPath = "${splitted}_out${filePath.substring(lastIndex)}";
     var result = await FlutterImageCompress.compressAndGetFile(
@@ -166,7 +168,7 @@ class ChooseImage {
       }
 
       if (isCrop) {
-        await new Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
         onHideLoading?.call();
 
         Navigator.of(context).push(MaterialPageRoute(
@@ -179,7 +181,7 @@ class ChooseImage {
           ),
         ));
       } else {
-        await new Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
         onHideLoading?.call();
         onChooseImage?.call(File(xFile.path));
         onChooseMultiImage?.call([File(xFile.path)]);
@@ -197,7 +199,7 @@ class ChooseImage {
         onHideLoading?.call();
         return;
       }
-      await new Future.delayed(const Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
       onHideLoading?.call();
       var listFile = <File>[];
       for (var item in listXFile) {
@@ -219,7 +221,7 @@ class ChooseImage {
       }
 
       if (isCrop) {
-        await new Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
         onHideLoading?.call();
 
         Navigator.of(context).push(MaterialPageRoute(
@@ -232,7 +234,7 @@ class ChooseImage {
           ),
         ));
       } else {
-        await new Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
         onHideLoading?.call();
         onChooseImage?.call(File(xFile.path));
         onChooseMultiImage?.call([File(xFile.path)]);
@@ -247,10 +249,10 @@ class PhotoPickerAndCropPage extends StatefulWidget {
   final File file;
   final VoidOnCropImage? onCropImage;
 
-  PhotoPickerAndCropPage({Key? key, required this.file, this.onCropImage}) : super(key: key);
+  const PhotoPickerAndCropPage({Key? key, required this.file, this.onCropImage}) : super(key: key);
 
   @override
-  _PhotoPickerAndCropPageState createState() => new _PhotoPickerAndCropPageState();
+  _PhotoPickerAndCropPageState createState() => _PhotoPickerAndCropPageState();
 }
 
 class _PhotoPickerAndCropPageState extends State<PhotoPickerAndCropPage> {
@@ -263,8 +265,8 @@ class _PhotoPickerAndCropPageState extends State<PhotoPickerAndCropPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _file = this.widget.file;
-    _sample = this.widget.file;
+    _file = widget.file;
+    _sample = widget.file;
     print("file: ${_file?.path}");
 
     //_createImageCrop();
@@ -284,7 +286,7 @@ class _PhotoPickerAndCropPageState extends State<PhotoPickerAndCropPage> {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           color: Colors.black,
           child: _sample == null ? _buildOpeningImage() : _buildCroppingImage(),
         ),
@@ -314,7 +316,7 @@ class _PhotoPickerAndCropPageState extends State<PhotoPickerAndCropPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               MaterialButton(
-                child: Text(
+                child: const Text(
                   "Lưu",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -331,7 +333,7 @@ class _PhotoPickerAndCropPageState extends State<PhotoPickerAndCropPage> {
   Widget _buildOpenImage() {
     return MaterialButton(
       onPressed: () {},
-      child: Text(
+      child: const Text(
         'Open Image',
         style: TextStyle(color: Colors.white),
       ),
@@ -382,7 +384,7 @@ class _PhotoPickerAndCropPageState extends State<PhotoPickerAndCropPage> {
 //      file: _file,
 //      preferredSize: (2000 / scale).round(),
 //    );
-    await new Future.delayed(const Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 100));
     print("_file?.path: ${_file?.path}");
     final file = await ImageCrop.cropImage(
       file: _file!,
@@ -400,8 +402,8 @@ class _PhotoPickerAndCropPageState extends State<PhotoPickerAndCropPage> {
 //    _lastCropped?.delete();
 //    _lastCropped = file;
     Navigator.pop(context);
-    if (this.widget.onCropImage != null) {
-      this.widget.onCropImage?.call(file);
+    if (widget.onCropImage != null) {
+      widget.onCropImage?.call(file);
     }
     //debugPrint('$file');
   }

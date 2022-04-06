@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:CenBase/Common/Constant.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -19,7 +18,7 @@ class CycleProgressWidget extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1,
         child: CustomPaint(
-          foregroundPainter: new CycleProgressWidgetPainter(
+          foregroundPainter: CycleProgressWidgetPainter(
             lineColor: lineColor,
             completeColor: completeColor,
             completePercent: completePercent,
@@ -41,21 +40,21 @@ class CycleProgressWidgetPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint line = new Paint()
-      ..color = lineColor ?? Color(0xff27AE60)
+    Paint line = Paint()
+      ..color = lineColor ?? const Color(0xff27AE60)
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = width;
-    Paint complete = new Paint()
-      ..color = completeColor ?? Color(0xff808080)
+    Paint complete = Paint()
+      ..color = completeColor ?? const Color(0xff808080)
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = width;
-    Offset center = new Offset(size.width / 2, size.height / 2);
+    Offset center = Offset(size.width / 2, size.height / 2);
     double radius = min(size.width / 2, size.height / 2);
     canvas.drawCircle(center, radius, line);
     double arcAngle = 2 * pi * (completePercent / 100);
-    canvas.drawArc(new Rect.fromCircle(center: center, radius: radius), -pi / 2, arcAngle, false, complete);
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2, arcAngle, false, complete);
   }
 
   @override

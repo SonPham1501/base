@@ -1,5 +1,5 @@
-import 'package:CenBase/Base/BaseController.dart';
-import 'package:CenBase/Widget/LoadingWidget.dart';
+import 'package:base/src/Base/BaseController.dart';
+import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 
 class LoadingWithViewStateWidget extends StatelessWidget {
@@ -16,7 +16,7 @@ class LoadingWithViewStateWidget extends StatelessWidget {
         if (snapshot.data != null && snapshot.data == ViewState.Loading) {
           return LoadingWidget(size: size,);
         }
-        return SizedBox();
+        return const SizedBox();
       },
     );
   }

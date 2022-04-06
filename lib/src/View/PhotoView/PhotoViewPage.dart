@@ -1,6 +1,6 @@
-import 'package:CenBase/Base/BaseController.dart';
-import 'package:CenBase/Utils/BaseResourceUtil.dart';
-import 'package:CenBase/Widget/LoadingWidget.dart';
+import 'package:base/src/Base/BaseController.dart';
+import 'package:base/src/Utils/BaseResourceUtil.dart';
+import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:interactiveviewer_gallery/interactiveviewer_gallery.dart';
@@ -44,7 +44,7 @@ class PhotoViewPage extends StatelessWidget {
             top: 0,
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 0,
                 ),
                 child: Row(
@@ -53,7 +53,7 @@ class PhotoViewPage extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           "${value.indexSelector + 1}/${medias?.length ?? ""}",
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     IconButton(
@@ -76,7 +76,7 @@ class PhotoViewPage extends StatelessWidget {
 
   _buildItemWidget(int index, PhotoController controller) {
     if (controller.viewState == ViewState.Loading) {
-      return LoadingWidget();
+      return const LoadingWidget();
     } else {
       return GestureDetector(
         behavior: HitTestBehavior.opaque,

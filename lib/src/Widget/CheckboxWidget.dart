@@ -1,8 +1,9 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Utils/BaseResourceUtil.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../Common/Constant.dart';
+import '../Utils/BaseResourceUtil.dart';
+import '../Utils/FontUtil.dart';
 
 class CheckboxWidget extends StatelessWidget {
   final String? title;
@@ -13,7 +14,7 @@ class CheckboxWidget extends StatelessWidget {
   final bool isRadio,isExpanded;
   final double sizeIcon;
 
-  CheckboxWidget({
+  const CheckboxWidget({
     @required this.title,
     this.value = false,
     this.onTap,
@@ -44,7 +45,7 @@ class CheckboxWidget extends StatelessWidget {
                   : SvgPicture.asset(
                       value ? BaseResourceUtil.icon("ic_check_mark") : BaseResourceUtil.icon("ic_uncheck_mark"),
                     ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               isExpanded?Expanded(child: Text(

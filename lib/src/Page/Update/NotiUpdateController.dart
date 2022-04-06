@@ -1,4 +1,5 @@
-import 'package:CenBase/Base/BaseController.dart';
+import 'package:base/src/Base/BaseController.dart';
+
 class NotiUpdateController extends BaseController {
   var isAgree = true;
 

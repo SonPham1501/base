@@ -1,13 +1,11 @@
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:FlutterBase/Utils/DeBouncerDuration.dart';
-import 'package:FlutterBase/Utils/TextFormatUtil.dart';
 import 'package:async/async.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
+import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
-
-import '../Common/Constant.dart';
 
 class InputNormalWidget extends StatefulWidget {
   final TextEditingController? controller;
@@ -42,7 +40,7 @@ class InputNormalWidget extends StatefulWidget {
   final bool autoFocus;
   final int timeDeBouncer;
 
-  InputNormalWidget({
+  const InputNormalWidget({
     this.controller,
     this.hintText = "",
     this.title = "",
@@ -89,7 +87,7 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    onSearchDeBouncer= DeBouncerDuration(delay: new Duration(milliseconds: widget.timeDeBouncer));
+    onSearchDeBouncer= DeBouncerDuration(delay: Duration(milliseconds: widget.timeDeBouncer));
   }
 
   @override
@@ -102,7 +100,7 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
   void _onChanged(String value) {
     widget.onChanged?.call(value);
     if (widget.onChangedDeBouncer != null) {
-      this.onSearchDeBouncer.debounce(() {
+      onSearchDeBouncer.debounce(() {
         widget.onChangedDeBouncer!(value);
       });
     }
@@ -127,9 +125,8 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
   }
 
   Widget _buildBody(InputOptionObject? option) {
-
-    var isShowError;
-    var message;
+    bool? isShowError;
+    String? message;
     if (option != null) {
       isShowError = option.isError;
       message = option.message;
@@ -143,9 +140,7 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
             color: widget.backgroundColor ?? Colors.transparent,
             border: widget.border ??
                 Border.all(color: Constant.kColorBorderD9DBE9, width: 1),
-            borderRadius: widget.borderRadiusBackground == null
-                ? BorderRadius.circular(8)
-                : widget.borderRadiusBackground,
+            borderRadius: widget.borderRadiusBackground ?? BorderRadius.circular(8),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +156,7 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                 ),
               Expanded(
                 child: ConstrainedBox(
-                  constraints: new BoxConstraints(
+                  constraints: BoxConstraints(
                     minHeight: widget.minHeight,
                   ),
                   child: GestureDetector(
@@ -212,22 +207,22 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                                     top: 40),
                                 textAlign: widget.textAlign,
                                 decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: const UnderlineInputBorder(
                                     borderSide:
                                     BorderSide(color: Colors.transparent),
                                   ),
-                                  disabledBorder: UnderlineInputBorder(
+                                  disabledBorder: const UnderlineInputBorder(
                                     borderSide:
                                     BorderSide(color: Colors.transparent),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: const UnderlineInputBorder(
                                     borderSide:
                                     BorderSide(color: Colors.transparent),
                                   ),
                                   counterText: "",
                                   hintText: widget.hintText,
                                   contentPadding:
-                                  EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   isDense: true,
                                   hintStyle: TextStyle(
                                     color: Constant.kColorBlackPrimary
@@ -246,11 +241,11 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                 ),
               ),
               if (!focusScope) ...[
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 )
-              ] else if (widget.controller?.text.length == 0) ...[
-                SizedBox(
+              ] else if (widget.controller?.text.isEmpty == true) ...[
+                const SizedBox(
                   width: 16,
                 )
               ] else ...[
@@ -260,7 +255,7 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                     widget.onChanged?.call("");
                     setState(() {});
                   },
-                  child: SizedBox(
+                  child: const SizedBox(
                     height: 40,
                     width: 40,
                     child: Icon(
@@ -281,9 +276,9 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
           ),
         ),
         //lỗi
-        if (isShowError != null && message != null && isShowError)
+        if (message != null && isShowError == true)
           Container(
-            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
             alignment: widget.alignment,
             child: Text(
               message,

@@ -1,7 +1,7 @@
-import 'package:CenBase/Model/UpdateModel.dart';
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:CenBase/Widget/LineBaseWidget.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/UpdateModel.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
 
 class DialogNoticeWidget extends StatelessWidget {
@@ -14,24 +14,24 @@ class DialogNoticeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: EdgeInsets.only(left: 15, right: 15, bottom: 0, top: 0),
-      shape: RoundedRectangleBorder(
+      insetPadding: const EdgeInsets.only(left: 15, right: 15, bottom: 0, top: 0),
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20.0)),
       ),
       child: Container(
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
         width: MediaQuery.of(context).size.width - 20,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Text(
               "Thông báo",
               style: TextStyle(fontFamily: FontUtil.bold, fontSize: 20),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -55,10 +55,10 @@ class DialogNoticeWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            LineBaseWidget(),
+            const LineBaseWidget(),
             Material(
               color: Colors.transparent,
               child: InkWell(
@@ -66,7 +66,7 @@ class DialogNoticeWidget extends StatelessWidget {
                   onTapUpdate?.call();
                 },
                 child: Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15),
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: SizedBox(
                     width: double.infinity,
                     child: Center(
@@ -79,13 +79,13 @@ class DialogNoticeWidget extends StatelessWidget {
                 ),
               ),
             ),
-            LineBaseWidget(),
+            const LineBaseWidget(),
             Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: Navigator.of(context).pop,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15),
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: SizedBox(
                     width: double.infinity,
                     child: Center(

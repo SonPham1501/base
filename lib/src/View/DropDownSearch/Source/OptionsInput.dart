@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:CenBase/Widget/InputInfoWidget.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Widget/input/InputInfoWidget.dart';
 import 'package:flutter/material.dart';
 
 import 'SuggestionsBoxController.dart';
@@ -72,7 +72,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
     _suggestionsBoxController = SuggestionsBoxController(context);
     _focusNode = widget.focusNode;
     _focusNode.addListener(_handleFocusChanged);
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
       _initOverlayEntry();
     });
   }
@@ -82,7 +82,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
   Widget build(BuildContext context) {
     return NotificationListener<SizeChangedLayoutNotification>(
       onNotification: (SizeChangedLayoutNotification val) {
-        WidgetsBinding.instance.addPostFrameCallback((_) async {
+        WidgetsBinding.instance?.addPostFrameCallback((_) async {
           _suggestionsBoxController.overlayEntry?.markNeedsBuild();
         });
         return true;
@@ -154,13 +154,13 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
                     decoration: BoxDecoration(
                       color: widget.backgroundColor,
                       boxShadow: <BoxShadow>[
-                        BoxShadow(color: Colors.black54.withOpacity(0.3), offset: Offset(0, 0), blurRadius: 4.0),
+                        BoxShadow(color: Colors.black54.withOpacity(0.3), offset: const Offset(0, 0), blurRadius: 4.0),
                       ],
                       borderRadius: BorderRadius.circular(widget.borderRadius),
                     ),
                     child: Scrollbar(
                       controller: _scrollController,
-                      thumbVisibility: true,
+                      trackVisibility: true,
                       child: ListView.builder(
                         controller: _scrollController,
                         shrinkWrap: true,
@@ -236,7 +236,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
   void _handleFocusChanged() {
     if (_focusNode.hasFocus) {
       _suggestionsBoxController.open();
-      Future.delayed(Duration(milliseconds: 100)).then((value) => _suggestionsStreamController.add(widget.initOptions));
+      Future.delayed(const Duration(milliseconds: 100)).then((value) => _suggestionsStreamController.add(widget.initOptions));
     } else {
       _suggestionsBoxController.close();
     }

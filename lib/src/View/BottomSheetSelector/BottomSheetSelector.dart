@@ -1,11 +1,11 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/SelectorModel.dart';
-import 'package:CenBase/Utils/BaseResourceUtil.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:CenBase/Widget/BaseAppBarBottomSheetWidget.dart';
-import 'package:CenBase/Widget/ButtonWidget.dart';
-import 'package:CenBase/Widget/InputSearchWidget.dart';
-import 'package:CenBase/Widget/LineBaseWidget.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/SelectorModel.dart';
+import 'package:base/src/Utils/BaseResourceUtil.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Widget/BaseAppBarBottomSheetWidget.dart';
+import 'package:base/src/Widget/ButtonWidget.dart';
+import 'package:base/src/Widget/LineBaseWidget.dart';
+import 'package:base/src/Widget/input/InputSearchWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -81,7 +81,7 @@ class BottomSheetSelector extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(16),
@@ -122,7 +122,7 @@ class BottomSheetSelector extends StatelessWidget {
                     decoration: BoxDecoration(boxShadow: <BoxShadow>[
                       BoxShadow(
                           color: Colors.black.withOpacity(0.1),
-                          offset: Offset(0, 0),
+                          offset: const Offset(0, 0),
                           blurRadius: 4.0),
                     ], color: Colors.white),
                     child: Padding(
@@ -138,7 +138,7 @@ class BottomSheetSelector extends StatelessWidget {
                               },
                             ),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: ButtonWidget(
                               title: "Áp dụng",
@@ -195,8 +195,8 @@ class BottomSheetSelector extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: LineBaseWidget(),
             ),
           ],
@@ -209,7 +209,7 @@ class BottomSheetSelector extends StatelessWidget {
         },
         child: Container(
           height: 50,
-          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           child: Material(
             color: Colors.transparent,
             child: Row(
@@ -226,7 +226,7 @@ class BottomSheetSelector extends StatelessWidget {
                         : Constant.kColorBlackPrimary,
                   ),
                 )),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Icon(

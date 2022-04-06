@@ -1,4 +1,4 @@
-import 'package:CenBase/Common/Constant.dart';
+import 'package:base/src/Common/Constant.dart';
 import 'package:flutter/material.dart';
 
 class LineBaseWidget extends StatelessWidget {

@@ -1,7 +1,8 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:CenBase/Model/SelectorModel.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Model/SelectorModel.dart';
 import 'package:flutter/material.dart';
+
 import 'OptionsInput.dart';
 
 class OptionsInputWidget<T> extends StatelessWidget {
@@ -51,10 +52,10 @@ class OptionsInputWidget<T> extends StatelessWidget {
             InputDecoration(
                 hintText: hint,
                 //change by font size and height of text field
-                contentPadding: EdgeInsets.fromLTRB(8, 12, 0, 12),
+                contentPadding: const EdgeInsets.fromLTRB(8, 12, 0, 12),
                 isDense: true,
                 border: InputBorder.none,
-                suffixIconConstraints: BoxConstraints(minHeight: 20),
+                suffixIconConstraints: const BoxConstraints(minHeight: 20),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.only(right: 12, left: 8),
                   child: Icon(
@@ -75,12 +76,12 @@ class OptionsInputWidget<T> extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.fromLTRB(12, 16, 12, 16),
+                  padding: const EdgeInsets.fromLTRB(12, 16, 12, 16),
                   alignment: Alignment.centerLeft,
                   child: suggestionBuilder(context, state, profile),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12),
+                const Padding(
+                  padding: EdgeInsets.only(left: 12),
                   child: Divider(
                     height: 1,
                     color: Constant.kLineColor,

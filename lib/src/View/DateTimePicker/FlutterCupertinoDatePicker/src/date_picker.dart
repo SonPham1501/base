@@ -1,8 +1,8 @@
-import 'package:FlutterBase/Utils/ScreenUtil.dart';
+import 'package:base/src/Utils/flutter_base/ScreenUtil.dart';
 import 'package:flutter/material.dart';
 
-import 'date_picker_theme.dart';
 import 'date_picker_constants.dart';
+import 'date_picker_theme.dart';
 import 'date_time_formatter.dart';
 import 'i18n/date_picker_i18n.dart';
 import 'widget/date_picker_widget.dart';
@@ -44,9 +44,9 @@ class DatePicker {
     DateTime? maxDateTime,
     DateTime? initialDateTime,
     String? dateFormat,
-    DateTimePickerLocale locale: DATETIME_PICKER_LOCALE_DEFAULT,
-    DateTimePickerMode pickerMode: DateTimePickerMode.date,
-    DateTimePickerTheme pickerTheme: DateTimePickerTheme.Default,
+    DateTimePickerLocale locale = DATETIME_PICKER_LOCALE_DEFAULT,
+    DateTimePickerMode pickerMode = DateTimePickerMode.date,
+    DateTimePickerTheme pickerTheme = DateTimePickerTheme.Default,
     DateVoidCallback? onCancel,
     DateVoidCallback? onClose,
     DateValueCallback? onChange,
@@ -54,24 +54,18 @@ class DatePicker {
     int minuteDivider = 1,
   }) {
     // handle the range of datetime
-    if (minDateTime == null) {
-      minDateTime = DateTime.parse(DATE_PICKER_MIN_DATETIME);
-    }
-    if (maxDateTime == null) {
-      maxDateTime = DateTime.parse(DATE_PICKER_MAX_DATETIME);
-    }
+    minDateTime ??= DateTime.parse(DATE_PICKER_MIN_DATETIME);
+    maxDateTime ??= DateTime.parse(DATE_PICKER_MAX_DATETIME);
 
     // handle initial DateTime
-    if (initialDateTime == null) {
-      initialDateTime = DateTime.now();
-    }
+    initialDateTime ??= DateTime.now();
 
     // Set value of date format
     dateFormat = DateTimeFormatter.generateDateFormat(dateFormat ?? "", pickerMode);
 
     Navigator.push(
       context,
-      new _DatePickerRoute(
+      _DatePickerRoute(
         minDateTime: minDateTime,
         maxDateTime: maxDateTime,
         initialDateTime: initialDateTime,
@@ -147,14 +141,14 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
       height += pickerTheme!.titleHeight;
     }
 
-    Widget bottomSheet = new MediaQuery.removePadding(
+    Widget bottomSheet = MediaQuery.removePadding(
       context: context,
       removeTop: true,
       child: _DatePickerComponent(route: this, pickerHeight: height),
     );
 
     if (theme != null) {
-      bottomSheet = new Theme(data: theme!, child: bottomSheet);
+      bottomSheet = Theme(data: theme!, child: bottomSheet);
     }
     return bottomSheet;
   }
@@ -164,7 +158,7 @@ class _DatePickerComponent extends StatelessWidget {
   final _DatePickerRoute route;
   final double _pickerHeight;
 
-  _DatePickerComponent({Key? key, required this.route, required pickerHeight}) : this._pickerHeight = pickerHeight;
+  const _DatePickerComponent({Key? key, required this.route, required pickerHeight}) : _pickerHeight = pickerHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -225,13 +219,13 @@ class _DatePickerComponent extends StatelessWidget {
         );
         break;
     }
-    return new GestureDetector(
-      child: new AnimatedBuilder(
+    return GestureDetector(
+      child: AnimatedBuilder(
         animation: route.controller!,
         builder: (BuildContext context, Widget? child) {
-          return new ClipRRect(
-            child: new CustomSingleChildLayout(
-              delegate: new _BottomPickerLayout(route.animation!.value, contentHeight: _pickerHeight + 60 + ScreenUtil.heightBottomSafeArea),
+          return ClipRRect(
+            child: CustomSingleChildLayout(
+              delegate: _BottomPickerLayout(route.animation!.value, contentHeight: _pickerHeight + 60 + ScreenUtil.heightBottomSafeArea),
               child: pickerWidget,
             ),
           );
@@ -249,7 +243,7 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    return new BoxConstraints(
+    return BoxConstraints(
       minWidth: constraints.maxWidth,
       maxWidth: constraints.maxWidth,
       minHeight: 0.0,
@@ -260,7 +254,7 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
   @override
   Offset getPositionForChild(Size size, Size childSize) {
     double height = size.height - childSize.height * progress;
-    return new Offset(0.0, height);
+    return Offset(0.0, height);
   }
 
   @override

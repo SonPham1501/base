@@ -1,10 +1,10 @@
-import 'package:CenBase/Base/BaseController.dart';
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Utils/BaseProjectUtil.dart';
-import 'package:CenBase/Widget/BaseAppBarWidget.dart';
-import 'package:CenBase/Widget/LineBaseWidget.dart';
-import 'package:CenBase/Widget/LoadingWidget.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/Base/BaseController.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Utils/BaseProjectUtil.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
+import 'package:base/src/Widget/BaseAppBarWidget.dart';
+import 'package:base/src/Widget/LineBaseWidget.dart';
+import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -51,8 +51,8 @@ class BaseWebViewPage extends StatelessWidget {
                           Util.launchURL(url);
                         }
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8),
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 8),
                         child: Icon(
                           Icons.more_vert_rounded,
                           color: Constant.kColorBlackPrimary,
@@ -70,7 +70,7 @@ class BaseWebViewPage extends StatelessWidget {
                           ])
               ],
             ),
-            LineBaseWidget(),
+            const LineBaseWidget(),
             Consumer<BaseWebViewController>(
               builder: (context, value, child) {
                 return Expanded(
@@ -79,7 +79,7 @@ class BaseWebViewPage extends StatelessWidget {
                       ClipRect(
                         child: WebView(
                           javascriptMode: JavascriptMode.unrestricted,
-                          initialUrl: this.url,
+                          initialUrl: url,
                           onPageFinished: (value) {
                             controller.onHideKeyboard(context);
                             controller.setViewState(
@@ -94,13 +94,13 @@ class BaseWebViewPage extends StatelessWidget {
                         ),
                       ),
                       if (value.viewState == ViewState.Loading)
-                        Positioned(
+                        const Positioned(
                           child: Center(
                             child: LoadingWidget(),
                           ),
                         )
                       else
-                        SizedBox()
+                        const SizedBox()
                     ],
                   ),
                 );

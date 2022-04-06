@@ -1,7 +1,7 @@
-import 'package:CenBase/CenBase.dart';
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Common/Enum.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
+import 'package:base/src/CenBase.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Common/Enum.dart';
+import 'package:base/src/Utils/FontUtil.dart';
 import 'package:flutter/material.dart';
 
 class VersionInfoWidget extends StatelessWidget {

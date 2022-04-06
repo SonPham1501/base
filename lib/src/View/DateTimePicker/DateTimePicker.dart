@@ -1,5 +1,5 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Utils/FontUtil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,13 +11,13 @@ import 'FlutterCupertinoDatePicker/src/i18n/date_picker_i18n.dart';
 class DateTimePicker {
   final Function(DateTime dateTime)? onChooseDateTime;
 
-  bool _showTitle = true;
+  final bool _showTitle = true;
 
-  var _locale = DateTimePickerLocale.vi;
-  List<DateTimePickerLocale> _locales = DateTimePickerLocale.values;
+  final _locale = DateTimePickerLocale.vi;
+  final List<DateTimePickerLocale> _locales = DateTimePickerLocale.values;
 
-  String _format = 'dd-MMMM-yyyy';
-  TextEditingController _formatCtrl = TextEditingController();
+  final String _format = 'dd-MMMM-yyyy';
+  final TextEditingController _formatCtrl = TextEditingController();
 
   late DateTime dateTime;
   late BuildContext context;
@@ -56,8 +56,8 @@ class DateTimePicker {
           ),
         ),
       ),
-      minDateTime: minDate == null ? DateTime.parse(DATE_PICKER_MIN_DATETIME) : minDate,
-      maxDateTime: maxDate == null ? DateTime.parse(DATE_PICKER_MAX_DATETIME) : maxDate,
+      minDateTime: minDate ?? DateTime.parse(DATE_PICKER_MIN_DATETIME),
+      maxDateTime: maxDate ?? DateTime.parse(DATE_PICKER_MAX_DATETIME),
       initialDateTime: dateTime,
       dateFormat: _format,
       locale: _locale,
@@ -94,7 +94,7 @@ class DateTimePicker {
           ),
         ),
       ),
-      minDateTime: minDate == null ? DateTime.parse(DATE_PICKER_MIN_DATETIME) : minDate,
+      minDateTime: minDate ?? DateTime.parse(DATE_PICKER_MIN_DATETIME),
       initialDateTime: dateTime,
       dateFormat: 'HH:mm',
       pickerMode: DateTimePickerMode.time,

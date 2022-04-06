@@ -1,7 +1,7 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:CenBase/Widget/ButtonWidget.dart';
-import 'package:CenBase/Widget/LoadingWidget.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Widget/ButtonWidget.dart';
+import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -32,7 +32,7 @@ class DialogUtil {
     //
     //   );
     // });
-    EasyLoading.show(maskType: EasyLoadingMaskType.black, indicator: LoadingWidget());
+    EasyLoading.show(maskType: EasyLoadingMaskType.black, indicator: const LoadingWidget());
   }
 
   static hideLoading() {
@@ -43,17 +43,17 @@ class DialogUtil {
   static showErrorDialog(BuildContext context, {String? error}) {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
-        title: Text("Lỗi"),
+        title: const Text("Lỗi"),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("${error.toString()}"),
-            SizedBox(
+            Text(error.toString()),
+            const SizedBox(
               height: 15,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
               child: ButtonWidget(
                 height: 35,
@@ -78,12 +78,12 @@ class DialogUtil {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("${content.toString()}"),
-              SizedBox(
+              Text(content.toString()),
+              const SizedBox(
                 height: 15,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
                 child: ButtonWidget(
                   height: 35,
@@ -106,19 +106,19 @@ class DialogUtil {
         backgroundColor: Colors.transparent,
         child: Container(
           decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           width: 335,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                 child: Text(
-                  "${content ?? ""}",
+                  content ?? "",
 
                   style: TextStyle(
                     fontFamily: FontUtil.regular,
@@ -161,13 +161,13 @@ class DialogUtil {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(16)),
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             width: 335,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Text(
@@ -182,7 +182,7 @@ class DialogUtil {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                     child: Text(
-                      "${content.toString()}",
+                      content.toString(),
                       style: TextStyle(
                         fontFamily: FontUtil.regular,
                         fontSize: 16,
@@ -191,7 +191,7 @@ class DialogUtil {
                     ),
                   )
                 else
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                 Row(
                   children: [
                     Expanded(
@@ -205,7 +205,7 @@ class DialogUtil {
                         title: titleCancel,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     Expanded(
@@ -231,17 +231,17 @@ class DialogUtil {
 
   static void showExitDialog(BuildContext context) {
     showDialog(
-        barrierColor: Color(0x01000000),
+        barrierColor: const Color(0x01000000),
         context: context,
         builder: (context) {
-          Future.delayed(Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 3), () {
             Navigator.of(context).pop(true);
           });
           return Dialog(
             child: Container(
               width: 200,
               height: 30,
-              decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.all(Radius.circular(10))),
+              decoration: const BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Center(
                 child: Text(
                   'Title',
@@ -265,17 +265,17 @@ class DialogUtil {
         backgroundColor: Colors.transparent,
         child: Container(
           decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)),
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           width: 270,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   title,
                   style: TextStyle(
@@ -289,7 +289,7 @@ class DialogUtil {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
                   child: Text(
-                    "${content.toString()}",
+                    content.toString(),
                     style: TextStyle(
                       fontFamily: FontUtil.regular,
                       fontSize: 13,
@@ -298,8 +298,8 @@ class DialogUtil {
                   ),
                 )
               else
-                SizedBox(height: 24),
-              Divider(
+                const SizedBox(height: 24),
+              const Divider(
                 height: 1,
               ),
               InkWell(
@@ -307,17 +307,17 @@ class DialogUtil {
                   Navigator.of(context).pop();
                   onButtonCancel?.call();
                 },
-                child: Container(
+                child: SizedBox(
                   height: 43,
                   child: Center(
                     child: Text(
                       titleCancel,
-                      style: TextStyle(color: Color(0xff007AFF), fontFamily: FontUtil.semiBold, fontSize: 17),
+                      style: TextStyle(color: const Color(0xff007AFF), fontFamily: FontUtil.semiBold, fontSize: 17),
                     ),
                   ),
                 ),
               ),
-              Divider(
+              const Divider(
                 height: 1,
               ),
               InkWell(
@@ -325,10 +325,10 @@ class DialogUtil {
                   Navigator.of(context).pop();
                   onButtonAction?.call();
                 },
-                child: Container(
+                child: SizedBox(
                   height: 43,
                   child: Center(
-                      child: Text(titleAction, style: TextStyle(color: Color(0xff007AFF), fontFamily: FontUtil.regular, fontSize: 17))),
+                      child: Text(titleAction, style: TextStyle(color: const Color(0xff007AFF), fontFamily: FontUtil.regular, fontSize: 17))),
                 ),
               ),
             ],

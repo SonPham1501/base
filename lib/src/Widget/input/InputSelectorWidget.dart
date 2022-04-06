@@ -1,7 +1,8 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Utils/FontUtil.dart';
 import 'package:flutter/material.dart';
+
 
 class InputSelectorWidget extends StatelessWidget {
   final String? title;
@@ -25,8 +26,8 @@ class InputSelectorWidget extends StatelessWidget {
       return StreamBuilder<InputOptionObject?>(
         stream: inputOptionObject,
         builder: (context, snapshot) {
-          var isShowError;
-          var message;
+          bool? isShowError;
+          String? message;
           if (snapshot.data != null) {
             isShowError = snapshot.data?.isError;
             message = snapshot.data?.message;
@@ -43,7 +44,7 @@ class InputSelectorWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   height: 48,
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     title ?? "",
@@ -57,7 +58,7 @@ class InputSelectorWidget extends StatelessWidget {
               ),
               if (isShowError != null && message != null && isShowError)
                 Container(
-                  padding: EdgeInsets.fromLTRB(0, 8, 0, 4),
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 4),
                   child: Text(
                     message,
                     style: TextStyle(
@@ -81,7 +82,7 @@ class InputSelectorWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         height: 48,
-        padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +95,7 @@ class InputSelectorWidget extends StatelessWidget {
                 color: Constant.kColorBlackPrimary.withOpacity(0.7),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 2,
             ),
             Text(

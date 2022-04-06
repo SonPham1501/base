@@ -1,5 +1,6 @@
-import 'package:CenBase/Base/BaseController.dart';
 //import 'package:CenHomesListing/Page/ProjectDetail/Widget/Slider/SliderDetailController.dart';
+
+import 'package:base/src/Base/BaseController.dart';
 
 class PhotoController extends BaseController {
   int index;

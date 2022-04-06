@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:CenBase/Helper/LogHelper.dart';
-import 'package:CenBase/Helper/TrackingHelper.dart';
 
-import 'package:CenBase/CenBase.dart';
-import 'package:CenBase/Helper/TokenHelper.dart';
-import 'package:CenBase/Utils/DialogUtil.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/CenBase.dart';
+import 'package:base/src/Helper/LogHelper.dart';
+import 'package:base/src/Helper/TokenHelper.dart';
+import 'package:base/src/Helper/TrackingHelper.dart';
+import 'package:base/src/Utils/DialogUtil.dart';
+import 'package:base/src/Utils/flutter_base/DateTimeUtil.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
@@ -29,7 +30,7 @@ class HttpHelper {
   }) async {
     Response? response;
     Options options;
-    var dio = new Dio();
+    var dio = Dio();
     dio.options.connectTimeout = timeOut; //5s
     dio.options.receiveTimeout = timeOut;
     if (kDebugMode) {
@@ -43,9 +44,7 @@ class HttpHelper {
     var text = "";
     var time = DateTimeUtil.getFullDateAndTimeSecond(DateTime.now());
     var timeStart = DateTime.now();
-    if (headers == null) {
-      headers = new Map<String, dynamic>();
-    }
+    headers ??= new Map<String, dynamic>();
 
     if (auth) {
       if (url.contains("https://srv.cenhomes.vn/12312323")) {
@@ -205,14 +204,14 @@ class HttpHelper {
   }) async {
     late Response response;
     try {
-      var dio = new Dio();
+      var dio = Dio();
       dio.interceptors.add(LogInterceptor(
         responseBody: true,
         requestBody: true,
         requestHeader: true,
         request: true,
       ));
-      var headers = Map<String, String>();
+      var headers = <String, String>{};
       if (auth) {
         headers["Authorization"] = CenBase.accessToken ?? "";
       }
@@ -313,14 +312,14 @@ class HttpHelper {
   }) async {
     late Response response;
     try {
-      var dio = new Dio();
+      var dio = Dio();
       dio.interceptors.add(LogInterceptor(
         responseBody: true,
         requestBody: true,
         requestHeader: true,
         request: true,
       ));
-      var headers = Map<String, String>();
+      var headers = <String, String>{};
       if (auth) {
         headers["Authorization"] = CenBase.accessToken ?? "";
       }

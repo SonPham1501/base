@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/SqliteColumn.dart';
-import 'package:CenBase/Model/TempPostUpModel.dart';
+
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Extends/SqliteExtend.dart';
+import 'package:base/src/Model/TempPostUpModel.dart';
 import 'package:sqflite/sqflite.dart';
 
 class APiLogModel {
@@ -139,7 +140,7 @@ class SqfLiteHelper {
       Constant.kTableDatabase,
 //
     );
-    if (maps.length > 0) {
+    if (maps.isNotEmpty) {
       list = maps.map((e) => APiLogModel.fromMap(e)).toList();
     }
 
@@ -154,7 +155,7 @@ class SqfLiteHelper {
         where: 'type = $id',
 //
       );
-      if (maps.length > 0) {
+      if (maps.isNotEmpty) {
         list = maps.map((e) => APiLogModel.fromMap(e)).toList();
       }
     }
@@ -213,7 +214,7 @@ class SqfLiteHelper {
         .query(Constant.kPostUpTableDatabase, orderBy: "$columnCreatedDate DESC"
 //
             );
-    if (maps.length > 0) {
+    if (maps.isNotEmpty) {
       list = maps.map((e) => TempPostUpModel.fromMap(e)).toList();
     }
     return list;
@@ -226,7 +227,7 @@ class SqfLiteHelper {
         Constant.kPostUpTableDatabase,
         //
       );
-      if (maps.length > 0) {
+      if (maps.isNotEmpty) {
         tempPostUpModel =
             maps.map((e) => TempPostUpModel.fromMap(e)).toList().last;
         return tempPostUpModel;
@@ -245,7 +246,7 @@ class SqfLiteHelper {
           where: '$columnTypePostUp = $type'
           //
           );
-      if (maps.length > 0) {
+      if (maps.isNotEmpty) {
         tempPostUpModel =
             maps.map((e) => TempPostUpModel.fromMap(e)).toList().last;
         return tempPostUpModel;

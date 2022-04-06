@@ -1,6 +1,6 @@
-import 'package:CenBase/Base/BaseController.dart';
-import 'package:CenBase/Model/SelectorModel.dart';
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:base/src/Base/BaseController.dart';
+import 'package:base/src/Model/SelectorModel.dart';
+import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:flutter/cupertino.dart';
 
 class BottomSheetSelectorController extends BaseController {
@@ -38,9 +38,9 @@ class BottomSheetSelectorController extends BaseController {
       selectorModel.isCheck = !selectorModel.isCheck;
       // listSelector.refesh();
     } else {
-      listSelector.forEach((element) {
+      for (var element in listSelector) {
         element.isCheck = false;
-      });
+      }
       selectorModel.isCheck = !selectorModel.isCheck;
       onHideKeyboard(context);
       onSuccess?.call(list);
@@ -66,7 +66,7 @@ class BottomSheetSelectorController extends BaseController {
 //region -------- ON CHANGE --------
   void onChangeTextSearch(String value) {
     listSelector.clear();
-    if (textSearchController.text.length == 0) {
+    if (textSearchController.text.isEmpty) {
       for (var item in list) {
         listSelector.add(item);
       }

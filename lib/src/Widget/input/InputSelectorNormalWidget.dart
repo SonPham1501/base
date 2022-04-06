@@ -1,6 +1,6 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Utils/FontUtil.dart';
 import 'package:flutter/material.dart';
 
 class InputSelectorNormalWidget extends StatelessWidget {
@@ -44,7 +44,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               height: height,
-              padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
+              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
@@ -58,9 +58,9 @@ class InputSelectorNormalWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   if (enable && showDropDown)
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_down_rounded,
                       color: Constant.kGreyColor,
                       size: 18,
@@ -74,7 +74,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.data != null && snapshot.data!.isError) {
                 return Padding(
-                  padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                   child: Text(
                     snapshot.data?.message ?? "",
                     style: TextStyle(
@@ -85,7 +85,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
                   ),
                 );
               }
-              return SizedBox();
+              return const SizedBox();
             },
           )
         ],
@@ -100,7 +100,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         height: height,
-        padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
+        padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
         alignment: Alignment.centerLeft,
         child: Row(
           children: [
@@ -120,7 +120,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
                   onTap: () {
                     onClearData?.call();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.close,
                     color: Constant.kGreyColor,
                     size: 16,
@@ -131,14 +131,14 @@ class InputSelectorNormalWidget extends StatelessWidget {
                     onPressed: () {
                       onClearData?.call();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.close,
                       color: Constant.kGreyColor,
                       size: 18,
                     ))
               ],
             if (enable && showDropDown)
-              Icon(
+              const Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color: Constant.kGreyColor,
                 size: 18,

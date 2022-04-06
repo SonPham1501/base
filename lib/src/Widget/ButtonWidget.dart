@@ -1,7 +1,9 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
+
+import '../Common/Constant.dart';
+import '../Utils/FontUtil.dart';
 
 enum ButtonType { Normal, NormalBorder, Cancel, CancelDisable, Disable, DisableNoBackground, Back, Success , DisableDarkBackground}
 
@@ -34,7 +36,7 @@ class ButtonWidget extends StatelessWidget {
       case ButtonType.NormalBorder:
         return Constant.kColorWhite;
       case ButtonType.Disable:
-        return Color(0xffF9EEE3);
+        return const Color(0xffF9EEE3);
       case ButtonType.DisableDarkBackground:
         return Colors.grey.withOpacity(0.5);
       case ButtonType.DisableNoBackground:
@@ -76,7 +78,7 @@ class ButtonWidget extends StatelessWidget {
       case ButtonType.NormalBorder:
         return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorOrangePrimary, fontSize: 16);
       case ButtonType.Disable:
-        return TextStyle(fontFamily: FontUtil.medium, color: Color(0xffF8D0A8), fontSize: 16);
+        return TextStyle(fontFamily: FontUtil.medium, color: const Color(0xffF8D0A8), fontSize: 16);
       case ButtonType.DisableNoBackground:
         return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorBlackPrimary.withOpacity(0.5), fontSize: 16);
       case ButtonType.Back:
@@ -88,14 +90,14 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
           onPrimary: Colors.white,
-          primary: this.getBackground(),
-          padding: paddingContent ?? EdgeInsets.symmetric(horizontal: 5),
+          primary: getBackground(),
+          padding: paddingContent ?? const EdgeInsets.symmetric(horizontal: 5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
             side: BorderSide(
@@ -112,7 +114,7 @@ class ButtonWidget extends StatelessWidget {
           }
         },
         child: Text(
-          "${title ?? ""}",
+          title ?? "",
           style: textStyle ?? getStyle(),
           textAlign: TextAlign.center,
         ),

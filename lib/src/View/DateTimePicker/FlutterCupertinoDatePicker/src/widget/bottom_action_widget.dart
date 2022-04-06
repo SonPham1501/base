@@ -1,9 +1,9 @@
-import 'package:CenBase/Widget/ButtonWidget.dart';
+import 'package:base/src/Widget/ButtonWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomActionWidget extends StatelessWidget {
-  BottomActionWidget({
+  const BottomActionWidget({
     Key? key,
     required this.onCancel,
     required this.onConfirm,
@@ -15,7 +15,7 @@ class BottomActionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: Row(
         children: <Widget>[
@@ -23,16 +23,16 @@ class BottomActionWidget extends StatelessWidget {
             child: ButtonWidget(
               title: "Hủy",
               buttonType: ButtonType.Cancel,
-              onTap: this.onCancel,
+              onTap: onCancel,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 16,
           ),
           Expanded(
             child: ButtonWidget(
               title: "Chọn",
-              onTap: this.onConfirm,
+              onTap: onConfirm,
             ),
           )
         ],

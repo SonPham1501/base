@@ -1,12 +1,11 @@
-import 'package:CenBase/Common/Constant.dart';
-import 'package:CenBase/Model/InputOptionObject.dart';
-import 'package:CenBase/Utils/BaseResourceUtil.dart';
-import 'package:CenBase/Utils/FontUtil.dart';
-import 'package:FlutterBase/Utils/DeBouncerDuration.dart';
-import 'package:FlutterBase/Utils/TextFormatUtil.dart';
 import 'package:async/async.dart';
+import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Model/InputOptionObject.dart';
+import 'package:base/src/Utils/BaseResourceUtil.dart';
+import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
+import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -47,7 +46,7 @@ class InputInfoWidget extends StatefulWidget {
   final bool isEnableMultiLine;
   final bool isHasExtend;
 
-  InputInfoWidget({
+  const InputInfoWidget({
     this.controller,
     this.hintText = "",
     this.title = "",
@@ -106,7 +105,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
     _focusNode = widget.focusNode ?? FocusNode();
     _textEditingController = widget.controller ?? TextEditingController();
     onSearchDeBouncer = DeBouncerDuration(
-        delay: new Duration(milliseconds: widget.timeDeBouncer));
+        delay: Duration(milliseconds: widget.timeDeBouncer));
   }
 
   @override
@@ -120,7 +119,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
   void _onChanged(String value) {
     widget.onChanged?.call(value);
     if (widget.onChangedDeBouncer != null) {
-      this.onSearchDeBouncer.debounce(() {
+      onSearchDeBouncer.debounce(() {
         widget.onChangedDeBouncer!(value);
       });
     }
@@ -149,8 +148,8 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
   }
 
   Widget _buildBody(InputOptionObject? option) {
-    var isShowError;
-    var message;
+    bool? isShowError;
+    String? message;
     if (option != null) {
       isShowError = option.isError;
       message = option.message;
@@ -169,9 +168,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                       : Constant.kColorBorderInput,
                   width: 1,
                 ),
-            borderRadius: widget.borderRadiusBackground == null
-                ? BorderRadius.circular(8)
-                : widget.borderRadiusBackground,
+            borderRadius: widget.borderRadiusBackground ?? BorderRadius.circular(8),
           ),
           child: Row(
             children: [
@@ -190,7 +187,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                       ),
                     Expanded(
                       child: ConstrainedBox(
-                        constraints: new BoxConstraints(
+                        constraints: BoxConstraints(
                           minHeight: widget.minHeight,
                         ),
                         child: InkWell(
@@ -261,7 +258,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                                             errorBorder: InputBorder.none,
                                             disabledBorder: InputBorder.none,
                                             contentPadding:
-                                                EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                                const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                             counterText: "",
                                             focusColor: Colors.transparent,
                                             fillColor: Colors.transparent,
@@ -328,14 +325,14 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                       ),
                     ),
                     if (!focusScope) ...[
-                      SizedBox(
+                      const SizedBox(
                         width: 16,
                       )
                     ] else if ((widget.controller != null &&
-                            widget.controller!.text.length == 0) ||
+                            widget.controller!.text.isEmpty) ||
                         (widget.controller == null &&
-                            _textEditingController.text.length == 0)) ...[
-                      SizedBox(
+                            _textEditingController.text.isEmpty)) ...[
+                      const SizedBox(
                         width: 16,
                       )
                     ] else ...[
@@ -367,12 +364,12 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                       InkWell(
                         onTap: _onShowPass,
                         child: _isShowPass
-                            ? Container(
+                            ? SizedBox(
                                 height: widget.minHeight,
                                 width: 34,
                                 //color: Colors.red,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 8),
+                                child: const Padding(
+                                  padding: EdgeInsets.only(right: 8),
                                   child: Icon(
                                     Icons.visibility_off_outlined,
                                     color: Colors.black,
@@ -380,12 +377,12 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                                   ),
                                 ),
                               )
-                            : Container(
+                            : SizedBox(
                                 height: widget.minHeight,
                                 width: 34,
                                 //color: Colors.red,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 8),
+                                child: const Padding(
+                                  padding: EdgeInsets.only(right: 8),
                                   child: Icon(
                                     Icons.remove_red_eye_outlined,
                                     color: Colors.black,
@@ -406,8 +403,8 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
               if (widget.isHasExtend) ...[
                 Container(
                   height: 46,
-                  padding: EdgeInsets.only(left: 5, right: 5),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.only(left: 5, right: 5),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     border: Border(
                       left: BorderSide(
@@ -427,9 +424,9 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
           ),
         ),
         //lỗi
-        if (isShowError != null && message != null && isShowError)
+        if (message != null && isShowError == true)
           Container(
-            padding: EdgeInsets.fromLTRB(0, 8, 0, 4),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 4),
             alignment: widget.alignment,
             child: Text(
               message,
