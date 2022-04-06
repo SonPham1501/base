@@ -1,5 +1,9 @@
 library base;
 
+export 'src/AutoSize/auto_size.dart';
+export 'src/Base/export_base_controller.dart';
+export 'src/Extends/export_extends.dart';
+
 /// A Calculator.
 class Calculator {
   /// Returns [value] plus 1.
