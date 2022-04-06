@@ -1,3 +1,4 @@
+import './UpdateModel.dart';
 class GetProjectModel {
   Error? error;
   List<ProjectModel>? data;
@@ -86,25 +87,6 @@ class ProjectModel {
     map["provinceName"] = provinceName;
     map["streetName"] = streetName;
     map["wardName"] = wardName;
-    return map;
-  }
-}
-
-class Error {
-  bool? status;
-  String? message;
-
-  Error({this.status, this.message});
-
-  Error.fromJson(dynamic json) {
-    status = json["status"];
-    message = json["message"];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map["status"] = status;
-    map["message"] = message;
     return map;
   }
 }

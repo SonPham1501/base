@@ -24,7 +24,6 @@ class BaseWebViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("PaymentMethodPage");
     controller = Provider.of<BaseWebViewController>(
       context,
       listen: false,

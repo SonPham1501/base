@@ -1,4 +1,4 @@
-import 'package:base/src/Utils/flutter_base/ScreenUtil.dart';
+import 'package:base/src/Utils/ScreenUtil.dart';
 import 'package:flutter/material.dart';
 
 import 'date_picker_constants.dart';

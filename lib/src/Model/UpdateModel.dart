@@ -47,34 +47,34 @@ class UpdateItemModel {
   String? platform;
   String? version;
   bool? isForceUpdate;
-  dynamic? forceVersionFrom;
+  dynamic forceVersionFrom;
   String ?description;
   int? state;
   DateTime? createdAt;
   DateTime ?updatedAt;
 
   factory UpdateItemModel.fromJson(Map<String, dynamic> json) => UpdateItemModel(
-    id: json["id"] == null ? null : json["id"],
-    appId: json["appId"] == null ? null : json["appId"],
-    platform: json["platform"] == null ? null : json["platform"],
-    version: json["version"] == null ? null : json["version"],
-    isForceUpdate: json["isForceUpdate"] == null ? null : json["isForceUpdate"],
+    id: json["id"],
+    appId: json["appId"],
+    platform: json["platform"],
+    version: json["version"],
+    isForceUpdate: json["isForceUpdate"],
     forceVersionFrom: json["forceVersionFrom"],
     description: json["description"],
-    state: json["state"] == null ? null : json["state"],
+    state: json["state"],
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
     updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "appId": appId == null ? null : appId,
-    "platform": platform == null ? null : platform,
-    "version": version == null ? null : version,
-    "isForceUpdate": isForceUpdate == null ? null : isForceUpdate,
+    "id": id,
+    "appId": appId,
+    "platform": platform,
+    "version": version,
+    "isForceUpdate": isForceUpdate,
     "forceVersionFrom": forceVersionFrom,
     "description": description,
-    "state": state == null ? null : state,
+    "state": state,
     "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
     "updatedAt": updatedAt == null ? null : updatedAt!.toIso8601String(),
   };
@@ -90,12 +90,12 @@ class Error {
   String? message;
 
   factory Error.fromJson(Map<String, dynamic> json) => Error(
-    status: json["status"] == null ? null : json["status"],
-    message: json["message"] == null ? null : json["message"],
+    status: json["status"],
+    message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
-    "status": status == null ? null : status,
-    "message": message == null ? null : message,
+    "status": status,
+    "message": message,
   };
 }

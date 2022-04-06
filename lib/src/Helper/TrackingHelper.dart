@@ -1,8 +1,9 @@
 import 'dart:io';
+
 import 'package:base/src/CenBase.dart';
 import 'package:base/src/Service/ApiService.dart';
+import 'package:base/src/Utils/ScreenUtil.dart';
 import 'package:base/src/Utils/flutter_base/DeviceUtil.dart';
-import 'package:base/src/Utils/flutter_base/ScreenUtil.dart';
 import 'package:package_info/package_info.dart';
 
 //action: /submitform: khi submit form, subscribe: khi submit form đăng ký nhận bản tin qua email, chat: click to chat, call: click to call, scrollend: cuộn trang đến cuối, pageview: load page
@@ -17,7 +18,7 @@ enum ActionTracking {
 
 extension ParseToString on ActionTracking {
   String toShortString() {
-    return this.toString().split('.').last;
+    return toString().split('.').last;
   }
 }
 
@@ -48,7 +49,7 @@ class TrackingHelper {
     String? source,
   }) {
     try {
-      var params = new Map<String, dynamic>();
+      var params = <String, dynamic>{};
       //
 
       params["dt"] = screenTitle;

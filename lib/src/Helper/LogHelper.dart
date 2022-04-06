@@ -1,7 +1,7 @@
 import 'dart:io';
+
 import 'package:base/src/Helper/SqfLiteHelper.dart';
 import 'package:base/src/Utils/BaseProjectUtil.dart';
-import 'package:base/src/Utils/flutter_base/DateTimeUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 
 import '../CenBase.dart';
@@ -52,7 +52,7 @@ class LogHelper {
       }
       var isSuccess = await writeFile(text);
       return isSuccess;
-    } on Exception catch (e) {
+    } on Exception {
       return false;
     }
   }
@@ -71,7 +71,7 @@ class LogHelper {
         text += content;
       }
       return text;
-    } on Exception catch (e) {
+    } on Exception {
       return "";
     }
   }
@@ -86,7 +86,7 @@ class LogHelper {
       File file = await BaseProjectUtil.localFile;
       var isSuccess = await BaseProjectUtil.writeFile(file, text);
       return isSuccess;
-    } on Exception catch (e) {
+    } on Exception {
       return false;
     }
   }
