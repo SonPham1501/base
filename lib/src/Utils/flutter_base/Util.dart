@@ -725,6 +725,11 @@ class Util {
     }
     return null;
   }
+
+  //tắt bàn phím
+  static void onHideKeyboard(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
 }
 
 class _UserNameInfo {

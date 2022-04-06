@@ -1,17 +1,8 @@
+// ignore_for_file: constant_identifier_names
 enum CenBuildType {
   test,
   staging,
   product,
 }
 
-enum CenPushNotificationType {
-  rocketChat,
-  social,
-  post,
-}
-
-enum AppName {
-  Cenhomes,
-  CyberAgentHrm,
-}
-
+enum ViewState { Init, Loading, Loaded, Complete, Error, None, DataNull }

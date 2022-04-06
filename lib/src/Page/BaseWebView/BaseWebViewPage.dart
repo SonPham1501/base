@@ -1,53 +1,58 @@
-import 'package:base/src/Base/BaseController.dart';
 import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Common/Enum.dart';
 import 'package:base/src/Utils/BaseProjectUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:base/src/Widget/BaseAppBarWidget.dart';
 import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'BaseWebViewController.dart';
-
 // ignore: must_be_immutable
-class BaseWebViewPage extends StatelessWidget {
+class BaseWebViewPage extends StatefulWidget {
   final String url;
   final String? title;
   final bool isShowShare;
   final Function? onSuccess;
-  late BaseWebViewController controller;
+
+  const BaseWebViewPage({Key? key, required this.url, this.onSuccess, this.title, this.isShowShare = false}) : super(key: key);
+
+  @override
+  State<BaseWebViewPage> createState() => _BaseWebViewPageState();
+}
+
+class _BaseWebViewPageState extends State<BaseWebViewPage> {
   final ScrollController _scrollController = ScrollController();
 
-  BaseWebViewPage({Key? key, required this.url, this.onSuccess, this.title, this.isShowShare = false}) : super(key: key);
+  ViewState _viewState = ViewState.Loading;
+
+  @override
+  void setState(VoidCallback fn) {
+    if (mounted) super.setState(fn);
+  }
 
   @override
   Widget build(BuildContext context) {
-    controller = Provider.of<BaseWebViewController>(
-      context,
-      listen: false,
-    );
     return Scaffold(
       backgroundColor: Constant.white,
       resizeToAvoidBottomInset: true,
       body: GestureDetector(
-        onTap: () => controller.onHideKeyboard(context),
+        onTap: () => Util.onHideKeyboard(context),
         child: Column(
           children: [
             BaseAppBarWidget(
               context: context,
-              textTitle: title ?? "",
+              textTitle: widget.title ?? "",
               actions: [
-                if (isShowShare)
+                if (widget.isShowShare)
                   PopupMenuButton(
                       offset: const Offset(0, 50),
                       onSelected: (value) {
                         if (value == 1) {
-                          BaseProjectUtil.share(title: url);
+                          BaseProjectUtil.share(title: widget.url);
                         }
                         if (value == 2) {
-                          Util.launchURL(url);
+                          Util.launchURL(widget.url);
                         }
                       },
                       child: const Padding(
@@ -70,40 +75,32 @@ class BaseWebViewPage extends StatelessWidget {
               ],
             ),
             const LineBaseWidget(),
-            Consumer<BaseWebViewController>(
-              builder: (context, value, child) {
-                return Expanded(
-                  child: Stack(
-                    children: [
-                      ClipRect(
-                        child: WebView(
-                          javascriptMode: JavascriptMode.unrestricted,
-                          initialUrl: url,
-                          onPageFinished: (value) {
-                            controller.onHideKeyboard(context);
-                            controller.setViewState(
-                              ViewState.Loaded,
-                            );
-                          },
-                          onProgress: (value) {
-                            controller.setViewState(
-                              ViewState.Loading,
-                            );
-                          },
-                        ),
-                      ),
-                      if (value.viewState == ViewState.Loading)
-                        const Positioned(
-                          child: Center(
-                            child: LoadingWidget(),
-                          ),
-                        )
-                      else
-                        const SizedBox()
-                    ],
+            Expanded(
+              child: Stack(
+                children: [
+                  ClipRect(
+                    child: WebView(
+                      javascriptMode: JavascriptMode.unrestricted,
+                      initialUrl: widget.url,
+                      onPageFinished: (value) {
+                        Util.onHideKeyboard(context);
+                        _viewState = ViewState.Loaded;
+                      },
+                      onProgress: (value) {
+                        _viewState = ViewState.Loading;
+                      },
+                    ),
                   ),
-                );
-              },
+                  if (_viewState == ViewState.Loading)
+                    const Positioned(
+                      child: Center(
+                        child: LoadingWidget(),
+                      ),
+                    )
+                  else
+                    const SizedBox()
+                ],
+              ),
             ),
           ],
         ),
