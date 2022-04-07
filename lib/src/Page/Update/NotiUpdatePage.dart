@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors
 
-import 'package:base/src/CenBase.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/UpdateModel.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
@@ -15,10 +14,12 @@ class NotiUpdatePage extends StatefulWidget {
   final UpdateItemModel updateItemModel;
   final String packageName;
   final bool isForceUpdate;
+  final String urlAppStore;
 
   const NotiUpdatePage({
     required this.updateItemModel,
     required this.packageName,
+    required this.urlAppStore,
     this.isForceUpdate = false,
   });
 
@@ -148,7 +149,7 @@ class _NotiUpdatePageState extends State<NotiUpdatePage> {
                                 "https://play.google.com/store/apps/details?id=" +
                                     widget.packageName);
                           } else {
-                            Util.openURL(CenBase.urlAppStore);
+                            Util.openURL(widget.urlAppStore);
                           }
                         },
                         buttonType: isAgree

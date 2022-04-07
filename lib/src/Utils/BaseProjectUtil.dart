@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../CenBase.dart';
+import '../AppBase.dart';
 import '../Common/Constant.dart';
 import 'DialogUtil.dart';
 import 'flutter_base/Util.dart';
@@ -116,13 +116,11 @@ class BaseProjectUtil {
     return timeago.format(dateTime, locale: "vi_short");
   }
 
-  static void askLogin(BuildContext context) {
+  static void askLogin(BuildContext context, Function()? onGoToLoginPage) {
     DialogUtil.showCompleteDialogQuestion(context,
       content: "Tính năng này cần phải đăng nhập\nBạn có muốn đăng nhập ngay không?",
       titleAction: "Đăng nhập",
-      onButtonAction: () {
-        CenBase.onGoToLoginPage?.call();
-      },
+      onButtonAction: onGoToLoginPage,
     );
   }
 
@@ -239,18 +237,5 @@ class BaseProjectUtil {
       default:
         return state;
     }
-  }
-
-  static bool checkShowTrade() {
-    var array = ["auth", "Sale", "Apm", "Collaborators", 'ManagerCyberAgent', 'DirectorCyberAgent', 'LeadCyberAgent', 'CyberAgent'];
-
-    if (CenBase.user?.role != null) {
-      for (var item in CenBase.user!.role!) {
-        if (array.contains(item)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 }

@@ -1,13 +1,13 @@
-import 'package:base/src/CenBase.dart';
+import 'package:base/src/AppBase.dart';
 import 'package:base/src/Helper/HttpHepler.dart';
 import 'package:dio/dio.dart' as Dio;
 
 class ApiService {
   static String baseUrl = "https://cenhome-api-sandbox.cenpush.com/";
 
-  static Future<Dio.Response> getUserInfo() async {
+  static Future<Dio.Response> getUserInfo(String baseUrlCenID) async {
     var action = "connect/userinfo";
-    final url = CenBase.baseUrlCenID + action;
+    final url = baseUrlCenID + action;
     var params = <String, dynamic>{};
     return HttpHelper.requestApi(url, params, HttpMethod.post, true);
   }
@@ -15,11 +15,11 @@ class ApiService {
   //   return await GraphQLHelper.fetchData(link: CenBase.baseUrWSSRegister, variables: variables, repository: Constant.queries, method: GraphQlMethod.Mutations, operationName: operationName );
   // }
 
-  static getListUpdate() async {
+  static getListUpdate(String baseUpdateUrl) async {
     var action = "apps/v1/versions/list";
-    final url = CenBase.baseUpdateUrl + action;
+    final url = baseUpdateUrl + action;
     var params = <String, dynamic>{};
-    params["appId"] = CenBase.appId;
+    params["appId"] = AppBase.appId;
     params["page"] = 1;
     params["limit"] = 1000;
     return HttpHelper.requestApi(url, params, HttpMethod.post, false, body: true);
@@ -32,9 +32,9 @@ class ApiService {
   //   return HttpHelper.uploadMultiImage(url: url, listFile: listFile);
   // }
 
-  static tracking(Map<String, dynamic> params) async {
-    var action = "tracking/visitors/collect";
-    final url = CenBase.baseUrlTracking + action;
-    return HttpHelper.requestApi(url, params, HttpMethod.get, false, body: true);
-  }
+  // static tracking(Map<String, dynamic> params) async {
+  //   var action = "tracking/visitors/collect";
+  //   final url = AppBase.baseUrlTracking + action;
+  //   return HttpHelper.requestApi(url, params, HttpMethod.get, false, body: true);
+  // }
 }

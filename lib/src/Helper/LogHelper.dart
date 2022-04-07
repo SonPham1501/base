@@ -4,7 +4,6 @@ import 'package:base/src/Helper/SqfLiteHelper.dart';
 import 'package:base/src/Utils/BaseProjectUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 
-import '../CenBase.dart';
 
 enum EnumStatus { normal, disable }
 enum EnumLogType { normal, api }
@@ -22,7 +21,6 @@ class LogHelper {
     }
     var id = await Util.getDeviceIdentifier();
     content += "deviceId: $id \n";
-    content += "userId: ${CenBase.user?.username ?? ""} \n";
     content += text;
     content += "\n----------------------------------------------------\n\n";
     if (logType == EnumLogType.normal) {

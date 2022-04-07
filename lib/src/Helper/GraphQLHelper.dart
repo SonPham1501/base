@@ -5,7 +5,7 @@ import 'package:base/src/Utils/flutter_base/DateTimeUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../CenBase.dart';
+import '../AppBase.dart';
 import '../Common/Enum.dart';
 import '../Utils/BaseProjectUtil.dart';
 import '../Utils/DialogUtil.dart';
@@ -17,7 +17,7 @@ enum GraphQlMethod { Queries, Mutations }
 class GraphQLHelper {
   static ValueNotifier<GraphQLClient> socketClient(String? linkSocket) {
     final _authLink = AuthLink(
-      getToken: () => '${CenBase.accessToken}',
+      getToken: () => '${AppBase.accessToken}',
       headerKey: 'Authorization',
     );
 
@@ -27,7 +27,7 @@ class GraphQLHelper {
         autoReconnect: true,
         inactivityTimeout: const Duration(seconds: 30),
         initialPayload: {
-          "headers": {"Authorization": '${CenBase.accessToken}'}
+          "headers": {"Authorization": '${AppBase.accessToken}'}
         },
       ),
     );
@@ -48,7 +48,7 @@ class GraphQLHelper {
         autoReconnect: true,
         inactivityTimeout: const Duration(seconds: 30),
         initialPayload: {
-          "headers": {"Authorization": '${CenBase.accessToken}'}
+          "headers": {"Authorization": '${AppBase.accessToken}'}
         },
       ),
     );
@@ -68,7 +68,7 @@ class GraphQLHelper {
         document: gql(repository!), variables: {"where": variables});
     var time = DateTimeUtil.getFullDateAndTimeSecond(DateTime.now());
     GraphQLClient client = getSocketClient(linkSocket);
-    if (CenBase.buildType == CenBuildType.test) {
+    if (AppBase.buildType == CenBuildType.test) {
       if (aPiLogModel != null) {
         aPiLogModel..url = "url: $linkSocket \n"
         ..repository = "repository: $repository \n"
@@ -92,10 +92,10 @@ class GraphQLHelper {
   }) async {
     var time = DateTimeUtil.getFullDateAndTimeSecond(DateTime.now());
     var timeStart = DateTime.now();
-    if (CenBase.buildType == CenBuildType.test) {}
+    if (AppBase.buildType == CenBuildType.test) {}
     QueryResult result;
     final _authLink = AuthLink(
-      getToken: () => '${CenBase.accessToken}',
+      getToken: () => '${AppBase.accessToken}',
       headerKey: 'Authorization',
     );
     final _httpLink = HttpLink(
@@ -125,7 +125,7 @@ class GraphQLHelper {
       );
       result = await client.mutate(_options);
     }
-    if (CenBase.buildType == CenBuildType.test) {
+    if (AppBase.buildType == CenBuildType.test) {
       var token = await _authLink.getToken();
       var timeEnd = DateTime.now();
       // lưu log
@@ -179,11 +179,11 @@ class GraphQLHelper {
             return data;
           }
         } else {
-          CenBase.accessToken = null;
-          CenBase.refreshToken = null;
-          CenBase.systemToken = null;
-          if (CenBase.accessToken != null) {
-            CenBase.logout?.call();
+          AppBase.accessToken = null;
+          AppBase.refreshToken = null;
+          AppBase.systemToken = null;
+          if (AppBase.accessToken != null) {
+            AppBase.logout?.call();
           }
           if (isLoading) Navigator.of(context).pop();
           return result;

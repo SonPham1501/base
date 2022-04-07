@@ -1,12 +1,9 @@
 import 'dart:io';
 
-import 'package:base/src/CenBase.dart';
+import 'package:base/src/AppBase.dart';
 import 'package:base/src/Helper/LogHelper.dart';
-import 'package:base/src/Helper/TokenHelper.dart';
 import 'package:base/src/Helper/TrackingHelper.dart';
-import 'package:base/src/Utils/DialogUtil.dart';
-import 'package:base/src/Utils/flutter_base/DateTimeUtil.dart';
-import 'package:base/src/Utils/flutter_base/Util.dart';
+import 'package:base/src/Utils/export_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
@@ -23,48 +20,98 @@ class HttpHelper {
     HttpMethod httpMethod,
     bool auth, {
     bool body = true,
-    int countRequest = 1,
-    bool isLoading = false,
     Map<String, dynamic>? headers,
-    bool isTokenSystem = false,
   }) async {
     Response? response;
     Options options;
     var dio = Dio();
     dio.options.connectTimeout = timeOut; //5s
     dio.options.receiveTimeout = timeOut;
-    if (kDebugMode) {
-      dio.interceptors.add(LogInterceptor(
-        responseBody: true,
-        requestBody: true,
-      ));
-    }
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        // handle onRequest
+        onRequest: (
+          RequestOptions requestOptions,
+          RequestInterceptorHandler handler,
+        ) async {
+          dio.interceptors.requestLock.lock();
+          if (auth) {
+            String token =
+              await SecureStorageUtil.getString(SecureStorageUtil.Token);
+            if (token != '') {
+              requestOptions.headers[HttpHeaders.authorizationHeader] =
+                  'Bearer ' + token;
+              if (AppBase.finger != null) {
+                requestOptions.headers['Finger'] = AppBase.finger;
+              }
+              dio.interceptors.requestLock.unlock();
+              return handler.next(requestOptions);
+            }
+          }
+          dio.interceptors.requestLock.unlock();
+          return handler.next(requestOptions);
+        },
+        // handle onResponse
+        onResponse: (
+          Response response,
+          ResponseInterceptorHandler handler,
+        ) async {
+          // Do something with response data
+          bool isValidData = response.data != null;
+          if (isValidData) {
+            return handler.next(response);
+          }
+          return handler.next(response); // continue
+        },
+        // handle onError
+        onError: (
+          DioError error,
+          ErrorInterceptorHandler handler,
+        ) async {
+          // print(error.toString());
+          // await DialogBuilder.showSimpleDialog(error.toString());
+          //SnackbarBuilder.showSnackbar(content: 'Máy chủ đang bảo trì');
+          switch (error.type) {
+            case DioErrorType.cancel:
+              print('requestCancelled');
+              break;
+            case DioErrorType.connectTimeout:
+              print('requestTimeout');
+              break;
+            case DioErrorType.receiveTimeout:
+              print('sendTimeout');
+              break;
+            case DioErrorType.response:
+              print(
+                  'response error ${error.response?.realUri} ${error.response?.statusCode}');
+              if (error.response?.statusCode == 401 ||
+                  error.response?.statusCode == 403) {
+                if (error.response!.realUri.toString().contains('user/login')) {
+                  return handler.next(error);
+                }
+                // await handleEventAuthError(error);  // code removed to fix case: only 1 device can be used at a time
+                // remove code below when backend fix bug use token on multiple devices
+                if (!error.response!.realUri
+                    .toString()
+                    .contains('firebase/unsubscribe-device')) {
+                  //UserService.unRegisterFirebase();
+                }
+                await SecureStorageUtil.removeString(SecureStorageUtil.Token);
+              }
+              break;
+            case DioErrorType.sendTimeout:
+              break;
+            case DioErrorType.other:
+              print('Dio onError DioErrorType.other');
+              break;
+          }
+          return handler.next(error);
+        },
+      ),
+    );
 
     // creatFile
-    var text = "";
-    var time = DateTimeUtil.getFullDateAndTimeSecond(DateTime.now());
-    var timeStart = DateTime.now();
-    headers ??= new Map<String, dynamic>();
-
-    if (auth) {
-      if (url.contains("https://srv.cenhomes.vn/12312323")) {
-        headers["Authorization"] = "Bearer 334EE83061B6B5237ED12E11960BCC3F9D2000B214185161AE1B5CFFBF1DBCA5";
-      } else {
-        headers["Authorization"] = CenBase.accessToken;
-      }
-    } else if (isTokenSystem) {
-      if (CenBase.systemToken == null) {
-        var isGetAccessTokenSuccess = await TokenHelper.getSystemToken();
-        if (!isGetAccessTokenSuccess) {
-          Util.showToast("Lỗi mạng, Vui lòng thực hiện lại");
-          response = Response(requestOptions: RequestOptions(path: ""), statusCode: 696969);
-          return Future.value(response);
-        }
-      }
-      headers["Authorization"] = CenBase.systemToken;
-      //headers["typeeeeee"] = 'client_credentials';
-    } else {}
-    //header
+    headers ??= <String, dynamic>{};
     headers["client"] = "mobile_app";
     headers["platform"] = TrackingHelper.platform;
     headers["appVersion"] = TrackingHelper.appVersion;
@@ -75,6 +122,7 @@ class HttpHelper {
         headers: headers,
         contentType: Headers.jsonContentType,
         followRedirects: false,
+        responseType: ResponseType.json,
         validateStatus: (status) {
           return status! <= 500;
         },
@@ -84,13 +132,11 @@ class HttpHelper {
         headers: headers,
         contentType: Headers.formUrlEncodedContentType,
         followRedirects: false,
+        responseType: ResponseType.json,
         validateStatus: (status) {
           return status! <= 500;
         },
       );
-    }
-    if (isLoading) {
-      DialogUtil.showLoading();
     }
 
     try {
@@ -143,54 +189,10 @@ class HttpHelper {
       debugPrint(ex.toString());
       response = Response(requestOptions: RequestOptions(path: ""), statusCode: 696969);
     }
-    // text += "url: $url \n";
-    // text += "httpMethod: $httpMethod \n";
-    // text += "param: $params \n";
-    // text += "header: ${options.headers.toString()} \n";
-    // text += "contentType: ${options.contentType} \n";
-    // text += "timeStartRequest: $time \n";
-    // var timeEnd = DateTime.now();
-    // final difference = timeEnd.difference(timeStart).inMilliseconds;
-    // text += "RequestTime: $difference \n";
-    // text += "responseStatusCode: ${response?.statusCode.toString()} \n";
-    // text += "response: $response";
-    // LogHelper.saveLog(text, timeStart: timeStart, logType: EnumLogType.api);
     if (response == null || response.statusCode == null) {
       Util.showToast("Lỗi mạng, Vui lòng thực hiện lại");
       response = Response(requestOptions: RequestOptions(path: ""), statusCode: 696969);
     }
-    if (response.statusCode != null && response.statusCode == 401 && auth) {
-      var isGetAccessTokenSuccess = false;
-      if (auth) {
-        isGetAccessTokenSuccess = await TokenHelper.getAccessTokenInRefreshToken();
-      } // } else {
-      //   isGetAccessTokenSuccess = await TokenHelper.getSystemToken();
-      // }
-      if (isGetAccessTokenSuccess) {
-        if (countRequest < 2) {
-          response = await requestApi(url, params, httpMethod, auth, body: body, countRequest: countRequest + 1);
-        }
-      } else {
-        CenBase.accessToken = null;
-        CenBase.refreshToken = null;
-        CenBase.systemToken = null;
-        CenBase.logout?.call();
-      }
-    } else if (response.statusCode != null && response.statusCode == 401 && isTokenSystem) {
-      var isGetAccessTokenSuccess = await TokenHelper.getSystemToken();
-      if (isGetAccessTokenSuccess) {
-        if (countRequest < 2) {
-          response = await requestApi(url, params, httpMethod, auth, body: body, countRequest: countRequest + 1, isTokenSystem: isTokenSystem);
-        } else {
-          response = Response(requestOptions: RequestOptions(path: ""), statusCode: 696969);
-        }
-      } else {
-        response = Response(requestOptions: RequestOptions(path: ""), statusCode: 696969);
-      }
-    }
-
-    if (isLoading) DialogUtil.hideLoading();
-    //await new Future.delayed(const Duration(milliseconds: 100));
     return response;
   }
 
@@ -213,7 +215,9 @@ class HttpHelper {
       ));
       var headers = <String, String>{};
       if (auth) {
-        headers["Authorization"] = CenBase.accessToken ?? "";
+        headers["Authorization"] = await SecureStorageUtil.getString(
+          SecureStorageUtil.Token,
+        );
       }
       headers["platform"] = TrackingHelper.platform;
       headers["appVersion"] = TrackingHelper.appVersion;
@@ -321,7 +325,9 @@ class HttpHelper {
       ));
       var headers = <String, String>{};
       if (auth) {
-        headers["Authorization"] = CenBase.accessToken ?? "";
+        headers["Authorization"] = await SecureStorageUtil.getString(
+          SecureStorageUtil.Token,
+        );
       }
       headers["platform"] = TrackingHelper.platform;
       headers["appVersion"] = TrackingHelper.appVersion;

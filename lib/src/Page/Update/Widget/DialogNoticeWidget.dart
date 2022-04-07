@@ -5,11 +5,11 @@ import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
 
 class DialogNoticeWidget extends StatelessWidget {
-  Function()? onTapUpdate;
-  Function()? onTapSeeMore;
-  UpdateItemModel? updateItemModel;
+  final Function()? onTapUpdate;
+  final Function()? onTapSeeMore;
+  final UpdateItemModel? updateItemModel;
 
-  DialogNoticeWidget({this.onTapUpdate, this.onTapSeeMore, this.updateItemModel});
+  const DialogNoticeWidget({Key? key, this.onTapUpdate, this.onTapSeeMore, this.updateItemModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

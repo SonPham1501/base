@@ -7,33 +7,15 @@ import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
 class AccountUpdateWidget extends StatefulWidget {
-  const AccountUpdateWidget({Key? key}) : super(key: key);
+  const AccountUpdateWidget({Key? key, required this.urlAppStore}) : super(key: key);
+
+  final String urlAppStore;
 
   @override
   _AccountUpdateWidgetState createState() => _AccountUpdateWidgetState();
 }
 
 class _AccountUpdateWidgetState extends State<AccountUpdateWidget> {
-  // final Function? onTap;
-  // final String? title;
-  // final String? content;
-  // final Widget icon;
-  // final Color? titleColor;
-  // final bool isCheckLogin;
-  // final bool isShowLine;
-  // final bool isHaveUpdate;
-
-  // const AccountUpdateWidget(
-  //     {Key? key,
-  //     this.title,
-  //     this.onTap,
-  //     required this.icon,
-  //     this.titleColor,
-  //     this.content,
-  //     this.isCheckLogin = false,
-  //     this.isShowLine = true,
-  //     this.isHaveUpdate = true})
-  //     : super(key: key);
   UpdateItemModel? _updateItemModel;
   String? packageName;
   var isHaveUpdate = false;
@@ -57,6 +39,7 @@ class _AccountUpdateWidgetState extends State<AccountUpdateWidget> {
             builder: (context) => NotiUpdatePage(
               updateItemModel: _updateItemModel!,
               packageName: packageName!,
+              urlAppStore: widget.urlAppStore,
             ),
           ));
         } else {

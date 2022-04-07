@@ -1,4 +1,4 @@
-import 'package:base/src/CenBase.dart';
+import 'package:base/src/AppBase.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Common/Enum.dart';
 import 'package:base/src/Utils/FontUtil.dart';
@@ -12,7 +12,7 @@ class VersionInfoWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          if (CenBase.buildType == CenBuildType.test)
+          if (AppBase.buildType == CenBuildType.test)
             Column(
               children: [
                 Text(
@@ -26,7 +26,7 @@ class VersionInfoWidget extends StatelessWidget {
               ],
             ),
           Text(
-            "Phiên bản: ${CenBase.version} - ${CenBase.buildVersion}",
+            "Phiên bản: ${AppBase.version} - ${AppBase.buildVersion}",
             style: TextStyle(
               color: Constant.kGreyColor,
               fontFamily: FontUtil.regular,

@@ -1,4 +1,3 @@
-import 'package:base/src/CenBase.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/UpdateModel.dart';
 import 'package:base/src/Page/Update/NotiUpdatePage.dart';
@@ -14,21 +13,27 @@ class UpdateHelper {
   static String packageName = "";
   static UpdateItemModel? latestUpdateItem;
 
-  static void checkVersion(BuildContext context) async {
+  static void checkVersion(
+    BuildContext context,
+    String urlAppStore,
+    String baseUpdateUrl,
+  ) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     versionApp = packageInfo.version;
     String packName = packageInfo.packageName;
     packageName = packName;
-    getListUpdate(context, packName);
+    getListUpdate(context, packName, urlAppStore, baseUpdateUrl);
   }
 
   static void getListUpdate(
     BuildContext context,
     String packName,
+    String urlAppStore,
+    String baseUpdateUrl,
   ) async {
     var listVersion = await PreferUtil.getString(Constant.kListUpdated);
 
-    var response = await ApiService.getListUpdate();
+    var response = await ApiService.getListUpdate(baseUpdateUrl);
     if (response.statusCode == 200) {
       var data = UpdateModel.fromJson(response.data);
       var listUpdate = data.data ?? <UpdateItemModel>[];
@@ -59,6 +64,7 @@ class UpdateHelper {
             packageName: packName,
             updateItemModel: _updateItemModel!,
             isForceUpdate: true,
+            urlAppStore: urlAppStore,
           ),
         ));
         return;
@@ -96,7 +102,7 @@ class UpdateHelper {
                 if (Platform.isAndroid) {
                   Util.openURL("https://play.google.com/store/apps/details?id=" + packName);
                 } else {
-                  Util.openURL(CenBase.urlAppStore);
+                  Util.openURL(urlAppStore);
                 }
               },
               onTapSeeMore: () {
@@ -104,6 +110,7 @@ class UpdateHelper {
                   builder: (context) => NotiUpdatePage(
                     packageName: packName,
                     updateItemModel: listUpdate[latestItemDialogIndex],
+                    urlAppStore: urlAppStore,
                   ),
                 ));
               },

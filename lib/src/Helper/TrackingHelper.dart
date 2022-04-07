@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:base/src/CenBase.dart';
+import 'package:base/src/AppBase.dart';
 import 'package:base/src/Service/ApiService.dart';
 import 'package:base/src/Utils/ScreenUtil.dart';
 import 'package:base/src/Utils/flutter_base/DeviceUtil.dart';
@@ -38,66 +38,5 @@ class TrackingHelper {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     appVersion = packageInfo.version;
     buildNumber = packageInfo.buildNumber;
-  }
-
-  static action({
-    String? screenName,
-    String? screenTitle,
-    ActionTracking action = ActionTracking.pageview,
-    dynamic objectId,
-    String? type,
-    String? source,
-  }) {
-    try {
-      var params = <String, dynamic>{};
-      //
-
-      params["dt"] = screenTitle;
-      params["s"] = source;
-      params["dl"] = screenName; //url
-      params["t"] = type; //type các màn hình
-
-      params["act"] = action.toShortString(); //action
-      params["pid"] = objectId;
-
-      //
-      params["ts"] = DateTime.now().toIso8601String();
-      params["cp"] = ""; //campaign - bỏ
-      params["rl"] = ""; //referer - bỏ
-      //user
-      params["uid"] = CenBase.user?.sub; //user id
-      params["ut"] = _getUserType(); //user id
-
-      //device
-      params["sr"] = "${ScreenUtil.screenSize?.width ?? ""}x${ScreenUtil.screenSize?.height ?? ""}"; //screenResolution
-      params["vp"] = ""; //viewport -bỏ
-      params["sd"] = "24-bit"; //bỏ
-      params["de"] = "UTF-8";
-      //
-      params["ul"] = Platform.localeName; //ngôn ngữ máy
-      params["bid"] = CenBase.packageName; //bundleId, packageName
-      params["aid"] = CenBase.appId; //bundleId, packageName
-      params["fprint"] = DeviceUtil.deviceId;
-      params["os"] = platform;
-      params["pf"] = "app";
-      params["ov"] = DeviceUtil.deviceVersion; //OS version
-      params["dv"] = DeviceUtil.deviceName; //Tên thiết bị
-      params["v"] = appVersion; //OS version
-      params["sid"] = CenBase.sessionId; //sessionId id sinh ra tu luc mo app den luc kill app
-      //
-      ApiService.tracking(params);
-    } catch (ex) {}
-  }
-
-  static String _getUserType() {
-    if (CenBase.user?.role != null) {
-      if (CenBase.user!.role!.contains("CyberAgent") || CenBase.user!.role!.contains("LeadCyberAgent")) {
-        return "ca";
-      }
-      if (CenBase.user!.role!.contains("Sale")) {
-        return "sale";
-      }
-    }
-    return "enduser";
   }
 }
