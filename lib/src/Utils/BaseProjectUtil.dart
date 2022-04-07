@@ -4,7 +4,7 @@ import 'package:base/src/Extends/DoubleExtend.dart';
 import 'package:base/src/Extends/StringExtend.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:graphql/client.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 import 'package:timeago/timeago.dart' as timeago;

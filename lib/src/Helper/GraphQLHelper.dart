@@ -1,197 +1,215 @@
-// ignore_for_file: constant_identifier_names
+import 'dart:io' as io;
 
-import 'package:base/src/Helper/LogHelper.dart';
-import 'package:base/src/Utils/flutter_base/DateTimeUtil.dart';
+import 'package:artemis/schema/graphql_query.dart';
+import 'package:datacollection/data/api/common_entity/network_resource_state.dart';
+import 'package:datacollection/services/systems/navigator.dart';
+import 'package:datacollection/utils/secure_storage_service.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:graphql/client.dart';
+import 'package:http/io_client.dart' as http;
+import 'package:json_annotation/json_annotation.dart' as json_annotation;
 
-import '../AppBase.dart';
-import '../Common/Enum.dart';
-import '../Utils/BaseProjectUtil.dart';
-import '../Utils/DialogUtil.dart';
-import 'SqfLiteHelper.dart';
-import 'TokenHelper.dart';
 
-enum GraphQlMethod { Queries, Mutations }
+final networkOnlyPolicies = Policies(
+  fetch: FetchPolicy.cacheAndNetwork,
+);
 
-class GraphQLHelper {
-  static ValueNotifier<GraphQLClient> socketClient(String? linkSocket) {
-    final _authLink = AuthLink(
-      getToken: () => '${AppBase.accessToken}',
-      headerKey: 'Authorization',
-    );
+GraphQLClient _buildClient({
+  @required String? uri,
+  String? fixedToken,
+}) {
+  io.HttpClient _httpClient = io.HttpClient();
+  _httpClient.badCertificateCallback = (io.X509Certificate cert, String host, int port) => true;
+  http.IOClient _ioClient = http.IOClient(_httpClient);
 
-    final WebSocketLink webSocketLink = WebSocketLink(
-      '$linkSocket',
-      config: SocketClientConfig(
-        autoReconnect: true,
-        inactivityTimeout: const Duration(seconds: 30),
-        initialPayload: {
-          "headers": {"Authorization": '${AppBase.accessToken}'}
-        },
-      ),
-    );
-    final link = _authLink.concat(webSocketLink);
-    ValueNotifier<GraphQLClient> client = ValueNotifier(
-      GraphQLClient(
-        cache: GraphQLCache(),
-        link: link,
-      ),
-    );
-    return client;
-  }
+  final httpLink = HttpLink(
+    uri!,
+    httpClient: _ioClient,
+    // httpClient: LoggerHttpClient(http.Client()),
+  );
 
-  static getSocketClient(String? linkSocket) {
-    final WebSocketLink webSocketLink = WebSocketLink(
-      '$linkSocket',
-      config: SocketClientConfig(
-        autoReconnect: true,
-        inactivityTimeout: const Duration(seconds: 30),
-        initialPayload: {
-          "headers": {"Authorization": '${AppBase.accessToken}'}
-        },
-      ),
-    );
-    GraphQLClient client = GraphQLClient(
-      link: webSocketLink,
-      cache: GraphQLCache(),
-    );
-    return client;
-  }
-
-  static Future<Stream<QueryResult>> getSocketData(
-      {String? linkSocket,
-      String? repository,
-      Map<dynamic, dynamic>? variables,
-      APiLogModel? aPiLogModel}) async {
-    SubscriptionOptions subscriptionOptions = SubscriptionOptions(
-        document: gql(repository!), variables: {"where": variables});
-    var time = DateTimeUtil.getFullDateAndTimeSecond(DateTime.now());
-    GraphQLClient client = getSocketClient(linkSocket);
-    if (AppBase.buildType == CenBuildType.test) {
-      if (aPiLogModel != null) {
-        aPiLogModel..url = "url: $linkSocket \n"
-        ..repository = "repository: $repository \n"
-        ..httpMethod = "method: GraphQlMethod.subscription \n"
-        ..param = "variables: ${variables.toString()} \n";
+  final newAuthLink = AuthLink(
+    headerKey: 'Authorization',
+    getToken: () async {
+      if (fixedToken != null) {
+        return fixedToken;
       }
+
+      const storage = FlutterSecureStorage();
+      final tmpToken = await storage.read(key: SecureStorageKeys.TemporallyToken);
+      if (tmpToken != null) {
+        return tmpToken;
+      }
+      return 'Bearer ' + (await SecureStorageService.getToken() ?? '');
+    },
+  );
+
+  final newFinger = AuthLink(
+    headerKey: 'Finger',
+    getToken: () async {
+      return '6d5317668df960d45198aacd35fa7d3d';
+    },
+  );
+
+  final link = newAuthLink.concat(newFinger).concat(httpLink);
+
+  return GraphQLClient(
+    cache: GraphQLCache(),
+    link: link,
+    defaultPolicies: DefaultPolicies(
+      watchQuery: networkOnlyPolicies,
+      query: networkOnlyPolicies,
+      mutate: networkOnlyPolicies,
+    ),
+  );
+}
+
+class GraphQLApiClient {
+  GraphQLApiClient({
+    required String? uri,
+  }) : client = _buildClient(uri: uri);
+
+  GraphQLApiClient.withFixedToken({
+    required String? uri,
+    required String? token,
+  }) : client = _buildClient(uri: uri, fixedToken: token);
+
+  final GraphQLClient client;
+
+  Future<NetworkResourceState<T>> query<T>(
+    GraphQLQuery query,
+  ) async {
+    final result = await client.query(QueryOptions(
+      document: query.document,
+      variables: query.variables == null ? {} : query.variables!.toJson(),
+    ));
+
+    if (result.hasException) {
+      if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
+        print('errr --- ');
+        // navigationService.logout();
+      }
+
+      if (_hasStopAccountError(result.exception!.graphqlErrors)) {
+        final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
+
+        // navigationService?.showStopAccountMessage(
+        //   result.exception!.graphqlErrors.first.message,
+        //   loginId,
+        // );
+      }
+
+      print('result.exception ${result.exception}');
+      return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
     }
-    Stream<QueryResult> response = client.subscribe(subscriptionOptions);
-    return response;
+    final data = query.parse(result.data as Map<String, dynamic>) as T;
+
+    return NetworkResourceState<T>(data);
   }
 
-  static Future<QueryResult> fetchData(
-    BuildContext context,{
-    required String link,
-    GraphQlMethod method = GraphQlMethod.Queries,
-    Map<String, dynamic>? variables,
-    String? operationName,
-    String? repository,
-    bool isLoading = false,
-    int countRequest = 1,
-  }) async {
-    var time = DateTimeUtil.getFullDateAndTimeSecond(DateTime.now());
-    var timeStart = DateTime.now();
-    if (AppBase.buildType == CenBuildType.test) {}
-    QueryResult result;
-    final _authLink = AuthLink(
-      getToken: () => '${AppBase.accessToken}',
-      headerKey: 'Authorization',
-    );
-    final _httpLink = HttpLink(
-      link,
-    );
-    final Link _link = _authLink.concat(_httpLink);
-    final client = GraphQLClient(
-      cache: GraphQLCache(),
-      link: _link,
-    );
-    if (isLoading && countRequest == 1) {
-      DialogUtil.showLoading();
-    }
-    if (method == GraphQlMethod.Queries) {
-      final WatchQueryOptions _options = WatchQueryOptions(
-        document: gql(repository ?? ""),
-        variables: variables ?? {},
-        pollInterval: const Duration(seconds: 10),
-        fetchResults: true,
-      );
-      result = await client.query(_options);
-    } else {
-      final MutationOptions _options = MutationOptions(
-        operationName: operationName,
-        document: gql(repository ?? ""),
-        variables: variables!,
-      );
-      result = await client.mutate(_options);
-    }
-    if (AppBase.buildType == CenBuildType.test) {
-      var token = await _authLink.getToken();
-      var timeEnd = DateTime.now();
-      // lưu log
-//      APiLogModel aPiLogModel = APiLogModel(
-//          userId: CenBase.user?.username ?? "",
-//          url: link,
-//          type: 2,
-//          header: _authLink.headerKey.toString(),
-//          contentType: token,
-//          operationName: operationName,
-//          repository: repository,
-//          httpMethod: method.toString(),
-//          param: variables.toString(),
-//          timeStartRequest: time,
-//          timeEndRequest: timeEnd,
-//          response: result.toString());
-      var text = "";
-      text += "url: $link \n";
-      text += "header: ${_authLink.headerKey.toString()} \n";
-      text += "token: $token\n";
-      text += "operationName: $operationName \n";
-      text += "repository: $repository \n";
-      text += "method: ${method.toString()} \n";
-      text += "variables: ${variables.toString()} \n";
-      text += "timeStartRequest: $time \n";
-      final difference = timeEnd.difference(timeStart).inMilliseconds;
-      text += "RequestTime: $difference \n";
-      text += "result: ${result.toString()}";
-      LogHelper.saveLog(text, timeStart: timeStart, logType: EnumLogType.api);
-//      var insert = await SqfLiteHelper.insert(aPiLogModel);
-    }
-    debugPrint("result $result");
-    if (result.hasException) {
-      debugPrint("lỗi ${result.exception.toString()}");
-      bool checkAccessToken =
-          BaseProjectUtil.compareCodeErrorGraphQL(result, "access-denied");
+  bool _hasUnauthorizedError(List<GraphQLError> errors) {
+    return errors.any((e) => _isUnauthorizedError(e));
+  }
 
-      if (checkAccessToken) {
-        var isGetAccessTokenSuccess =
-            await TokenHelper.getAccessTokenInRefreshToken();
-        if (isGetAccessTokenSuccess) {
-          if (countRequest < 2) {
-            var data = await fetchData(
-                context,
-                link: link,
-                method: method,
-                variables: variables,
-                repository: repository,
-                isLoading: isLoading,
-                countRequest: countRequest + 1);
-            return data;
-          }
+  bool _isUnauthorizedError(GraphQLError error) {
+    return error.extensions?.containsKey('code') == true &&
+        error.extensions!['code'].toString() == '401';
+  }
+
+  bool _hasStopAccountError(List<GraphQLError> errors) {
+    return errors.any((e) => _isStopAccountError(e));
+  }
+
+  bool _isStopAccountError(GraphQLError error) {
+    return error.extensions?.containsKey('code') == true &&
+        error.extensions!['code'] == 'BAD_REQUEST';
+  }
+
+  Future<NetworkResourceState<T>>
+      mutation<T, U extends json_annotation.JsonSerializable>(
+    GraphQLQuery<T, U> query,
+  ) async {
+    final result = await client.mutate(MutationOptions(
+      document: query.document,
+      variables: query.variables == null ? {} : query.variables!.toJson(),
+    ));
+
+    if (result.hasException) {
+      return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
+    }
+
+    final errors = convertToError(result.data, query.operationName!);
+    if (errors.isNotEmpty) {
+      // response has `data.<operation-name>.errors`
+      return NetworkResourceState<T>.error(errors);
+    }
+
+    try {
+      final data = query.parse(result.data as Map<String, dynamic>);
+      return NetworkResourceState<T>(data);
+    } on Exception {
+      // illegal error.
+      //FirebaseCrashlytics.instance.recordError(e, trace);
+      return NetworkResourceState<T>.error([]);
+    }
+  }
+
+  // use this method if you want to handle data and errors.
+  Future<QueryResult> mutationRaw(
+    GraphQLQuery query,
+  ) async {
+    final result = await client.mutate(MutationOptions(
+      document: query.document,
+      variables: query.variables == null ? {} : query.variables!.toJson(),
+    ));
+
+    return result;
+  }
+
+  List<GraphQLError> convertToError(dynamic data, String operationName) {
+    final map = data as Map<String, dynamic>;
+    if (!map.containsKey(operationName)) {
+      return [];
+    }
+    final operationMap = map[operationName] as Map<String, dynamic>;
+    if (!operationMap.containsKey('errors')) {
+      return [];
+    }
+
+    final errorsMap = operationMap['errors'] as List<dynamic>;
+    return errorsMap
+        .map((e) => GraphQLError(
+              message: e['message'] as String,
+              path: e['path'] as List<dynamic>,
+            ))
+        .toList();
+  }
+
+  List<GraphQLError> convertToErrorFromMessageAndSubject(
+      dynamic data, String operationName) {
+    final map = data as Map<String, dynamic>;
+    if (!map.containsKey(operationName)) {
+      return [];
+    }
+    final operationMap = map[operationName] as Map<String, dynamic>;
+    if (!operationMap.containsKey('errors')) {
+      return [];
+    }
+    final errors = operationMap['errors'] as List<dynamic>;
+    final List<GraphQLError> result = [];
+
+    for (var e in errors) {
+      if (e.containsKey('message')) {
+        if (e.containsKey('subject') && e['subject'] != null) {
+          final item = '${e['subject']}${e['message']}';
+          result.add(GraphQLError(message: item));
         } else {
-          AppBase.accessToken = null;
-          AppBase.refreshToken = null;
-          AppBase.systemToken = null;
-          if (AppBase.accessToken != null) {
-            AppBase.logout?.call();
-          }
-          if (isLoading) Navigator.of(context).pop();
-          return result;
+          final item = '${e['message']}';
+          result.add(GraphQLError(message: item));
         }
       }
     }
-
-    if (isLoading && countRequest == 1) Navigator.of(context).pop();
 
     return result;
   }
