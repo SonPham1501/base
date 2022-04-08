@@ -8,10 +8,10 @@ class DeBouncerDuration {
   DeBouncerDuration({this.delay = const Duration(milliseconds: 500)});
 
   void debounce(Function callback) {
-    this._callback = callback;
+    _callback = callback;
 
-    this.cancel();
-    _timer = new Timer(delay, this.flush);
+    cancel();
+    _timer = Timer(delay, flush);
   }
 
   void cancel() {
@@ -21,7 +21,7 @@ class DeBouncerDuration {
   }
 
   void flush() {
-    this._callback!();
-    this.cancel();
+    _callback!();
+    cancel();
   }
 }

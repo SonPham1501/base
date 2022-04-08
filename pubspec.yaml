@@ -37,6 +37,8 @@ dependencies:
   badges: 2.0.2
   pull_to_refresh: 2.0.0
 
+  get_it: ^7.2.0
+
   fluttertoast: 8.0.9
   shared_preferences: 2.0.13
   html: 0.15.0
@@ -59,6 +61,9 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
   artemis: ^7.1.0-beta.0
+  build_runner: ^2.1.0
+  freezed: ^0.14.2
+  freezed_annotation: ^1.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

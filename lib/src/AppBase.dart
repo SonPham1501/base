@@ -1,24 +1,22 @@
-import 'dart:io';
 
-import 'package:base/src/Common/export_common.dart';
-import 'package:base/src/Helper/TrackingHelper.dart';
-import 'package:base/src/Utils/flutter_base/Util.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'Utils/BaseResourceUtil.dart';
 
 
 class AppBase {
   static void init({
     required CenBuildType buildTypeInit,
+    required String apiUrlInit,
     String? fingerInit,
   }) {
-    BaseResourceUtil.pathResource = "packages/CenBase/assets/";
+    setupLocator();
     finger = fingerInit;
     buildType = buildTypeInit;
     sessionId = Util.getUuid();
+    apiUrl = apiUrlInit;
     PackageInfo.fromPlatform().then((packageInfo) {
       packageName = packageInfo.packageName;
       version = packageInfo.version;
@@ -36,6 +34,7 @@ class AppBase {
   static String sessionId = "";//phiên làm việc từ lúc mở app tới lúc kill app
   static String deviceName = "";
   static String? finger;
+  static String apiUrl = '';
 
   static String get appId {
     var build = "test";

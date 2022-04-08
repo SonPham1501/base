@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 
 class SecureStorageUtil {
   static const Token = 'token';
+  static const TemporallyToken = 'temporally_token';
   static String? deviceId;
   static String Key_DeviceId = "deviceId";
   static var uuid = const Uuid();

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class BaseResourceUtil {
   static var pathResource = "assets/";
@@ -15,5 +14,12 @@ class BaseResourceUtil {
       return pathResource + "icons/" + name;
     }
     return pathResource + "icons/" + name + ".svg";
+  }
+
+  static logo(String name) {
+    if (name.contains(".")) {
+      return pathResource + "logo/" + name;
+    }
+    return pathResource + "logo/" + name + ".svg";
   }
 }

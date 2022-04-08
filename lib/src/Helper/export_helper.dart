@@ -8,3 +8,4 @@ export './SqfLiteHelper.dart';
 export './SqliteHelper.dart';
 export './TrackingHelper.dart';
 export './UpdateHelper.dart';
+export './locator.dart';

@@ -1,15 +1,14 @@
 import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
-import 'package:datacollection/data/api/common_entity/network_resource_state.dart';
-import 'package:datacollection/services/systems/navigator.dart';
-import 'package:datacollection/utils/secure_storage_service.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:json_annotation/json_annotation.dart' as json_annotation;
 
+final GraphQLApiClient graphQLApiClient = locator<GraphQLApiClient>();
 
 final networkOnlyPolicies = Policies(
   fetch: FetchPolicy.cacheAndNetwork,
@@ -37,22 +36,28 @@ GraphQLClient _buildClient({
       }
 
       const storage = FlutterSecureStorage();
-      final tmpToken = await storage.read(key: SecureStorageKeys.TemporallyToken);
+      final tmpToken = await storage.read(key: SecureStorageUtil.TemporallyToken);
       if (tmpToken != null) {
         return tmpToken;
       }
-      return 'Bearer ' + (await SecureStorageService.getToken() ?? '');
+      return 'Bearer ' + (await SecureStorageUtil.getString(SecureStorageUtil.Token));
     },
   );
 
-  final newFinger = AuthLink(
-    headerKey: 'Finger',
-    getToken: () async {
-      return '6d5317668df960d45198aacd35fa7d3d';
-    },
-  );
+  Link link;
 
-  final link = newAuthLink.concat(newFinger).concat(httpLink);
+  if (AppBase.finger != null) {
+    final newFinger = AuthLink(
+      headerKey: 'Finger',
+      getToken: () async {
+        return '6d5317668df960d45198aacd35fa7d3d';
+      },
+    );
+
+    link = newAuthLink.concat(newFinger).concat(httpLink);
+  } else {
+    link = newAuthLink.concat(httpLink);
+  }
 
   return GraphQLClient(
     cache: GraphQLCache(),
