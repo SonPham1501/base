@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 import 'dart:math';
 
 import 'package:base/src/Extends/StringExtend.dart';
+import 'package:base/src/Helper/export_helper.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
@@ -238,12 +239,28 @@ class Util {
     return initials;
   }
 
-  static void showToast(String message) {
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black, fontSize: 12);
+  static void showToast(String message, {bool status = true}) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: (status
+        ? Theme.of(navigationService.context).primaryColor
+        : Theme.of(navigationService.context).errorColor),
+      fontSize: 12,
+    );
   }
 
-  static void showToastCenter(String message) {
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER, backgroundColor: Colors.grey, fontSize: 12);
+  static void showToastCenter(String message, {bool status = true}) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      backgroundColor: (status
+        ? Theme.of(navigationService.context).primaryColor
+        : Theme.of(navigationService.context).errorColor),
+      fontSize: 12,
+    );
   }
 
   static String intToPrice(int? price) {
