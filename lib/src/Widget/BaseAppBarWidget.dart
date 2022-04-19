@@ -19,9 +19,9 @@ class BaseAppBarWidget extends AppBar {
   final BuildContext context;
 
   BaseAppBarWidget(
-      this.context,
       {Key? key,
       this.textTitle,
+      required this.context,
       this.actions,
       this.isLeadingIcon = true,
       this.backgroundColor = Colors.white,
