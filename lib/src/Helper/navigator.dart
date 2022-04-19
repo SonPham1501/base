@@ -23,7 +23,7 @@ class NavigationService {
     );
   }
 
-  BuildContext getContext() {
+  BuildContext get context {
     return navigatorKey.currentState!.overlay!.context;
   }
 }
