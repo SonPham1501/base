@@ -8,7 +8,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class AppBase {
   static void init({
-    required CenBuildType buildTypeInit,
+    required Environment buildTypeInit,
     required String apiUrlInit,
     String? fingerInit,
   }) {
@@ -27,7 +27,7 @@ class AppBase {
     TrackingHelper.initData();
   }
 
-  static CenBuildType buildType = CenBuildType.test;
+  static Environment buildType = Environment.DEV;
   static String packageName = "";
   static String version = "";
   static String buildVersion = "";
@@ -39,10 +39,10 @@ class AppBase {
   static String get appId {
     var build = "test";
     var platform = "ios";
-    if (buildType == CenBuildType.product) {
+    if (buildType == Environment.PROD) {
       build = "product";
     }
-    if (buildType == CenBuildType.staging) {
+    if (buildType == Environment.STAGING) {
       build = "staging";
     }
     if (Platform.isAndroid) {

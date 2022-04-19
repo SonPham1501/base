@@ -12,7 +12,7 @@ class VersionInfoWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          if (AppBase.buildType == CenBuildType.test)
+          if (AppBase.buildType == Environment.DEV)
             Column(
               children: [
                 Text(
