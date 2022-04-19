@@ -15,7 +15,7 @@ final networkOnlyPolicies = Policies(
 );
 
 GraphQLClient _buildClient({
-  @required String? uri,
+  required String uri,
   String? fixedToken,
 }) {
   io.HttpClient _httpClient = io.HttpClient();
@@ -72,12 +72,12 @@ GraphQLClient _buildClient({
 
 class GraphQLApiClient {
   GraphQLApiClient({
-    required String? uri,
+    required String uri,
   }) : client = _buildClient(uri: uri);
 
   GraphQLApiClient.withFixedToken({
-    required String? uri,
-    required String? token,
+    required String uri,
+    required String token,
   }) : client = _buildClient(uri: uri, fixedToken: token);
 
   final GraphQLClient client;
