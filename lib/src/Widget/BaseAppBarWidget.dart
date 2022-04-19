@@ -28,6 +28,7 @@ class BaseAppBarWidget extends AppBar {
       this.onback, this.iconLeading,
       this.titleColor})
       : super(
+          key: key,
           brightness: Brightness.light,
           backgroundColor: backgroundColor,
           automaticallyImplyLeading: false,
