@@ -31,3 +31,4 @@ export './LineBaseWidget.dart';
 export './LoadingWidget.dart';
 export './LoadingWithViewStateWidget.dart';
 export './VersionInfoWidget.dart';
+export './common_button.dart';
