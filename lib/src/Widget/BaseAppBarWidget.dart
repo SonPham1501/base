@@ -21,7 +21,7 @@ class BaseAppBarWidget extends AppBar {
   BaseAppBarWidget(
       {Key? key,
       this.textTitle,
-      @required this.context,
+      required this.context,
       this.actions,
       this.isLeadingIcon = true,
       this.backgroundColor = Colors.white,
