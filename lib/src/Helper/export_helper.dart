@@ -9,3 +9,4 @@ export './SqliteHelper.dart';
 export './TrackingHelper.dart';
 export './UpdateHelper.dart';
 export './locator.dart';
+export './navigator.dart';
