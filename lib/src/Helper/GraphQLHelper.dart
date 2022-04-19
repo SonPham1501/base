@@ -2,7 +2,6 @@ import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
 import 'package:base/base.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
 import 'package:http/io_client.dart' as http;
@@ -23,7 +22,7 @@ GraphQLClient _buildClient({
   http.IOClient _ioClient = http.IOClient(_httpClient);
 
   final httpLink = HttpLink(
-    uri!,
+    uri,
     httpClient: _ioClient,
     // httpClient: LoggerHttpClient(http.Client()),
   );
