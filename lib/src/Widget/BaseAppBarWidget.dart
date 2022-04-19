@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../Common/Constant.dart';
 import '../Utils/BaseResourceUtil.dart';
-import '../Utils/FontUtil.dart';
 
 // ignore: must_be_immutable
 class BaseAppBarWidget extends AppBar {
@@ -16,6 +15,12 @@ class BaseAppBarWidget extends AppBar {
   final Color? titleColor;
   final bool isLeadingIcon;
   final Widget? iconLeading;
+  @override
+  final Widget? title;
+  @override
+  final bool centerTitle;
+  @override
+  final double? elevation;
   final BuildContext context;
 
   BaseAppBarWidget(
@@ -24,8 +29,12 @@ class BaseAppBarWidget extends AppBar {
       required this.context,
       this.actions,
       this.isLeadingIcon = true,
+      this.centerTitle = false,
       this.backgroundColor = Colors.white,
-      this.onback, this.iconLeading,
+      this.elevation = 0,
+      this.title,
+      this.onback,
+      this.iconLeading,
       this.titleColor})
       : super(
           key: key,
@@ -44,24 +53,17 @@ class BaseAppBarWidget extends AppBar {
                     ),
                   ),
                   onPressed: () {
-                    if (onback == null && context != null) {
+                    if (onback == null) {
                       Navigator.of(context).pop();
                     } else {
-                      onback!.call();
+                      onback.call();
                     }
                   },
                 )
               : null,
-          title: Text(
-            textTitle ?? "",
-            style: TextStyle(
-              color: titleColor ?? Constant.kColorBlackPrimary,
-              fontFamily: FontUtil.semiBold,
-              fontSize: 17,
-            ),
-          ),
+          title: title,
           actions: actions,
-          centerTitle: true,
-          elevation: 0,
+          centerTitle: centerTitle,
+          elevation: elevation,
         );
 }
