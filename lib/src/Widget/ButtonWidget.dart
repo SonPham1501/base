@@ -15,6 +15,8 @@ class ButtonWidget extends StatelessWidget {
   final ButtonType buttonType;
   final TextStyle? textStyle;
   final EdgeInsets? paddingContent;
+  final Color? backgroundColor;
+  final Color? borderColor;
 
   const ButtonWidget({Key? key, 
     this.title,
@@ -25,6 +27,8 @@ class ButtonWidget extends StatelessWidget {
     this.borderRadius = 8,
     this.textStyle,
     this.paddingContent,
+    this.borderColor,
+    this.backgroundColor,
   }) : super(key: key);
 
   Color getBackground() {
@@ -96,13 +100,13 @@ class ButtonWidget extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           onPrimary: Colors.white,
-          primary: getBackground(),
+          primary: backgroundColor ?? getBackground(),
           padding: paddingContent ?? const EdgeInsets.symmetric(horizontal: 5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
             side: BorderSide(
               width: 1,
-              color: getColorBorder(),
+              color: borderColor ?? getColorBorder(),
             ),
           ),
         ),
