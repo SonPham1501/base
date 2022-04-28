@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../Common/Constant.dart';
-import '../Utils/BaseResourceUtil.dart';
 
 // ignore: must_be_immutable
 class BaseAppBarWidget extends AppBar {
@@ -44,13 +40,9 @@ class BaseAppBarWidget extends AppBar {
           titleSpacing: 0,
           leading: isLeadingIcon
               ? IconButton(
-                  icon: iconLeading ??Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: SvgPicture.asset(
-                      BaseResourceUtil.icon("ic_arrow_left.svg"),
-                      color: titleColor ?? Constant.kColorBlackPrimary,
-                      width: 12,
-                    ),
+                  icon: iconLeading ??const Padding(
+                    padding: EdgeInsets.all(2),
+                    child: Icon(Icons.arrow_back_ios_new_rounded),
                   ),
                   onPressed: () {
                     if (onback == null) {
