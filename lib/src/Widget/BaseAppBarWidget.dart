@@ -18,6 +18,7 @@ class BaseAppBarWidget extends AppBar {
   @override
   final double? elevation;
   final BuildContext context;
+  final double sizeIcon;
 
   BaseAppBarWidget(
       {Key? key,
@@ -30,6 +31,7 @@ class BaseAppBarWidget extends AppBar {
       this.elevation = 0,
       this.title,
       this.onback,
+      this.sizeIcon = 12,
       this.iconLeading,
       this.titleColor})
       : super(
@@ -46,7 +48,7 @@ class BaseAppBarWidget extends AppBar {
                       child: Icon(
                         Icons.arrow_back_ios_new_rounded,
                         color: titleColor,
-                        size: 12,
+                        size: sizeIcon,
                       ),
                     ),
                   onPressed: () {
