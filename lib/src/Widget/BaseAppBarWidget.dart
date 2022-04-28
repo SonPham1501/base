@@ -40,10 +40,15 @@ class BaseAppBarWidget extends AppBar {
           titleSpacing: 0,
           leading: isLeadingIcon
               ? IconButton(
-                  icon: iconLeading ??const Padding(
-                    padding: EdgeInsets.all(2),
-                    child: Icon(Icons.arrow_back_ios_new_rounded),
-                  ),
+                  icon: iconLeading ??
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: titleColor,
+                        size: 12,
+                      ),
+                    ),
                   onPressed: () {
                     if (onback == null) {
                       Navigator.of(context).pop();
