@@ -47,7 +47,7 @@ class BaseAppBarWidget extends AppBar {
                   icon: iconLeading ??Padding(
                     padding: const EdgeInsets.all(2),
                     child: SvgPicture.asset(
-                      BaseResourceUtil.icon("ic_arrow_left.svg"),
+                      BaseResourceUtil.icon("ic_close_x.svg"),
                       color: titleColor ?? Constant.kColorBlackPrimary,
                       width: 12,
                     ),
