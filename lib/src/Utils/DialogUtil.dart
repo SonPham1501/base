@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class DialogUtil {
-  static void showLoading() {
+  static showLoading() {
     // Future.delayed(Duration.zero, () async {
     //   Get.dialog(
     //     WillPopScope(
