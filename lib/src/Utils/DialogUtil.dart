@@ -32,6 +32,7 @@ class DialogUtil {
     //
     //   );
     // });
+    EasyLoading.init();
     EasyLoading.show(maskType: EasyLoadingMaskType.black, indicator: const LoadingWidget());
   }
 
