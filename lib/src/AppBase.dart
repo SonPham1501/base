@@ -1,6 +1,7 @@
 
 import 'package:base/base.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info/package_info.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -17,6 +18,7 @@ class AppBase {
     buildType = buildTypeInit;
     sessionId = Util.getUuid();
     apiUrl = apiUrlInit;
+    EasyLoading.init();
     PackageInfo.fromPlatform().then((packageInfo) {
       packageName = packageInfo.packageName;
       version = packageInfo.version;
