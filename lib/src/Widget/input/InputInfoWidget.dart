@@ -1,13 +1,11 @@
 import 'package:async/async.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/BaseResourceUtil.dart';
 import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
 import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class InputInfoWidget extends StatefulWidget {
   final TextEditingController? controller;
@@ -351,11 +349,10 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                         child: SizedBox(
                           height: widget.minHeight,
                           width: 40,
-                          child: Center(
-                              child: SvgPicture.asset(
-                            BaseResourceUtil.icon("ic_close"),
-                            height: 16,
-                            width: 16,
+                          child: const Center(
+                              child: Icon(
+                            Icons.highlight_remove_outlined,
+                            size: 16,
                           )),
                         ),
                       )
