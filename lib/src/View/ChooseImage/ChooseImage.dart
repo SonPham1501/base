@@ -26,7 +26,17 @@ class ChooseImage {
   final isMultiImage;
   String? title;
 
-  ChooseImage({required this.context, this.onActionTakePicture, this.isCrop = false, this.isMultiImage = false, this.title});
+  ChooseImage({
+    required this.context,
+    this.onActionTakePicture,
+    this.isCrop = false,
+    this.isMultiImage = false,
+    this.title,
+    this.onChooseImage,
+    this.onChooseMultiImage,
+    this.onHideLoading,
+    this.onShowLoading,
+  });
 
   void show() async {
     showDialog(
