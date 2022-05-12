@@ -2,6 +2,7 @@ import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
 import 'package:base/base.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
 import 'package:http/io_client.dart' as http;
@@ -70,6 +71,9 @@ GraphQLClient _buildClient({
 }
 
 class GraphQLApiClient {
+  static Future? refeshToken;
+  static Function()? action;
+
   GraphQLApiClient({
     required String uri,
   }) : client = _buildClient(uri: uri);
@@ -83,6 +87,7 @@ class GraphQLApiClient {
 
   Future<NetworkResourceState<T>> query<T>(
     GraphQLQuery query,
+    {int countRequest = 1}
   ) async {
     final result = await client.query(QueryOptions(
       document: query.document,
@@ -91,7 +96,19 @@ class GraphQLApiClient {
 
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
-        print('errr --- ');
+        debugPrint('errr ---');
+        if (refeshToken != null && action != null) {
+          var isGetAccessTokenSuccess = (await refeshToken).call();
+          if (isGetAccessTokenSuccess) {
+            if (countRequest < 2) {
+              return await this.query(query, countRequest: countRequest + 1);
+            } else {
+              action!.call();
+            }
+          } else {
+            action!.call();
+          }
+        }
         // navigationService.logout();
       }
 
@@ -104,7 +121,7 @@ class GraphQLApiClient {
         // );
       }
 
-      print('result.exception ${result.exception}');
+      debugPrint('result.exception ${result.exception}');
       return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
     }
     final data = query.parse(result.data as Map<String, dynamic>) as T;
