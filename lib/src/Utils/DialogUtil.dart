@@ -1,11 +1,43 @@
 import 'package:base/src/Common/Constant.dart';
+import 'package:base/src/Helper/navigator.dart';
 import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Widget/ButtonWidget.dart';
 import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:graphql/client.dart';
 
 class DialogUtil {
+
+  static Future<void> onChangeStatusFailed(List<GraphQLError> errors) async {
+    await showGraphQLErrorDialog(errors);
+  }
+
+  static Future<void> showGraphQLErrorDialog(List<GraphQLError> errors, {String? code}) async {
+    final message = errors.isEmpty == true || errors.first.message.isEmpty
+        ? 'Máy chủ đang bảo trì.'
+        : (code ?? '') + errors.first.message;
+
+    return await showSimpleDialog(message);
+  }
+
+  static Future<void> showSimpleDialog(String message) async {
+    return await showDialog<void>(
+      context: navigationService.context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static showLoading() {
     // Future.delayed(Duration.zero, () async {
     //   Get.dialog(
