@@ -50,7 +50,7 @@ GraphQLClient _buildClient({
     final newFinger = AuthLink(
       headerKey: 'Finger',
       getToken: () async {
-        return '6d5317668df960d45198aacd35fa7d3d';
+        return AppBase.finger;
       },
     );
 
