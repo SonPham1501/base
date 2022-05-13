@@ -1,4 +1,5 @@
 import 'package:base/src/Common/Enum.dart';
+import 'package:base/src/Model/BaseLoadMoreModel.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -13,16 +14,20 @@ class BaseSliverListWidget extends StatefulWidget {
   final Function? onRefresh;
   final Widget? childHeader;
   final Widget? childList;
+  final ViewState viewState;
   final bool isBottomSafeArea;
   final bool isShowTotalRecord;
   final String? contentTotalRecord;
+  final BaseLoadMoreModel baseLoadMoreModel;
 
   const BaseSliverListWidget({
     Key? key,
+    required this.baseLoadMoreModel,
     this.onLoadMore,
     this.onRefresh,
     this.childHeader,
     this.childList,
+    this.viewState = ViewState.Loading,
     this.isBottomSafeArea = true,
     this.isShowTotalRecord = false,
     this.contentTotalRecord,
@@ -36,10 +41,6 @@ class _BaseSliverListWidgetState extends State<BaseSliverListWidget> {
   var refreshController = RefreshController(initialRefresh: false);
   var scrollController = ScrollController();
 
-  ViewState viewState = ViewState.Loading;
-
-  var countRecord = 0; //số lượng bản ghi
-  bool isLoadMore = false;
   String errorMessage = '';
 
   @override
@@ -71,27 +72,27 @@ class _BaseSliverListWidgetState extends State<BaseSliverListWidget> {
           controller: scrollController,
           slivers: [
             if (widget.childHeader != null) widget.childHeader!,
-            if (viewState == ViewState.Loading) ...[
+            if (widget.viewState == ViewState.Loading) ...[
               const SliverListLoadingWidget(),
             ],
-            if (viewState == ViewState.Loaded ||
-                viewState == ViewState.Complete) ...[
+            if (widget.viewState == ViewState.Loaded ||
+                widget.viewState == ViewState.Complete) ...[
               if (widget.isShowTotalRecord)
                 SliverListTotalRecord(
-                  total: countRecord,
+                  total: widget.baseLoadMoreModel.numberLoad,
                   contentName: widget.contentTotalRecord,
                 ),
               if (widget.childList != null) widget.childList!,
               SliverListLoadMoreWidget(
-                loadMore: isLoadMore,
+                loadMore: widget.baseLoadMoreModel.isLoad,
               ),
             ],
-            if (viewState == ViewState.Error) ...[
+            if (widget.viewState == ViewState.Error) ...[
               SliverListMessageWidget(
                 title: errorMessage,
               ),
             ],
-            if (viewState == ViewState.DataNull) ...[
+            if (widget.viewState == ViewState.DataNull) ...[
               const SliverListMessageWidget(
                 title: "Không có dữ liệu",
               ),
