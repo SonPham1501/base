@@ -20,6 +20,7 @@ export 'src/View/RatingBarIndicator/RatingBarIndicator.dart';
 export 'src/Widget/export_widget.dart';
 export 'src/api/common_entity/network_resource_state.dart';
 export 'src/api/scalar_mapping/coercers.dart';
+export 'src/View/DateTimePicker/FlutterCupertinoDatePicker/src/date_time_formatter.dart';
 
 /// A Calculator.
 class Calculator {
