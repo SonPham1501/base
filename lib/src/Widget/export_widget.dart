@@ -20,6 +20,7 @@ export './SliverWidget/SliverListMessageWidget.dart';
 export './SliverWidget/SliverListTotalRecord.dart';
 export './AvatarWidget.dart';
 export './BaseAppBarBottomSheetWidget.dart';
+export './custom_loadmore_delegate.dart';
 export './BaseAppBarWidget.dart';
 export './BaseTabBarIndicator.dart';
 export './BottomBoxWidget.dart';
