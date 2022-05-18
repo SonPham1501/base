@@ -128,7 +128,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
     }
 
     if (widget.isShowHintTitle) {
-      if (value.isEmpty) {
+      if ((widget.controller != null && widget.controller!.text.isEmpty) || _textEditingController.text.isEmpty) {
         _isShowTitle = false;
       } else {
         _isShowTitle = true;
