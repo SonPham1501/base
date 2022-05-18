@@ -78,7 +78,7 @@ class InputInfoWidget extends StatefulWidget {
     this.textColor,
     this.autoFocus = false,
     this.timeDeBouncer = 500,
-    this.isShowHintTitle = true,
+    this.isShowHintTitle = false,
     this.fontSize = 14,
   }) : super(key: key);
 
@@ -95,9 +95,15 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
   late TextEditingController _textEditingController;
   late bool _isShowPass;
 
+  bool _isShowTitle = false;
+
+  @override
+  void setState(VoidCallback fn) {
+    if (mounted) super.setState(fn);
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _isShowPass = !widget.obscureText;
     _focusNode = widget.focusNode ?? FocusNode();
@@ -108,7 +114,6 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     debugPrint("InputInfoWidget dispose");
     _focusNode.dispose();
     super.dispose();
@@ -120,6 +125,14 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
       onSearchDeBouncer.debounce(() {
         widget.onChangedDeBouncer!(value);
       });
+    }
+
+    if (widget.isShowHintTitle) {
+      if (value.isEmpty) {
+        _isShowTitle = false;
+      } else {
+        _isShowTitle = true;
+      }
     }
 
     setState(() {});
@@ -238,10 +251,10 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                                             top: 40),
                                         cursorColor: Colors.transparent,
                                         decoration: InputDecoration(
-                                            hintText: !widget.isShowHintTitle
+                                            hintText: !_isShowTitle
                                                 ? widget.hintText
                                                 : null,
-                                            labelText: widget.isShowHintTitle
+                                            labelText: _isShowTitle
                                                 ? widget.hintText
                                                 : null,
                                             labelStyle: TextStyle(
