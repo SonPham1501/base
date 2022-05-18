@@ -7,6 +7,7 @@ export './BaseValidateUtil.dart';
 export './DialogUtil.dart';
 export './FontUtil.dart';
 export './ScreenUtil.dart';
+export './BottomSheetUtil.dart';
 export './customs_page_route/customs_page_route.dart';
 export './flutter_base/CryptoUtil.dart';
 export './flutter_base/DateTimeUtil.dart';
