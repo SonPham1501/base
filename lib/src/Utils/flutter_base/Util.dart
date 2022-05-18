@@ -743,6 +743,14 @@ class Util {
     return null;
   }
 
+  static void popCountScreen(int countScreen) {
+    int count = 0;
+    while (count < countScreen) {
+      Navigator.of(navigationService.context).pop();
+      count++;
+    }
+  }
+
   //tắt bàn phím
   static void onHideKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
