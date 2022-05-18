@@ -128,7 +128,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
     }
 
     if (widget.isShowHintTitle) {
-      if ((widget.controller != null && widget.controller!.text.isEmpty) || _textEditingController.text.isEmpty) {
+      if (value.isEmpty) {
         _isShowTitle = false;
       } else {
         _isShowTitle = true;
@@ -356,6 +356,15 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                           }
                           if (widget.onChanged != null) {
                             widget.onChanged?.call("");
+                          }
+                          if (widget.isShowHintTitle) {
+                            if ((widget.controller != null &&
+                                    widget.controller!.text.isEmpty) ||
+                                _textEditingController.text.isEmpty) {
+                              _isShowTitle = false;
+                            } else {
+                              _isShowTitle = true;
+                            }
                           }
                           setState(() {});
                         },
