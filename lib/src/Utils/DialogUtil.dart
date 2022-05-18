@@ -72,6 +72,67 @@ class DialogUtil {
     EasyLoading.dismiss();
   }
 
+  static Future<bool> buildBaseDialog({
+    Widget? header,
+    Widget? body,
+    List<Widget>? actions,
+    bool? barrierDismissible,
+    Color barrierColor = Colors.black54,
+    EdgeInsets insetPadding = const EdgeInsets.symmetric(horizontal: 16),
+  }) async {
+    BuildContext context = navigationService.context;
+
+    Dialog buildDialog() {
+      return Dialog(
+        insetPadding: insetPadding,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: Colors.white,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5, bottom: 10),
+                    child: header ?? const SizedBox(),
+                  ),
+                  body ?? const SizedBox(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: actions ?? [],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    bool? result = await showDialog(
+      barrierDismissible: barrierDismissible ?? true,
+      barrierColor: barrierColor,
+      context: context,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async {
+            return barrierDismissible ?? true;
+          },
+          child: buildDialog(),
+        );
+      },
+    );
+
+    return result ?? false;
+  }
+
   static showErrorDialog(BuildContext context, {String? error}) {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
