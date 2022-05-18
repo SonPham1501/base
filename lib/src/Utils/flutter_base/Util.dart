@@ -1,5 +1,7 @@
-import 'dart:io' show Platform;
+import 'dart:convert';
+import 'dart:io' show File, Platform;
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:base/src/Extends/StringExtend.dart';
 import 'package:base/src/Helper/export_helper.dart';
@@ -7,6 +9,7 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/services.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
@@ -743,6 +746,66 @@ class Util {
     return null;
   }
 
+  //chuyển đổi file sang base 64
+  static Future<String> convertFileToBase64(String? path) async {
+    if (path == null || path == '') return '';
+    try {
+      if (path.contains('http://') || path.contains('https://')) {
+        return path;
+      }
+      // to match file <5Mb
+      //File file = await getFileMiniSize(path);
+      File file = File(path);
+      final Uint8List bytes = await file.readAsBytes();
+      String img64 = base64UrlEncode(bytes);
+      String type = extension(file.path).split('.')[1];
+      String imgCode = 'data:image/$type;base64,$img64';
+      return imgCode;
+    } catch (e) {
+      print(e);
+      return '';
+    }
+  }
+
+  // To get file in mini size
+  static Future<File> getFileMiniSize(String path) async {
+    try {
+      File file = File(path);
+      int sizeInBytes = file.lengthSync();
+      double sizeInMb = sizeInBytes / (1024 * 1024);
+      if (sizeInMb < 4) {
+        return file;
+      }
+      int percentQuality = ((4 / sizeInMb) * 100).round();
+      ImageProperties properties = await FlutterNativeImage.getImageProperties(file.path);
+      File result;
+      if ((properties.width ?? 1025) > 1024) {
+        result = await FlutterNativeImage.compressImage(
+          file.path,
+          quality: percentQuality,
+          targetWidth: 1024,
+          targetHeight: (properties.height! * 1024 / properties.width!).round(),
+        );
+      } else {
+        result = await FlutterNativeImage.compressImage(file.path, quality: 80);
+      }
+      double sizeResult = result.lengthSync() / (1024 * 1024);
+      if (sizeResult < 4) {
+        return result;
+      }
+      while (sizeResult > 4) {
+        percentQuality = ((4 / sizeResult) * 100).round();
+        result = await FlutterNativeImage.compressImage(file.path, quality: percentQuality, percentage: 80);
+        sizeResult = (result.lengthSync()) / (1024 * 1024);
+      }
+      return result;
+    } catch (e, t) {
+      print(t);
+      return File(path);
+    }
+  }
+
+  //thoát số màn hình
   static void popCountScreen(int countScreen) {
     int count = 0;
     while (count < countScreen) {
@@ -755,6 +818,7 @@ class Util {
   static void onHideKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
+
 }
 
 class _UserNameInfo {
