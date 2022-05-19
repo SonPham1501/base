@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 
 class InputSelectorWidget extends StatelessWidget {
+  final Widget? icon;
   final String? title;
   final String? content;
   final Function()? onTap;
@@ -13,6 +14,7 @@ class InputSelectorWidget extends StatelessWidget {
 
   const InputSelectorWidget({
     Key? key,
+    this.icon,
     this.title,
     this.content,
     this.onTap,
@@ -83,26 +85,36 @@ class InputSelectorWidget extends StatelessWidget {
         ),
         height: 48,
         padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
           children: [
-            Text(
-              title ?? "",
-              style: TextStyle(
-                fontFamily: FontUtil.regular,
-                fontSize: 11,
-                color: Constant.kColorBlackPrimary.withOpacity(0.7),
-              ),
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Text(
-              content ?? "",
-              style: TextStyle(
-                fontFamily: FontUtil.regular,
-                fontSize: 13,
+            if (icon != null) ...[
+              icon!,
+              const SizedBox(width: 5),
+            ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    title ?? "",
+                    style: TextStyle(
+                      fontFamily: FontUtil.regular,
+                      fontSize: 11,
+                      color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Text(
+                    content ?? "",
+                    style: TextStyle(
+                      fontFamily: FontUtil.regular,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
