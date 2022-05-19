@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../date_picker_theme.dart';
-import '../date_picker_constants.dart';
 import '../i18n/date_picker_i18n.dart';
 
 /// DatePicker's title widget.
@@ -10,7 +8,7 @@ import '../i18n/date_picker_i18n.dart';
 /// @author dylan wu
 /// @since 2019-05-16
 class DatePickerTitleWidget extends StatelessWidget {
-  DatePickerTitleWidget({
+  const DatePickerTitleWidget({
     Key? key,
     required this.pickerTheme,
     required this.locale,
@@ -28,7 +26,7 @@ class DatePickerTitleWidget extends StatelessWidget {
       height: pickerTheme.titleHeight,
       decoration: BoxDecoration(
         color: pickerTheme.backgroundColor,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
