@@ -1,32 +1,19 @@
 import 'dart:math';
 
-part 'strings_en_us.dart';
-
-part 'strings_zh_cn.dart';
-
-part 'strings_pt_br.dart';
-
-part 'strings_es.dart';
-
-part 'strings_ro.dart';
-
-part 'strings_bn.dart';
-
 part 'strings_ar.dart';
-
-part 'strings_jp.dart';
-
-part 'strings_ru.dart';
-
+part 'strings_bn.dart';
 part 'strings_de.dart';
-
-part 'strings_ko.dart';
-
-part 'strings_it.dart';
-
+part 'strings_en_us.dart';
+part 'strings_es.dart';
 part 'strings_hu.dart';
-
+part 'strings_it.dart';
+part 'strings_jp.dart';
+part 'strings_ko.dart';
+part 'strings_pt_br.dart';
+part 'strings_ro.dart';
+part 'strings_ru.dart';
 part 'strings_vi.dart';
+part 'strings_zh_cn.dart';
 
 abstract class _StringsI18n {
   const _StringsI18n();
@@ -93,20 +80,20 @@ enum DateTimePickerLocale {
 const DateTimePickerLocale DATETIME_PICKER_LOCALE_DEFAULT = DateTimePickerLocale.en_us;
 
 const Map<DateTimePickerLocale, _StringsI18n> datePickerI18n = {
-  DateTimePickerLocale.en_us: const _StringsEnUs(),
-  DateTimePickerLocale.zh_cn: const _StringsZhCn(),
-  DateTimePickerLocale.pt_br: const _StringsPtBr(),
-  DateTimePickerLocale.es: const _StringsEs(),
-  DateTimePickerLocale.ro: const _StringsRo(),
-  DateTimePickerLocale.bn: const _StringsBn(),
-  DateTimePickerLocale.ar: const _StringsAr(),
-  DateTimePickerLocale.jp: const _StringsJp(),
-  DateTimePickerLocale.ru: const _StringsRu(),
-  DateTimePickerLocale.de: const _StringsDe(),
-  DateTimePickerLocale.ko: const _StringsKo(),
-  DateTimePickerLocale.it: const _StringsIt(),
-  DateTimePickerLocale.hu: const _StringsHu(),
-  DateTimePickerLocale.vi: const _StringsVi(),
+  DateTimePickerLocale.en_us: _StringsEnUs(),
+  DateTimePickerLocale.zh_cn: _StringsZhCn(),
+  DateTimePickerLocale.pt_br: _StringsPtBr(),
+  DateTimePickerLocale.es: _StringsEs(),
+  DateTimePickerLocale.ro: _StringsRo(),
+  DateTimePickerLocale.bn: _StringsBn(),
+  DateTimePickerLocale.ar: _StringsAr(),
+  DateTimePickerLocale.jp: _StringsJp(),
+  DateTimePickerLocale.ru: _StringsRu(),
+  DateTimePickerLocale.de: _StringsDe(),
+  DateTimePickerLocale.ko: _StringsKo(),
+  DateTimePickerLocale.it: _StringsIt(),
+  DateTimePickerLocale.hu: _StringsHu(),
+  DateTimePickerLocale.vi: _StringsVi(),
 };
 
 class DatePickerI18n {
