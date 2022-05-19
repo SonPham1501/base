@@ -48,13 +48,23 @@ class InputSelectorWidget extends StatelessWidget {
                   height: 48,
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    title ?? "",
-                    style: TextStyle(
-                      fontFamily: FontUtil.regular,
-                      fontSize: 13,
-                      color: Constant.kColorBlackPrimary.withOpacity(0.7),
-                    ),
+                  child: Row(
+                    children: [
+                      if (icon != null) ...[
+                        icon!,
+                        const SizedBox(width: 10),
+                      ],
+                      Expanded(
+                        child: Text(
+                          title ?? "",
+                          style: TextStyle(
+                            fontFamily: FontUtil.regular,
+                            fontSize: 13,
+                            color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -89,7 +99,7 @@ class InputSelectorWidget extends StatelessWidget {
           children: [
             if (icon != null) ...[
               icon!,
-              const SizedBox(width: 5),
+              const SizedBox(width: 10),
             ],
             Expanded(
               child: Column(
