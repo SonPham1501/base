@@ -38,7 +38,7 @@ class InputSelectorWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: onTap,
+                onTap: enable ? onTap : null,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.transparent,
@@ -86,7 +86,7 @@ class InputSelectorWidget extends StatelessWidget {
       );
     }
     return InkWell(
-      onTap: onTap,
+      onTap: enable ? onTap : null,
       child: Container(
         decoration: BoxDecoration(
           color: enable ? Colors.transparent : Constant.kColorInputDisable,
