@@ -2,27 +2,27 @@ import 'package:base/src/Helper/navigator.dart';
 import 'package:flutter/material.dart';
 
 abstract class BottomSheetUtil {
-  static Future<bool> buildBaseButtonSheet({
+  static Future<T> buildBaseButtonSheet<T>({
     required Widget child,
     bool isScroll = true,
   }) async {
     BuildContext _context = navigationService.context;
-    bool? _res = await showModalBottomSheet(
+    final T _res = await showModalBottomSheet(
       context: _context,
       useRootNavigator: true,
       isScrollControlled: isScroll,
       builder: (c) => child,
     );
-    return _res ?? false;
+    return _res;
   }
 
-  static Future<bool> buildRatioButtonSheet({
+  static Future<T> buildRatioButtonSheet<T>({
     required Widget child,
     double ratio = 0.9,
     bool isScroll = true,
   }) async {
     BuildContext _context = navigationService.context;
-    bool? _res = await showModalBottomSheet(
+    final T _res = await showModalBottomSheet(
       context: _context,
       useRootNavigator: true,
       isScrollControlled: isScroll,
@@ -32,6 +32,6 @@ abstract class BottomSheetUtil {
         child: child,
       ),
     );
-    return _res ?? false;
+    return _res;
   }
 }
