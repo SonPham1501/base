@@ -357,6 +357,9 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                           if (widget.onChanged != null) {
                             widget.onChanged?.call("");
                           }
+                          if (widget.onChangedDeBouncer != null) {
+                            widget.onChangedDeBouncer?.call("");
+                          }
                           if (widget.isShowHintTitle) {
                             if ((widget.controller != null &&
                                     widget.controller!.text.isEmpty) ||
