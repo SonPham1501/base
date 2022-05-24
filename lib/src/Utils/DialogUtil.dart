@@ -72,7 +72,7 @@ class DialogUtil {
     EasyLoading.dismiss();
   }
 
-  static Future<bool> buildBaseDialog({
+  static Future<T?> buildBaseDialog<T>({
     Widget? header,
     Widget? body,
     List<Widget>? actions,
@@ -116,7 +116,7 @@ class DialogUtil {
       );
     }
 
-    bool? result = await showDialog(
+    T? result = await showDialog(
       barrierDismissible: barrierDismissible ?? true,
       barrierColor: barrierColor,
       context: context,
@@ -130,7 +130,7 @@ class DialogUtil {
       },
     );
 
-    return result ?? false;
+    return result;
   }
 
   static showErrorDialog(BuildContext context, {String? error}) {
