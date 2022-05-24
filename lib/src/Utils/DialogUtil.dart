@@ -101,11 +101,11 @@ class DialogUtil {
                     child: header ?? const SizedBox(),
                   ),
                   body ?? const SizedBox(),
-                  Padding(
+                  actions == null ? const SizedBox() : Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: actions ?? [],
+                      children: actions,
                     ),
                   ),
                 ],
