@@ -78,6 +78,7 @@ class DialogUtil {
     List<Widget>? actions,
     bool? barrierDismissible,
     Color barrierColor = Colors.black54,
+    double width = double.infinity,
     EdgeInsets insetPadding = const EdgeInsets.symmetric(horizontal: 16),
   }) async {
     BuildContext context = navigationService.context;
@@ -90,7 +91,7 @@ class DialogUtil {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: SizedBox(
-            width: double.infinity,
+            width: width,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
