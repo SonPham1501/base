@@ -1,4 +1,5 @@
 import 'package:async/async.dart';
+import 'package:base/base.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/InputOptionObject.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
@@ -190,7 +191,7 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                                 textInputAction: widget.textInputAction,
                                 inputFormatters: finalFormatter..add(LengthLimitingTextFieldFormatterFixed(widget.maxLength)),
                                 style: TextStyle(
-                                  color: widget.textColor ?? Constant.kColorBlackPrimary,
+                                  color: widget.textColor ?? ColorExtends('4F4F4F'),
                                   fontSize: 14,
                                   fontFamily: widget.fontFamily ?? FontUtil.regular,
                                 ),

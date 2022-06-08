@@ -1,6 +1,4 @@
-import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,6 +9,7 @@ class InputSelectorWidget extends StatelessWidget {
   final Function()? onTap;
   final bool enable;
   final Stream<InputOptionObject>? inputOptionObject;
+  final String colorInputText;
 
   const InputSelectorWidget({
     Key? key,
@@ -20,6 +19,7 @@ class InputSelectorWidget extends StatelessWidget {
     this.onTap,
     this.inputOptionObject,
     this.enable = true,
+    this.colorInputText = '4F4F4F',
   }) : super(key: key);
 
   @override
@@ -60,7 +60,7 @@ class InputSelectorWidget extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: FontUtil.regular,
                             fontSize: 13,
-                            color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                            color: ColorExtends(colorInputText),
                           ),
                         ),
                       ),
@@ -111,7 +111,7 @@ class InputSelectorWidget extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: FontUtil.regular,
                       fontSize: 11,
-                      color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                      color: ColorExtends(colorInputText),
                     ),
                   ),
                   const SizedBox(

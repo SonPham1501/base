@@ -1,4 +1,5 @@
 import 'package:async/async.dart';
+import 'package:base/base.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/InputOptionObject.dart';
 import 'package:base/src/Utils/FontUtil.dart';
@@ -196,7 +197,7 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                                       widget.maxLength)),
                                 style: TextStyle(
                                   color: widget.textColor ??
-                                      Constant.kColorBlackPrimary,
+                                      ColorExtends('4F4F4F'),
                                   fontSize: 14,
                                   fontFamily:
                                   widget.fontFamily ?? FontUtil.regular,
@@ -225,8 +226,7 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                                   const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   isDense: true,
                                   hintStyle: TextStyle(
-                                    color: Constant.kColorBlackPrimary
-                                        .withOpacity(0.7),
+                                    color: ColorExtends('4F4F4F'),
                                     fontSize: 14,
                                     fontFamily: FontUtil.regular,
                                   ),

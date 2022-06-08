@@ -1,6 +1,4 @@
-import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 
 class InputSelectorNormalWidget extends StatelessWidget {
@@ -13,6 +11,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
   final double height;
   final bool isHaveSmallClose;
   final Stream<InputOptionObject>? inputOptionObject;
+  final String colorInputText;
 
   const InputSelectorNormalWidget({
     Key? key,
@@ -25,6 +24,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
     this.isHaveSmallClose = false,
     this.inputOptionObject,
     this.height = 48,
+    this.colorInputText = '4F4F4F',
   }) : super(key: key);
 
   @override
@@ -54,7 +54,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: FontUtil.regular,
                         fontSize: 13,
-                        color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                        color: ColorExtends(colorInputText),
                       ),
                     ),
                   ),
@@ -110,7 +110,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: FontUtil.regular,
                   fontSize: 13,
-                  color: Constant.kColorBlackPrimary,
+                  color: ColorExtends(colorInputText),
                 ),
               ),
             ),

@@ -1,9 +1,5 @@
 import 'package:async/async.dart';
-import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/FontUtil.dart';
-import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
-import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -43,6 +39,7 @@ class InputInfoWidget extends StatefulWidget {
   final double fontSize;
   final bool isEnableMultiLine;
   final bool isHasExtend;
+  final String colorInputText;
 
   const InputInfoWidget({Key? key, 
     this.controller,
@@ -80,6 +77,7 @@ class InputInfoWidget extends StatefulWidget {
     this.timeDeBouncer = 500,
     this.isShowHintTitle = false,
     this.fontSize = 14,
+    this.colorInputText = '4F4F4F',
   }) : super(key: key);
 
   @override
@@ -258,8 +256,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                                                 ? widget.hintText
                                                 : null,
                                             labelStyle: TextStyle(
-                                              color: Constant.kColorBlackPrimary
-                                                  .withOpacity(0.7),
+                                              color: ColorExtends('4F4F4F'),
                                               fontSize: widget.fontSize,
                                               fontFamily: FontUtil.regular,
                                             ),
