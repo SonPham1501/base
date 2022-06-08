@@ -1,9 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:base/base.dart';
-import 'package:base/src/AppBase.dart';
-import 'package:base/src/Utils/BaseProjectUtil.dart';
-import 'package:base/src/Utils/BaseResourceUtil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +9,9 @@ class CachedImage extends StatefulWidget {
   final BoxFit? fit;
   final double? width;
   final double? scale;
+  final String imgPlaceholder;
 
-  const CachedImage(this.imageUrl, {Key? key, this.fit, this.width, this.scale}) : super(key: key);
+  const CachedImage(this.imageUrl, {Key? key, this.fit, this.width, this.scale, required this.imgPlaceholder}) : super(key: key);
 
   @override
   State<CachedImage> createState() => _CachedImageState();
@@ -48,19 +46,19 @@ class _CachedImageState extends State<CachedImage> {
         fit: widget.fit ?? BoxFit.contain,
         errorWidget: (context, url, error) {
           return Image.asset(
-            BaseResourceUtil.icon("img_placeholder.png"),
+            widget.imgPlaceholder,
             fit: BoxFit.cover,
           );
         },
         placeholder: (context, url) => Image.asset(
-          BaseResourceUtil.icon("img_placeholder.png"),
+          widget.imgPlaceholder,
           fit: BoxFit.cover,
         ),
         httpHeaders: {"Authorization": access_token},
       );
     } else {
       return Image.asset(
-        BaseResourceUtil.icon("img_placeholder.png"),
+        widget.imgPlaceholder,
         fit: BoxFit.cover,
       );
     }
