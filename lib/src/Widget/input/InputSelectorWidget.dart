@@ -10,6 +10,7 @@ class InputSelectorWidget extends StatelessWidget {
   final bool enable;
   final Stream<InputOptionObject>? inputOptionObject;
   final String colorInputText;
+  final FontWeight fontWeight;
 
   const InputSelectorWidget({
     Key? key,
@@ -20,6 +21,7 @@ class InputSelectorWidget extends StatelessWidget {
     this.inputOptionObject,
     this.enable = true,
     this.colorInputText = '4F4F4F',
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -60,6 +62,7 @@ class InputSelectorWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 13,
                             color: ColorExtends(colorInputText),
+                            fontWeight: fontWeight,
                           ),
                         ),
                       ),

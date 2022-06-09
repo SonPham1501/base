@@ -36,6 +36,7 @@ class InputSearchWidget extends StatefulWidget {
   final String? fontFamily;
   final bool autoFocus;
   final int timeDeBouncer;
+  final FontWeight fontWeight;
 
   const InputSearchWidget({Key? key, 
     this.controller,
@@ -69,6 +70,7 @@ class InputSearchWidget extends StatefulWidget {
     this.textColor,
     this.autoFocus = false,
     this.timeDeBouncer = 500,
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -187,6 +189,7 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                                 style: TextStyle(
                                   color: widget.textColor ?? ColorExtends('4F4F4F'),
                                   fontSize: 14,
+                                  fontWeight: widget.fontWeight,
                                 ),
                                 keyboardType: widget.keyboardType,
                                 scrollPadding: EdgeInsets.only(bottom: widget.scrollPaddingBottom, top: 40),

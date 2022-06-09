@@ -12,6 +12,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
   final bool isHaveSmallClose;
   final Stream<InputOptionObject>? inputOptionObject;
   final String colorInputText;
+  final FontWeight fontWeight;
 
   const InputSelectorNormalWidget({
     Key? key,
@@ -25,6 +26,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
     this.inputOptionObject,
     this.height = 48,
     this.colorInputText = '4F4F4F',
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -54,6 +56,7 @@ class InputSelectorNormalWidget extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 13,
                         color: ColorExtends(colorInputText),
+                        fontWeight: fontWeight,
                       ),
                     ),
                   ),

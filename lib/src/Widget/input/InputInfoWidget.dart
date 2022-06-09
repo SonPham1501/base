@@ -40,6 +40,7 @@ class InputInfoWidget extends StatefulWidget {
   final bool isEnableMultiLine;
   final bool isHasExtend;
   final String colorInputText;
+  final FontWeight fontWeight;
 
   const InputInfoWidget({Key? key, 
     this.controller,
@@ -78,6 +79,7 @@ class InputInfoWidget extends StatefulWidget {
     this.isShowHintTitle = false,
     this.fontSize = 14,
     this.colorInputText = '4F4F4F',
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -275,6 +277,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                                           color: widget.textColor ??
                                               Constant.kColorBlackPrimary,
                                           fontSize: widget.fontSize,
+                                          fontWeight: widget.fontWeight,
                                         ),
                                       ),
                                     ),
