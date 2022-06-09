@@ -71,16 +71,20 @@ GraphQLClient _buildClient({
 }
 
 class GraphQLApiClient {
-  static Future? refeshToken;
-  static Function()? action;
+  Future? refeshToken;
+  Function()? action;
 
   GraphQLApiClient({
     required String uri,
+    this.action,
+    this.refeshToken,
   }) : client = _buildClient(uri: uri);
 
   GraphQLApiClient.withFixedToken({
     required String uri,
     required String token,
+    this.action,
+    this.refeshToken,
   }) : client = _buildClient(uri: uri, fixedToken: token);
 
   final GraphQLClient client;
