@@ -96,8 +96,8 @@ class GraphQLApiClient {
     ));
 
     if (result.hasException) {
+      log(countRequest.toString());
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
-        log(countRequest.toString());
         debugPrint('errr ---');
         if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.login != null) {
           var isGetAccessTokenSuccess = (await GraphQLApiClient.refeshToken).call();
