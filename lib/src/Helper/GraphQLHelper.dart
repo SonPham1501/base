@@ -71,7 +71,7 @@ GraphQLClient _buildClient({
 }
 
 class GraphQLApiClient {
-  static Future? refeshToken;
+  static Future<bool> Function()? refeshToken;
   static Function()? action;
 
   GraphQLApiClient({
@@ -98,7 +98,7 @@ class GraphQLApiClient {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
         if (refeshToken != null && action != null) {
-          var isGetAccessTokenSuccess = (await refeshToken).call();
+          var isGetAccessTokenSuccess = await refeshToken!.call();
           if (isGetAccessTokenSuccess) {
             if (countRequest < 2) {
               return await this.query(query, countRequest: countRequest + 1);
