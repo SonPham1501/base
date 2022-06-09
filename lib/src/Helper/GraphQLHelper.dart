@@ -71,6 +71,8 @@ GraphQLClient _buildClient({
 }
 
 class GraphQLApiClient {
+  static Future? refeshToken;
+  static Function()? action;
 
   GraphQLApiClient({
     required String uri,
@@ -95,16 +97,16 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
-        if (AppBase.refeshToken != null && AppBase.action != null) {
-          var isGetAccessTokenSuccess = (await AppBase.refeshToken).call();
+        if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.action != null) {
+          var isGetAccessTokenSuccess = (await GraphQLApiClient.refeshToken).call();
           if (isGetAccessTokenSuccess) {
             if (countRequest < 2) {
               return await this.query(query, countRequest: countRequest + 1);
             } else {
-              AppBase.action!.call();
+              GraphQLApiClient.action!.call();
             }
           } else {
-            AppBase.action!.call();
+            GraphQLApiClient.action!.call();
           }
         }
         // navigationService.logout();

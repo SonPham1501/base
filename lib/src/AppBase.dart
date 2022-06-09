@@ -11,16 +11,12 @@ class AppBase {
     required Environment buildTypeInit,
     required String apiUrlInit,
     String? fingerInit,
-    Future? refeshTokenInit,
-    Function()? actionInit,
   }) {
     setupLocator();
     finger = fingerInit;
     buildType = buildTypeInit;
     sessionId = Util.getUuid();
     apiUrl = apiUrlInit;
-    refeshToken = refeshTokenInit;
-    action = actionInit;
     PackageInfo.fromPlatform().then((packageInfo) {
       packageName = packageInfo.packageName;
       version = packageInfo.version;
@@ -39,8 +35,6 @@ class AppBase {
   static String deviceName = "";
   static String? finger;
   static String apiUrl = '';
-  static Future? refeshToken;
-  static Function()? action;
 
   static String get appId {
     var build = "test";
