@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
@@ -63,10 +62,9 @@ class ChooseImage {
                       alignment: Alignment.center,
                       child: Text(
                         title ?? "",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Constant.kColorBlackPrimary,
                           fontSize: 16,
-                          fontFamily: FontUtil.bold,
                         ),
                       ),
                     ),
@@ -79,12 +77,11 @@ class ChooseImage {
                       child: Container(
                         height: 50,
                         alignment: Alignment.center,
-                        child: Text(
+                        child: const Text(
                           "Chụp ảnh",
                           style: TextStyle(
                             color: Constant.kColorBlueLink,
                             fontSize: 16,
-                            fontFamily: FontUtil.semiBold,
                           ),
                         ),
                       ),
@@ -102,12 +99,11 @@ class ChooseImage {
                       child: Container(
                         height: 50,
                         alignment: Alignment.center,
-                        child: Text(
+                        child: const Text(
                           "Chọn ảnh từ thư viện",
                           style: TextStyle(
                             color: Constant.kColorBlueLink,
                             fontSize: 16,
-                            fontFamily: FontUtil.semiBold,
                           ),
                         ),
                       ),
@@ -120,12 +116,11 @@ class ChooseImage {
                       child: Container(
                         height: 50,
                         alignment: Alignment.center,
-                        child: Text(
+                        child: const Text(
                           "Đóng",
                           style: TextStyle(
                             color: Constant.kColorBlackPrimary,
                             fontSize: 16,
-                            fontFamily: FontUtil.semiBold,
                           ),
                         ),
                       ),

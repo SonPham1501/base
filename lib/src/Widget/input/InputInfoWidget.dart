@@ -258,7 +258,6 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                                             labelStyle: TextStyle(
                                               color: ColorExtends('4F4F4F'),
                                               fontSize: widget.fontSize,
-                                              fontFamily: FontUtil.regular,
                                             ),
                                             border: InputBorder.none,
                                             focusedBorder: InputBorder.none,
@@ -276,8 +275,6 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                                           color: widget.textColor ??
                                               Constant.kColorBlackPrimary,
                                           fontSize: widget.fontSize,
-                                          fontFamily: widget.fontFamily ??
-                                              FontUtil.regular,
                                         ),
                                       ),
                                     ),
@@ -433,8 +430,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                   child: Center(
                     child: Text(
                       "/${DateTime.now().year}/HĐDV-CENHOMES",
-                      style: TextStyle(
-                          fontFamily: FontUtil.semiBold, fontSize: 13),
+                      style: const TextStyle(fontSize: 13),
                     ),
                   ),
                 )
@@ -449,10 +445,9 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
             alignment: widget.alignment,
             child: Text(
               message,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Constant.kRedColor,
                 fontSize: 12,
-                fontFamily: FontUtil.regular,
               ),
             ),
           ),

@@ -58,7 +58,6 @@ class InputSelectorWidget extends StatelessWidget {
                         child: Text(
                           title ?? "",
                           style: TextStyle(
-                            fontFamily: FontUtil.regular,
                             fontSize: 13,
                             color: ColorExtends(colorInputText),
                           ),
@@ -73,10 +72,9 @@ class InputSelectorWidget extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 4),
                   child: Text(
                     message,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Constant.kRedColor,
                       fontSize: 12,
-                      fontFamily: FontUtil.regular,
                     ),
                   ),
                 ),
@@ -109,7 +107,6 @@ class InputSelectorWidget extends StatelessWidget {
                   Text(
                     title ?? "",
                     style: TextStyle(
-                      fontFamily: FontUtil.regular,
                       fontSize: 11,
                       color: ColorExtends(colorInputText),
                     ),
@@ -119,8 +116,7 @@ class InputSelectorWidget extends StatelessWidget {
                   ),
                   Text(
                     content ?? "",
-                    style: TextStyle(
-                      fontFamily: FontUtil.regular,
+                    style: const TextStyle(
                       fontSize: 13,
                     ),
                   ),

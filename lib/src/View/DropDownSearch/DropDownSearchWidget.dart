@@ -1,7 +1,6 @@
 
 import 'package:base/src/Model/InputOptionObject.dart';
 import 'package:base/src/Model/SelectorModel.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:flutter/material.dart';
 
@@ -99,7 +98,7 @@ class _DropDownSearchWidget<T> extends State<DropDownSearchWidget> {
         },
         suggestionBuilder: (_, __, profile) => Text(
           _getDescription(profile),
-          style: TextStyle(fontSize: 13, fontFamily: FontUtil.regular),
+          style: const TextStyle(fontSize: 13),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),

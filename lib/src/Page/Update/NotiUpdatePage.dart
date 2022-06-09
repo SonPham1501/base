@@ -3,7 +3,6 @@
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/UpdateModel.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:base/src/View/ChooseImage/ChooseImage.dart';
 import 'package:base/src/Widget/ButtonWidget.dart';
@@ -79,15 +78,15 @@ class _NotiUpdatePageState extends State<NotiUpdatePage> {
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Text(
                   widget.isForceUpdate ? "Ứng dụng cần phải cập nhật" : "Thông báo cập nhật",
-                  style: TextStyle(fontSize: 20, fontFamily: FontUtil.bold),
+                  style: const TextStyle(fontSize: 20),
                 ),
               ),
               if (widget.isForceUpdate)
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 15),
                   child: Text(
                     "Để tiếp tục sử dụng ứng dụng, vui lòng hãy tải xuống phiên bản mới nhất",
-                    style: TextStyle(fontSize: 16, fontFamily: FontUtil.regular),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               const SizedBox(
@@ -107,7 +106,7 @@ class _NotiUpdatePageState extends State<NotiUpdatePage> {
                         children: [
                           Text(
                             "Nội dung phiên bản cập nhật ${widget.updateItemModel.version}",
-                            style: TextStyle(fontSize: 13, fontFamily: FontUtil.semiBold, color: Colors.black),
+                            style: const TextStyle(fontSize: 13, color: Colors.black),
                           ),
                         ],
                       ),
@@ -115,9 +114,8 @@ class _NotiUpdatePageState extends State<NotiUpdatePage> {
                         height: 10,
                       ),
                       Text(widget.updateItemModel.description ?? "",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 13,
-                            fontFamily: FontUtil.regular,
                             color: Colors.black,
                           )),
                     ],
@@ -128,7 +126,7 @@ class _NotiUpdatePageState extends State<NotiUpdatePage> {
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Text(
                     "Phiên bản cập nhật: ${widget.updateItemModel.version}",
-                    style: TextStyle(fontSize: 13, fontFamily: FontUtil.semiBold, color: Colors.black),
+                    style: const TextStyle(fontSize: 13, color: Colors.black),
                   ),
                 ),
               const Expanded(child: SizedBox()),

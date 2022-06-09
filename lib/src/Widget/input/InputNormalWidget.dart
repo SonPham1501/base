@@ -2,7 +2,6 @@ import 'package:async/async.dart';
 import 'package:base/base.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
 import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
 import 'package:flutter/material.dart';
@@ -199,8 +198,6 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                                   color: widget.textColor ??
                                       ColorExtends('4F4F4F'),
                                   fontSize: 14,
-                                  fontFamily:
-                                  widget.fontFamily ?? FontUtil.regular,
                                 ),
                                 keyboardType: widget.keyboardType,
                                 scrollPadding: EdgeInsets.only(
@@ -228,7 +225,6 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                                   hintStyle: TextStyle(
                                     color: ColorExtends('4F4F4F'),
                                     fontSize: 14,
-                                    fontFamily: FontUtil.regular,
                                   ),
                                 ),
                               ),
@@ -282,10 +278,9 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
             alignment: widget.alignment,
             child: Text(
               message,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Constant.kRedColor,
                 fontSize: 12,
-                fontFamily: FontUtil.regular,
               ),
             ),
           ),

@@ -1,8 +1,8 @@
 import 'package:base/src/Common/Enum.dart';
 import 'package:flutter/material.dart';
+
 import '../../Common/Constant.dart';
 import '../../Utils/BaseResourceUtil.dart';
-import '../../Utils/FontUtil.dart';
 
 class SliverListMessageWidget extends StatelessWidget {
   final String? title;
@@ -23,7 +23,7 @@ class SliverListMessageWidget extends StatelessWidget {
                 child: Text(
               title ?? "Không có dữ liệu",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, fontFamily: FontUtil.regular, color: Constant.kColorText141),
+              style: const TextStyle(fontSize: 16, color: Constant.kColorText141),
             )),
           ),
           const SizedBox(

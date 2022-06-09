@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../Common/Constant.dart';
 import '../../Utils/BaseResourceUtil.dart';
-import '../../Utils/FontUtil.dart';
 
 class SliverListErrorWidget extends StatelessWidget {
   final String? errorMessage;
@@ -24,7 +23,7 @@ class SliverListErrorWidget extends StatelessWidget {
                 child: Text(
                   "$errorMessage",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15, fontFamily: FontUtil.regular, color: Constant.kColorText141),
+                  style: const TextStyle(fontSize: 15, color: Constant.kColorText141),
                 )),
           ),
           const SizedBox(

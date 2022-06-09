@@ -52,7 +52,6 @@ class InputSelectorNormalWidget extends StatelessWidget {
                     child: Text(
                       hintText ?? "",
                       style: TextStyle(
-                        fontFamily: FontUtil.regular,
                         fontSize: 13,
                         color: ColorExtends(colorInputText),
                       ),
@@ -77,10 +76,9 @@ class InputSelectorNormalWidget extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                   child: Text(
                     snapshot.data?.message ?? "",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Constant.kRedColor,
                       fontSize: 12,
-                      fontFamily: FontUtil.regular,
                     ),
                   ),
                 );
@@ -108,7 +106,6 @@ class InputSelectorNormalWidget extends StatelessWidget {
               child: Text(
                 content ?? "",
                 style: TextStyle(
-                  fontFamily: FontUtil.regular,
                   fontSize: 13,
                   color: ColorExtends(colorInputText),
                 ),

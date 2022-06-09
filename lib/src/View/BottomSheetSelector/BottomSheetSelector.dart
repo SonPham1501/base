@@ -2,7 +2,6 @@ import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Common/Enum.dart';
 import 'package:base/src/Model/SelectorModel.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:base/src/Widget/BaseAppBarBottomSheetWidget.dart';
 import 'package:base/src/Widget/ButtonWidget.dart';
@@ -222,7 +221,6 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
                     child: Text(
                       selectorModel.title,
                       style: TextStyle(
-                        fontFamily: FontUtil.regular,
                         fontSize: 13,
                         color: isCheck
                             ? Constant.kColorOrangePrimary
@@ -262,7 +260,6 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
                     child: Text(
                   selectorModel.title,
                   style: TextStyle(
-                    fontFamily: FontUtil.regular,
                     fontSize: 14,
                     color: isCheck
                         ? Constant.kColorOrangePrimary

@@ -1,7 +1,6 @@
 import 'package:base/src/AppBase.dart';
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Common/Enum.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:flutter/material.dart';
 
 class VersionInfoWidget extends StatelessWidget {
@@ -14,12 +13,12 @@ class VersionInfoWidget extends StatelessWidget {
         children: [
           if (AppBase.buildType == Environment.DEV)
             Column(
-              children: [
+              children: const [
                 Text(
                   "Môi trường Test",
                   style: TextStyle(
                     color: Constant.kGreyColor,
-                    fontFamily: FontUtil.regular,
+                    // fontFamily: FontUtil.regular,
                     fontSize: 12,
                   ),
                 ),
@@ -27,9 +26,9 @@ class VersionInfoWidget extends StatelessWidget {
             ),
           Text(
             "Phiên bản: ${AppBase.version} - ${AppBase.buildVersion}",
-            style: TextStyle(
+            style: const TextStyle(
               color: Constant.kGreyColor,
-              fontFamily: FontUtil.regular,
+              // fontFamily: FontUtil.regular,
               fontSize: 12,
             ),
           ),

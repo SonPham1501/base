@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../Utils/BaseResourceUtil.dart';
-import '../Utils/FontUtil.dart';
 import 'LineBaseWidget.dart';
 
 class BaseAppBarBottomSheetWidget extends StatelessWidget {
@@ -22,8 +21,7 @@ class BaseAppBarBottomSheetWidget extends StatelessWidget {
               Expanded(
                   child: Text(
                     title ?? "",
-                    style: TextStyle(
-                      fontFamily: FontUtil.bold,
+                    style: const TextStyle(
                       fontSize: 18,
                     ),
                   )),

@@ -1,7 +1,6 @@
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/SelectorModel.dart';
 import 'package:base/src/Utils/BaseResourceUtil.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Widget/ButtonWidget.dart';
 import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,8 +45,7 @@ class CupertinoSelectorPopup {
                     Expanded(
                       child: Text(
                         title ?? "",
-                        style: TextStyle(
-                          fontFamily: FontUtil.medium,
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Constant.kColorBlackPrimary,
                         ),
@@ -87,9 +85,8 @@ class CupertinoSelectorPopup {
                             return Center(
                               child: Text(
                                 listSelector[index].title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 17,
-                                  fontFamily: FontUtil.regular,
                                   color: Constant.kColorBlackPrimary,
                                 ),
                               ),

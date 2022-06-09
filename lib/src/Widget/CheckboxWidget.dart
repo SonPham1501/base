@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../Common/Constant.dart';
 import '../Utils/BaseResourceUtil.dart';
-import '../Utils/FontUtil.dart';
 
 class CheckboxWidget extends StatelessWidget {
   final String? title;
@@ -50,10 +49,10 @@ class CheckboxWidget extends StatelessWidget {
               ),
               isExpanded?Expanded(child: Text(
                 title ?? '',
-                style: TextStyle(fontFamily: FontUtil.regular, fontSize: fontSize, color: Constant.kColorBlackPrimary),
+                style: TextStyle(fontSize: fontSize, color: Constant.kColorBlackPrimary),
               )):Text(
                 title ?? '',
-                style: TextStyle(fontFamily: FontUtil.regular, fontSize: fontSize, color: Constant.kColorBlackPrimary),
+                style: TextStyle(fontSize: fontSize, color: Constant.kColorBlackPrimary),
               ),
             ],
           ),
