@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
@@ -96,6 +97,7 @@ class GraphQLApiClient {
 
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
+        log(countRequest.toString());
         debugPrint('errr ---');
         if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.login != null) {
           var isGetAccessTokenSuccess = (await GraphQLApiClient.refeshToken).call();
