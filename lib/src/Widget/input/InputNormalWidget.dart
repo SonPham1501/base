@@ -1,9 +1,5 @@
 import 'package:async/async.dart';
-import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/FontUtil.dart';
-import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
-import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -39,6 +35,7 @@ class InputNormalWidget extends StatefulWidget {
   final String? fontFamily;
   final bool autoFocus;
   final int timeDeBouncer;
+  final FontWeight fontWeight;
 
   const InputNormalWidget({Key? key, 
     this.controller,
@@ -72,6 +69,7 @@ class InputNormalWidget extends StatefulWidget {
     this.textColor,
     this.autoFocus = false,
     this.timeDeBouncer = 500,
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -196,10 +194,9 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                                       widget.maxLength)),
                                 style: TextStyle(
                                   color: widget.textColor ??
-                                      Constant.kColorBlackPrimary,
+                                      ColorExtends('4F4F4F'),
                                   fontSize: 14,
-                                  fontFamily:
-                                  widget.fontFamily ?? FontUtil.regular,
+                                  fontWeight: widget.fontWeight,
                                 ),
                                 keyboardType: widget.keyboardType,
                                 scrollPadding: EdgeInsets.only(
@@ -225,10 +222,8 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
                                   const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   isDense: true,
                                   hintStyle: TextStyle(
-                                    color: Constant.kColorBlackPrimary
-                                        .withOpacity(0.7),
+                                    color: ColorExtends('4F4F4F'),
                                     fontSize: 14,
-                                    fontFamily: FontUtil.regular,
                                   ),
                                 ),
                               ),
@@ -282,10 +277,9 @@ class _InputNormalWidgetState extends State<InputNormalWidget> {
             alignment: widget.alignment,
             child: Text(
               message,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Constant.kRedColor,
                 fontSize: 12,
-                fontFamily: FontUtil.regular,
               ),
             ),
           ),

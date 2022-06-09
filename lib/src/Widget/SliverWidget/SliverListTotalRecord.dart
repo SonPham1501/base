@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../Common/Constant.dart';
-import '../../Utils/FontUtil.dart';
 import '../../Utils/flutter_base/Util.dart';
 
 class SliverListTotalRecord extends StatelessWidget {
@@ -28,7 +27,7 @@ class SliverListTotalRecord extends StatelessWidget {
                       text: TextSpan(text: "", style: const TextStyle(color: Constant.kGreyColor4E, fontSize: 13), children: [
                         TextSpan(
                           text: "${Util.intToPriceDouble(total)} ",
-                          style: TextStyle(color: Constant.kGreyColor4E, fontSize: 13, fontFamily: FontUtil.bold),
+                          style: const TextStyle(color: Constant.kGreyColor4E, fontSize: 13),
                         ),
                         TextSpan(
                           text: contentName ?? "dữ liệu",

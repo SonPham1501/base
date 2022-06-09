@@ -1,6 +1,4 @@
-import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 
 class InputSelectorNormalWidget extends StatelessWidget {
@@ -13,6 +11,8 @@ class InputSelectorNormalWidget extends StatelessWidget {
   final double height;
   final bool isHaveSmallClose;
   final Stream<InputOptionObject>? inputOptionObject;
+  final String colorInputText;
+  final FontWeight fontWeight;
 
   const InputSelectorNormalWidget({
     Key? key,
@@ -25,6 +25,8 @@ class InputSelectorNormalWidget extends StatelessWidget {
     this.isHaveSmallClose = false,
     this.inputOptionObject,
     this.height = 48,
+    this.colorInputText = '4F4F4F',
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -52,9 +54,9 @@ class InputSelectorNormalWidget extends StatelessWidget {
                     child: Text(
                       hintText ?? "",
                       style: TextStyle(
-                        fontFamily: FontUtil.regular,
                         fontSize: 13,
-                        color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                        color: ColorExtends(colorInputText),
+                        fontWeight: fontWeight,
                       ),
                     ),
                   ),
@@ -77,10 +79,9 @@ class InputSelectorNormalWidget extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                   child: Text(
                     snapshot.data?.message ?? "",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Constant.kRedColor,
                       fontSize: 12,
-                      fontFamily: FontUtil.regular,
                     ),
                   ),
                 );
@@ -108,9 +109,8 @@ class InputSelectorNormalWidget extends StatelessWidget {
               child: Text(
                 content ?? "",
                 style: TextStyle(
-                  fontFamily: FontUtil.regular,
                   fontSize: 13,
-                  color: Constant.kColorBlackPrimary,
+                  color: ColorExtends(colorInputText),
                 ),
               ),
             ),

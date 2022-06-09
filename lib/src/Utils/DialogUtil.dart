@@ -1,6 +1,5 @@
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Helper/navigator.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Widget/ButtonWidget.dart';
 import 'package:base/src/Widget/LoadingWidget.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +77,7 @@ class DialogUtil {
     List<Widget>? actions,
     bool? barrierDismissible,
     Color barrierColor = Colors.black54,
+    double width = double.infinity,
     EdgeInsets insetPadding = const EdgeInsets.symmetric(horizontal: 16),
   }) async {
     BuildContext context = navigationService.context;
@@ -90,7 +90,7 @@ class DialogUtil {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: SizedBox(
-            width: double.infinity,
+            width: width,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
@@ -212,9 +212,7 @@ class DialogUtil {
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                 child: Text(
                   content ?? "",
-
-                  style: TextStyle(
-                    fontFamily: FontUtil.regular,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Constant.kColorBlackPrimary,
                   ),
@@ -265,8 +263,7 @@ class DialogUtil {
                 ),
                 Text(
                   title,
-                  style: TextStyle(
-                    fontFamily: FontUtil.medium,
+                  style: const TextStyle(
                     fontSize: 18,
                     color: Constant.kColorBlackPrimary,
                   ),
@@ -276,8 +273,7 @@ class DialogUtil {
                     padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                     child: Text(
                       content.toString(),
-                      style: TextStyle(
-                        fontFamily: FontUtil.regular,
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Constant.kColorBlackPrimary,
                       ),
@@ -335,10 +331,10 @@ class DialogUtil {
               width: 200,
               height: 30,
               decoration: const BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Title',
-                  style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: FontUtil.regular),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
             ),
@@ -371,8 +367,7 @@ class DialogUtil {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   title,
-                  style: TextStyle(
-                    fontFamily: FontUtil.semiBold,
+                  style: const TextStyle(
                     fontSize: 17,
                     color: Constant.kColorText141,
                   ),
@@ -383,8 +378,7 @@ class DialogUtil {
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
                   child: Text(
                     content.toString(),
-                    style: TextStyle(
-                      fontFamily: FontUtil.regular,
+                    style: const TextStyle(
                       fontSize: 13,
                       color: Constant.kColorText141,
                     ),
@@ -405,7 +399,7 @@ class DialogUtil {
                   child: Center(
                     child: Text(
                       titleCancel,
-                      style: TextStyle(color: const Color(0xff007AFF), fontFamily: FontUtil.semiBold, fontSize: 17),
+                      style: const TextStyle(color: Color(0xff007AFF), fontSize: 17),
                     ),
                   ),
                 ),
@@ -421,7 +415,7 @@ class DialogUtil {
                 child: SizedBox(
                   height: 43,
                   child: Center(
-                      child: Text(titleAction, style: TextStyle(color: const Color(0xff007AFF), fontFamily: FontUtil.regular, fontSize: 17))),
+                      child: Text(titleAction, style: const TextStyle(color: Color(0xff007AFF), fontSize: 17))),
                 ),
               ),
             ],

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../Common/Constant.dart';
-import '../Utils/FontUtil.dart';
 
 enum ButtonType { Normal, NormalBorder, Cancel, CancelDisable, Disable, DisableNoBackground, Back, Success , DisableDarkBackground}
 
@@ -76,19 +75,19 @@ class ButtonWidget extends StatelessWidget {
   TextStyle getStyle() {
     switch (buttonType) {
       case ButtonType.Cancel:
-        return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorBlackPrimary, fontSize: 16);
+        return const TextStyle(color: Constant.kColorBlackPrimary, fontSize: 16);
       case ButtonType.CancelDisable:
-        return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorBlackPrimary.withOpacity(0.5), fontSize: 16);
+        return TextStyle(color: Constant.kColorBlackPrimary.withOpacity(0.5), fontSize: 16);
       case ButtonType.NormalBorder:
-        return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorOrangePrimary, fontSize: 16);
+        return const TextStyle(color: Constant.kColorOrangePrimary, fontSize: 16);
       case ButtonType.Disable:
-        return TextStyle(fontFamily: FontUtil.medium, color: const Color(0xffF8D0A8), fontSize: 16);
+        return const TextStyle(color: Color(0xffF8D0A8), fontSize: 16);
       case ButtonType.DisableNoBackground:
-        return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorBlackPrimary.withOpacity(0.5), fontSize: 16);
+        return TextStyle(color: Constant.kColorBlackPrimary.withOpacity(0.5), fontSize: 16);
       case ButtonType.Back:
-        return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorBlackPrimary, fontSize: 16);
+        return const TextStyle(color: Constant.kColorBlackPrimary, fontSize: 16);
       default:
-        return TextStyle(fontFamily: FontUtil.medium, color: Constant.kColorWhite, fontSize: 16);
+        return const TextStyle(color: Constant.kColorWhite, fontSize: 16);
     }
   }
 

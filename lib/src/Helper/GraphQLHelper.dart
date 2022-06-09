@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
@@ -72,7 +73,7 @@ GraphQLClient _buildClient({
 
 class GraphQLApiClient {
   static Future<bool> Function()? refeshToken;
-  static Function()? action;
+  static String? login;
 
   GraphQLApiClient({
     required String uri,
@@ -97,16 +98,18 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
-        if (refeshToken != null && action != null) {
-          var isGetAccessTokenSuccess = await refeshToken!.call();
+        if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.login != null) {
+          var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
             if (countRequest < 2) {
               return await this.query(query, countRequest: countRequest + 1);
             } else {
-              action!.call();
+              await SecureStorageUtil.removeString(SecureStorageUtil.Token);
+              navigationService.navigatePushAndRemoveUntil(GraphQLApiClient.login ?? '');
             }
           } else {
-            action!.call();
+            await SecureStorageUtil.removeString(SecureStorageUtil.Token);
+            navigationService.navigatePushAndRemoveUntil(GraphQLApiClient.login ?? '');
           }
         }
         // navigationService.logout();

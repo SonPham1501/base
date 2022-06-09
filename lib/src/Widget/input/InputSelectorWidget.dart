@@ -1,6 +1,4 @@
-import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/FontUtil.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,6 +9,8 @@ class InputSelectorWidget extends StatelessWidget {
   final Function()? onTap;
   final bool enable;
   final Stream<InputOptionObject>? inputOptionObject;
+  final String colorInputText;
+  final FontWeight fontWeight;
 
   const InputSelectorWidget({
     Key? key,
@@ -20,6 +20,8 @@ class InputSelectorWidget extends StatelessWidget {
     this.onTap,
     this.inputOptionObject,
     this.enable = true,
+    this.colorInputText = '4F4F4F',
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -58,9 +60,9 @@ class InputSelectorWidget extends StatelessWidget {
                         child: Text(
                           title ?? "",
                           style: TextStyle(
-                            fontFamily: FontUtil.regular,
                             fontSize: 13,
-                            color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                            color: ColorExtends(colorInputText),
+                            fontWeight: fontWeight,
                           ),
                         ),
                       ),
@@ -73,10 +75,9 @@ class InputSelectorWidget extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 4),
                   child: Text(
                     message,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Constant.kRedColor,
                       fontSize: 12,
-                      fontFamily: FontUtil.regular,
                     ),
                   ),
                 ),
@@ -109,9 +110,8 @@ class InputSelectorWidget extends StatelessWidget {
                   Text(
                     title ?? "",
                     style: TextStyle(
-                      fontFamily: FontUtil.regular,
                       fontSize: 11,
-                      color: Constant.kColorBlackPrimary.withOpacity(0.7),
+                      color: ColorExtends(colorInputText),
                     ),
                   ),
                   const SizedBox(
@@ -119,8 +119,7 @@ class InputSelectorWidget extends StatelessWidget {
                   ),
                   Text(
                     content ?? "",
-                    style: TextStyle(
-                      fontFamily: FontUtil.regular,
+                    style: const TextStyle(
                       fontSize: 13,
                     ),
                   ),

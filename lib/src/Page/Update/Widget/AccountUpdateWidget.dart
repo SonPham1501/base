@@ -2,7 +2,6 @@ import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Helper/UpdateHelper.dart';
 import 'package:base/src/Model/UpdateModel.dart';
 import 'package:base/src/Page/Update/NotiUpdatePage.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Utils/flutter_base/Util.dart';
 import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
@@ -70,26 +69,24 @@ class _AccountUpdateWidgetState extends State<AccountUpdateWidget> {
                       size: 18,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 20, 16),
+                      padding: EdgeInsets.fromLTRB(16, 16, 20, 16),
                       child: Text(
                         "Kiểm tra cập nhật",
                         style: TextStyle(
                           color: Constant.kColorBlackPrimary,
-                          fontFamily: FontUtil.regular,
                           fontSize: 15,
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 20, 16),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 20, 16),
                     child: Text(
                       "",
                       style: TextStyle(
                         color: Constant.kColorOrangePrimary,
-                        fontFamily: FontUtil.regular,
                         fontSize: 14,
                       ),
                     ),

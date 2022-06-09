@@ -1,6 +1,5 @@
 import 'package:base/src/Common/Constant.dart';
 import 'package:base/src/Model/UpdateModel.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:base/src/Widget/LineBaseWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -27,9 +26,9 @@ class DialogNoticeWidget extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
               "Thông báo",
-              style: TextStyle(fontFamily: FontUtil.bold, fontSize: 20),
+              style: TextStyle( fontSize: 20),
             ),
             const SizedBox(
               height: 20,
@@ -39,19 +38,19 @@ class DialogNoticeWidget extends StatelessWidget {
               child: Text(
                 "Đã có phiên bản mới: ${updateItemModel!.version}",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: FontUtil.regular, fontSize: 16),
+                style: const TextStyle( fontSize: 16),
               ),
             ),
             InkWell(
               onTap: () {
                 onTapSeeMore?.call();
               },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Text(
                   "Đọc thêm",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: FontUtil.regular, fontSize: 15, color: Colors.blue),
+                  style: TextStyle( fontSize: 15, color: Colors.blue),
                 ),
               ),
             ),
@@ -65,14 +64,14 @@ class DialogNoticeWidget extends StatelessWidget {
                 onTap: () {
                   onTapUpdate?.call();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                child: const Padding(
+                  padding: EdgeInsets.only(top: 15, bottom: 15),
                   child: SizedBox(
                     width: double.infinity,
                     child: Center(
                       child: Text(
                         "Cập nhật ngay",
-                        style: TextStyle(fontFamily: FontUtil.regular, fontSize: 20, color: Constant.kColorOrangePrimary),
+                        style: TextStyle(fontSize: 20, color: Constant.kColorOrangePrimary),
                       ),
                     ),
                   ),
@@ -84,14 +83,14 @@ class DialogNoticeWidget extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: Navigator.of(context).pop,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                child: const Padding(
+                  padding: EdgeInsets.only(top: 15, bottom: 15),
                   child: SizedBox(
                     width: double.infinity,
                     child: Center(
                       child: Text(
                         "Nhắc tôi sau",
-                        style: TextStyle(fontFamily: FontUtil.regular, fontSize: 20, color: Constant.kColorOrangePrimary),
+                        style: TextStyle(fontSize: 20, color: Constant.kColorOrangePrimary),
                       ),
                     ),
                   ),

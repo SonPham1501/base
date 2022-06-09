@@ -1,10 +1,5 @@
 import 'package:async/async.dart';
-import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Model/InputOptionObject.dart';
-import 'package:base/src/Utils/BaseResourceUtil.dart';
-import 'package:base/src/Utils/FontUtil.dart';
-import 'package:base/src/Utils/flutter_base/DeBouncerDuration.dart';
-import 'package:base/src/Utils/flutter_base/TextFormatUtil.dart';
+import 'package:base/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -41,6 +36,7 @@ class InputSearchWidget extends StatefulWidget {
   final String? fontFamily;
   final bool autoFocus;
   final int timeDeBouncer;
+  final FontWeight fontWeight;
 
   const InputSearchWidget({Key? key, 
     this.controller,
@@ -74,6 +70,7 @@ class InputSearchWidget extends StatefulWidget {
     this.textColor,
     this.autoFocus = false,
     this.timeDeBouncer = 500,
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -190,9 +187,9 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                                 textInputAction: widget.textInputAction,
                                 inputFormatters: finalFormatter..add(LengthLimitingTextFieldFormatterFixed(widget.maxLength)),
                                 style: TextStyle(
-                                  color: widget.textColor ?? Constant.kColorBlackPrimary,
+                                  color: widget.textColor ?? ColorExtends('4F4F4F'),
                                   fontSize: 14,
-                                  fontFamily: widget.fontFamily ?? FontUtil.regular,
+                                  fontWeight: widget.fontWeight,
                                 ),
                                 keyboardType: widget.keyboardType,
                                 scrollPadding: EdgeInsets.only(bottom: widget.scrollPaddingBottom, top: 40),
@@ -211,10 +208,9 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
                                   hintText: widget.hintText,
                                   contentPadding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   isDense: true,
-                                  hintStyle: TextStyle(
-                                    color: const Color(0xffA0A3BD),
+                                  hintStyle: const TextStyle(
+                                    color: Color(0xffA0A3BD),
                                     fontSize: 14,
-                                    fontFamily: FontUtil.regular,
                                   ),
                                 ),
                               ),
@@ -273,10 +269,9 @@ class _InputInfoWidgetState extends State<InputSearchWidget> {
             alignment: widget.alignment,
             child: Text(
               message,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Constant.kRedColor,
                 fontSize: 12,
-                fontFamily: FontUtil.regular,
               ),
             ),
           ),

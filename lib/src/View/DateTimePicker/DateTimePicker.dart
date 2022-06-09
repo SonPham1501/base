@@ -1,5 +1,4 @@
 import 'package:base/src/Common/Constant.dart';
-import 'package:base/src/Utils/FontUtil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -41,18 +40,16 @@ class DateTimePicker {
       context,
       pickerTheme: DateTimePickerTheme(
         showTitle: _showTitle,
-        itemTextStyle: TextStyle(
+        itemTextStyle: const TextStyle(
           fontSize: 18,
           color: Constant.kColorBlackPrimary,
-          fontFamily: FontUtil.semiBold,
         ),
         title: Text(
           title ?? "",
           textScaleFactor: 1,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             color: Constant.kColorBlackPrimary,
-            fontFamily: FontUtil.bold,
           ),
         ),
       ),
@@ -79,18 +76,16 @@ class DateTimePicker {
       context,
       pickerTheme: DateTimePickerTheme(
         showTitle: _showTitle,
-        itemTextStyle: TextStyle(
+        itemTextStyle: const TextStyle(
           fontSize: 18,
           color: Constant.kColorBlackPrimary,
-          fontFamily: FontUtil.semiBold,
         ),
         title: Text(
           title ?? "",
           textScaleFactor: 1,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             color: Constant.kColorBlackPrimary,
-            fontFamily: FontUtil.bold,
           ),
         ),
       ),
@@ -117,18 +112,16 @@ class DateTimePicker {
       context,
       pickerTheme: DateTimePickerTheme(
         showTitle: _showTitle,
-        itemTextStyle: TextStyle(
+        itemTextStyle: const TextStyle(
           fontSize: 18,
           color: Constant.kColorBlackPrimary,
-          fontFamily: FontUtil.semiBold,
         ),
         title: Text(
           title ?? "",
           textScaleFactor: 1,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             color: Constant.kColorBlackPrimary,
-            fontFamily: FontUtil.bold,
           ),
         ),
       ),

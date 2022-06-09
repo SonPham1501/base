@@ -14,9 +14,10 @@ class PhotoViewPage extends StatefulWidget {
   final String? tagHero;
   final int index;
   final String? tag;
+  final imgPlaceholder;
 
   const PhotoViewPage(
-      {Key? key, this.medias, this.tagHero, required this.index, this.tag})
+      {Key? key, this.medias, this.tagHero, required this.index, this.tag, required this.imgPlaceholder})
       : super(
           key: key,
         );
@@ -121,6 +122,7 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
             child: CachedImage(
               mediasRx[index],
               fit: BoxFit.contain,
+              imgPlaceholder: widget.imgPlaceholder,
             ),
           ),
         ),
