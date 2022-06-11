@@ -243,6 +243,7 @@ class Util {
   }
 
   static void showToast(String message, {bool status = true}) {
+    Fluttertoast.cancel();
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
