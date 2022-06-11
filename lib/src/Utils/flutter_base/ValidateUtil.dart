@@ -45,7 +45,7 @@ class ValidateUtil {
 
         option.isError = true;
         option.message = "Số điện thoại không đúng định dạng";
-      } else if (phoneNumber.length < 10) {
+      } else if (phoneNumber.length != 10) {
         option.isError = true;
         option.message = "Số điện thoại không đúng định dạng";
       } else {
