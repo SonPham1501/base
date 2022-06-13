@@ -73,7 +73,7 @@ GraphQLClient _buildClient({
 
 class GraphQLApiClient {
   static Future<bool> Function()? refeshToken;
-  static String? login;
+  static Future Function()? actionNotRefeshToken;
 
   GraphQLApiClient({
     required String uri,
@@ -98,18 +98,16 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
-        if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.login != null) {
+        if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.actionNotRefeshToken != null) {
           var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
             if (countRequest < 2) {
               return await this.query(query, countRequest: countRequest + 1);
             } else {
-              await SecureStorageUtil.removeString(SecureStorageUtil.Token);
-              navigationService.navigatePushAndRemoveUntil(GraphQLApiClient.login ?? '');
+              await GraphQLApiClient.actionNotRefeshToken!.call();
             }
           } else {
-            await SecureStorageUtil.removeString(SecureStorageUtil.Token);
-            navigationService.navigatePushAndRemoveUntil(GraphQLApiClient.login ?? '');
+            await GraphQLApiClient.actionNotRefeshToken!.call();
           }
         }
         // navigationService.logout();
