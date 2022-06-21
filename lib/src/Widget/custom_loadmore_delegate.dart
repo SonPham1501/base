@@ -1,5 +1,5 @@
-import 'package:loadmore/loadmore.dart';
 import 'package:flutter/material.dart';
+import 'package:loadmore/loadmore.dart';
 
 class CustomLoadMoreDelegate extends LoadMoreDelegate {
   const CustomLoadMoreDelegate(this.context, {this.isShowNoMore = true});
@@ -15,7 +15,7 @@ class CustomLoadMoreDelegate extends LoadMoreDelegate {
 
     if (status == LoadMoreStatus.nomore) {
       return isShowNoMore
-        ? const Text('Hết dữ liệu')
+        ? const SizedBox()
         : const SizedBox();
     }
 
