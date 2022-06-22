@@ -6,6 +6,12 @@ DateTime fromGraphQLDateTimeToDartDateTime(String date) =>
 String fromDartDateTimeToGraphQLDateTime(DateTime date) =>
     date.toUtc().toIso8601String();
 
+DateTime? fromGraphQLDateNullableToDartDateTimeNullable(String? date) =>
+    date == null ? null : DateTime.parse(date).toLocal();
+
+String? fromDartDateTimeNullableToGraphQLDateNullable(DateTime? date) =>
+    date?.toUtc().toIso8601String();
+
 DateTime? fromGraphQLDateTimeToDartDateTimeNullable(String? date) =>
     date == null ? null : DateTime.parse(date).toLocal();
 
