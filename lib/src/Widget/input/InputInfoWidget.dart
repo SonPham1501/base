@@ -110,13 +110,16 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
     _textEditingController = widget.controller ?? TextEditingController();
     onSearchDeBouncer = DeBouncerDuration(
         delay: Duration(milliseconds: widget.timeDeBouncer));
-    if (widget.isShowHintTitle && _textEditingController.text.isNotEmpty) {
-      if (_textEditingController.text.isEmpty) {
-        _isShowTitle = false;
-      } else {
-        _isShowTitle = true;
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      if (widget.isShowHintTitle && _textEditingController.text.isNotEmpty) {
+        if (_textEditingController.text.isEmpty) {
+          _isShowTitle = false;
+        } else {
+          _isShowTitle = true;
+        }
       }
-    }
+      setState(() {});
+    });
   }
 
   @override
