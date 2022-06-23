@@ -33,6 +33,12 @@ class PreferUtil {
     return value;
   }
 
+  //remove
+  static Future remove(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(key);
+  }
+
   //Double
   static Future createDouble(String key, double doubleValue) async {
     final prefs = await SharedPreferences.getInstance();
