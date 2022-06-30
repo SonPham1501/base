@@ -260,6 +260,17 @@ class BaseValidateUtil {
     return option;
   }
 
+  static InputOptionObject validateNotEmpty(
+      String fullName, InputOptionObject option) {
+    if (fullName.trim().isEmpty) {
+      option.isError = true;
+      option.message = "Trường này là bắt buộc!";
+    } else {
+      option.isError = false;
+    }
+    return option;
+  }
+
   static InputOptionObject validateNormalFeild(
       String fullName, InputOptionObject option, String errorName,
       {String? mess}) {
