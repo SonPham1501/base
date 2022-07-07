@@ -32,9 +32,9 @@ typedef VoidOnActionInt = void Function(int value);
 class Util {
 
   static Future pulishLogError({
-    String userName = "null",
-    String body = "null",
-    String url = "null",
+    String userName = "No USERNAME",
+    String body = "No BODY",
+    String url = "No URL",
     required String messageError,
   }) async {
     await FirebaseService.insert(

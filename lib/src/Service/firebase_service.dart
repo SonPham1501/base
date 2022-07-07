@@ -9,7 +9,7 @@ class FirebaseService {
   static Future insert({required String userName, required LogError logError}) async {
     try {
       String date = DateTimeUtil.dateTimeToString(DateTime.now(), 'dd-MM-yyyy') ?? 'No DATE';
-      String time = DateTime.now().toString().split(' ').last;
+      String time = DateTimeUtil.dateTimeToString(DateTime.now(), 'HH:mm:ss') ?? 'No TIME';
       await _db.child(userName).child(date).child(time).set(logError.toJson());
     } catch (e) {
       log("--------------- Error insert firebase: ${e.toString()} -----------------------");
