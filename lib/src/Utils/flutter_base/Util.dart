@@ -31,15 +31,15 @@ class Util {
     String url = "No URL",
     required String messageError,
   }) async {
-    // await FirebaseService.insert(
-    //   userName: userName,
-    //   logError: LogError(
-    //     date: DateTime.now().toString(),
-    //     messageError: 'result.exception: $messageError',
-    //     body: body,
-    //     url: url,
-    //   ),
-    // );
+    await FirebaseService.insert(
+      userName: userName,
+      logError: LogError(
+        date: DateTime.now().toString(),
+        messageError: 'result.exception: $messageError',
+        body: body,
+        url: url,
+      ),
+    );
   }
 
   static String getUuid() {
