@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:io' show File, Platform;
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:base/src/Extends/StringExtend.dart';
-import 'package:base/src/Helper/export_helper.dart';
 import 'package:device_info/device_info.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/services.dart';
@@ -19,9 +17,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../base.dart';
-import '../../Extends/ColorExtends.dart';
-import '../../Service/firebase_service.dart';
-import 'SecureStorageUtil.dart';
 
 export 'DateTimeUtil.dart';
 export 'PreferUtil.dart';
@@ -37,6 +32,7 @@ class Util {
     String url = "No URL",
     required String messageError,
   }) async {
+    await Firebase.initializeApp();
     await FirebaseService.insert(
       userName: userName,
       logError: LogError(
