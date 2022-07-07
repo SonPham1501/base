@@ -3,7 +3,6 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:device_info/device_info.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/services.dart';
@@ -32,16 +31,15 @@ class Util {
     String url = "No URL",
     required String messageError,
   }) async {
-    await Firebase.initializeApp();
-    await FirebaseService.insert(
-      userName: userName,
-      logError: LogError(
-        date: DateTime.now().toString(),
-        messageError: 'result.exception: $messageError',
-        body: body,
-        url: url,
-      ),
-    );
+    // await FirebaseService.insert(
+    //   userName: userName,
+    //   logError: LogError(
+    //     date: DateTime.now().toString(),
+    //     messageError: 'result.exception: $messageError',
+    //     body: body,
+    //     url: url,
+    //   ),
+    // );
   }
 
   static String getUuid() {
