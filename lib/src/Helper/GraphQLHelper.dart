@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
@@ -74,6 +73,7 @@ GraphQLClient _buildClient({
 class GraphQLApiClient {
   static Future<bool> Function()? refeshToken;
   static Future Function()? actionNotRefeshToken;
+  static String? userName;
 
   GraphQLApiClient({
     required String uri,
@@ -98,6 +98,14 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
+        if (countRequest == 1 && GraphQLApiClient.userName != null) {
+          await Util.pulishLogError(
+            userName: GraphQLApiClient.userName ?? 'null',
+            messageError: result.exception.toString(),
+            body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
+            url: query.operationName.toString()
+          );
+        }
         if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.actionNotRefeshToken != null) {
           var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
@@ -123,6 +131,14 @@ class GraphQLApiClient {
       }
 
       debugPrint('result.exception ${result.exception}');
+      if (GraphQLApiClient.userName != null) {
+        await Util.pulishLogError(
+          userName: GraphQLApiClient.userName ?? 'null',
+          messageError: result.exception.toString(),
+          body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
+          url: query.operationName.toString()
+        );
+      }
       return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
     }
     final data = query.parse(result.data as Map<String, dynamic>) as T;
@@ -151,6 +167,7 @@ class GraphQLApiClient {
   Future<NetworkResourceState<T>>
       mutation<T, U extends json_annotation.JsonSerializable>(
     GraphQLQuery<T, U> query,
+    {int countRequest = 1}
   ) async {
     final result = await client.mutate(MutationOptions(
       document: query.document,
@@ -158,6 +175,49 @@ class GraphQLApiClient {
     ));
 
     if (result.hasException) {
+      if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
+        debugPrint('errr ---');
+        if (countRequest == 1 && GraphQLApiClient.userName != null) {
+          await Util.pulishLogError(
+            userName: GraphQLApiClient.userName ?? 'null',
+            messageError: result.exception.toString(),
+            body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
+            url: query.operationName.toString()
+          );
+        }
+        if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.actionNotRefeshToken != null) {
+          var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
+          if (isGetAccessTokenSuccess) {
+            if (countRequest < 2) {
+              return await this.query(query, countRequest: countRequest + 1);
+            } else {
+              await GraphQLApiClient.actionNotRefeshToken!.call();
+            }
+          } else {
+            await GraphQLApiClient.actionNotRefeshToken!.call();
+          }
+        }
+        // navigationService.logout();
+      }
+
+      if (_hasStopAccountError(result.exception!.graphqlErrors)) {
+        final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
+
+        // navigationService?.showStopAccountMessage(
+        //   result.exception!.graphqlErrors.first.message,
+        //   loginId,
+        // );
+      }
+
+      debugPrint('result.exception ${result.exception}');
+      if (GraphQLApiClient.userName != null) {
+        await Util.pulishLogError(
+          userName: GraphQLApiClient.userName ?? 'null',
+          messageError: result.exception.toString(),
+          body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
+          url: query.operationName.toString()
+        );
+      }
       return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
     }
 

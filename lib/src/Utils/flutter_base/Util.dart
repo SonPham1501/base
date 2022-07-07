@@ -18,7 +18,9 @@ import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../base.dart';
 import '../../Extends/ColorExtends.dart';
+import '../../Service/firebase_service.dart';
 import 'SecureStorageUtil.dart';
 
 export 'DateTimeUtil.dart';
@@ -28,6 +30,24 @@ typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
 
 class Util {
+
+  static Future pulishLogError({
+    String userName = "null",
+    String body = "null",
+    String url = "null",
+    required String messageError,
+  }) async {
+    await FirebaseService.insert(
+      userName: userName,
+      logError: LogError(
+        date: DateTime.now().toString(),
+        messageError: 'result.exception: $messageError',
+        body: body,
+        url: url,
+      ),
+    );
+  }
+
   static String getUuid() {
     return const Uuid().v4();
   }

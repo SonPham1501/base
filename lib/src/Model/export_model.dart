@@ -11,3 +11,4 @@ export './SelectorModel.dart';
 export './TempPostUpModel.dart';
 export './UpdateModel.dart';
 export './UserModel.dart';
+export './log_error.dart';

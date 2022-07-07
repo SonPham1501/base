@@ -9,6 +9,7 @@ export 'src/Model/export_model.dart';
 export 'src/Page/export_page.dart';
 export 'src/ThirdParty/DottedBorder/DottedBorder.dart';
 export 'src/Utils/export_utils.dart';
+export 'src/Service/firebase_service.dart';
 export 'src/View/BottomSheetSelector/BottomSheetSelector.dart';
 export 'src/View/ChooseImage/ChooseImage.dart';
 export 'src/View/DateTimePicker/DateTimePicker.dart';

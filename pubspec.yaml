@@ -36,6 +36,7 @@ dependencies:
   interactiveviewer_gallery: ^0.6.0
   badges: 2.0.2
   pull_to_refresh: 2.0.0
+  firebase_database: ^9.0.18
 
   get_it: ^7.2.0
   latlong2: ^0.8.1

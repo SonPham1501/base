@@ -9,6 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart' as mime;
 
+import '../../base.dart';
+
 enum HttpMethod { get, post, delete, put, patch }
 
 int timeOut = 30000;
@@ -68,6 +70,14 @@ class HttpHelper {
           DioError error,
           ErrorInterceptorHandler handler,
         ) async {
+          if (GraphQLApiClient.userName != null) {
+            await Util.pulishLogError(
+              userName: GraphQLApiClient.userName ?? 'null',
+              messageError: error.toString(),
+              body: params.toString(),
+              url: url,
+            );
+          }
           // print(error.toString());
           // await DialogBuilder.showSimpleDialog(error.toString());
           //SnackbarBuilder.showSnackbar(content: 'Máy chủ đang bảo trì');
