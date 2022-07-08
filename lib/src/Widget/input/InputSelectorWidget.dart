@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 class InputSelectorWidget extends StatelessWidget {
   final Widget? icon;
+  final Widget? suffixIcon;
   final String? title;
+  final BoxDecoration? decoratedBox;
   final String? content;
   final Function()? onTap;
   final bool enable;
@@ -15,7 +17,9 @@ class InputSelectorWidget extends StatelessWidget {
   const InputSelectorWidget({
     Key? key,
     this.icon,
+    this.suffixIcon,
     this.title,
+    this.decoratedBox,
     this.content,
     this.onTap,
     this.inputOptionObject,
@@ -42,7 +46,7 @@ class InputSelectorWidget extends StatelessWidget {
               InkWell(
                 onTap: enable ? onTap : null,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: decoratedBox ?? BoxDecoration(
                     color: Colors.transparent,
                     border: Border.all(color: Constant.kColorBorderD9DBE9, width: 1),
                     borderRadius: BorderRadius.circular(8),
@@ -66,6 +70,10 @@ class InputSelectorWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                      if (suffixIcon != null) ...[
+                        const SizedBox(width: 10),
+                        suffixIcon!,
+                      ],
                     ],
                   ),
                 ),
