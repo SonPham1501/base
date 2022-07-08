@@ -97,7 +97,7 @@ class InputSelectorWidget extends StatelessWidget {
     return InkWell(
       onTap: enable ? onTap : null,
       child: Container(
-        decoration: BoxDecoration(
+        decoration: decoratedBox ?? BoxDecoration(
           color: enable ? Colors.transparent : Constant.kColorInputDisable,
           border: Border.all(color: Constant.kColorBorderD9DBE9, width: 1),
           borderRadius: BorderRadius.circular(8),
@@ -134,6 +134,10 @@ class InputSelectorWidget extends StatelessWidget {
                 ],
               ),
             ),
+            if (suffixIcon != null) ...[
+              const SizedBox(width: 10),
+              suffixIcon!,
+            ],
           ],
         ),
       ),
