@@ -63,7 +63,7 @@ class _BottomSheetSelectorState extends State<BottomSheetSelector> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       viewState = ViewState.Loading;
       for (var item in list) {
         listSelector.add(item);

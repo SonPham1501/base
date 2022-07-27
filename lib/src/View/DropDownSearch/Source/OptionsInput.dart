@@ -72,7 +72,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
     _suggestionsBoxController = SuggestionsBoxController(context);
     _focusNode = widget.focusNode;
     _focusNode.addListener(_handleFocusChanged);
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       _initOverlayEntry();
     });
   }
@@ -82,7 +82,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
   Widget build(BuildContext context) {
     return NotificationListener<SizeChangedLayoutNotification>(
       onNotification: (SizeChangedLayoutNotification val) {
-        WidgetsBinding.instance?.addPostFrameCallback((_) async {
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
           _suggestionsBoxController.overlayEntry?.markNeedsBuild();
         });
         return true;

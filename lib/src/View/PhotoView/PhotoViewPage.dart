@@ -41,7 +41,7 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       viewState = ViewState.Loading;
       if (widget.medias != null && widget.medias!.isNotEmpty) {
         mediasRx = widget.medias!;

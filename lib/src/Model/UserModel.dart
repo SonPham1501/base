@@ -40,7 +40,7 @@ class UserModel {
   String? avatar;
   String? rc;
   String? vc;
-  String? version;
+  int? version;
   String? versionUid;
   List<String>? role;
   String? sub;
