@@ -28,7 +28,7 @@ class _CachedImageState extends State<CachedImage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       access_token = await SecureStorageUtil.getString(SecureStorageUtil.Token);
       setState(() {});
     });
