@@ -172,7 +172,7 @@ class GraphQLApiClient {
           var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
             if (countRequest < 2) {
-              return await this.query(query, countRequest: countRequest + 1);
+              return await mutation(query, countRequest: countRequest + 1);
             } else {
               await GraphQLApiClient.actionNotRefeshToken!.call();
             }
