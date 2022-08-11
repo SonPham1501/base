@@ -98,14 +98,6 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
-        if (countRequest == 1 && GraphQLApiClient.userName != null) {
-          await Util.pulishLogError(
-            userName: GraphQLApiClient.userName ?? 'null',
-            messageError: result.exception.toString(),
-            body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
-            url: query.operationName.toString()
-          );
-        }
         if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.actionNotRefeshToken != null) {
           var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
@@ -119,27 +111,27 @@ class GraphQLApiClient {
           }
         }
         // navigationService.logout();
-      }
+      } else {
+        if (_hasStopAccountError(result.exception!.graphqlErrors)) {
+          final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
 
-      if (_hasStopAccountError(result.exception!.graphqlErrors)) {
-        final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
+          // navigationService?.showStopAccountMessage(
+          //   result.exception!.graphqlErrors.first.message,
+          //   loginId,
+          // );
+        }
 
-        // navigationService?.showStopAccountMessage(
-        //   result.exception!.graphqlErrors.first.message,
-        //   loginId,
-        // );
+        debugPrint('result.exception ${result.exception}');
+        if (GraphQLApiClient.userName != null) {
+          await Util.pulishLogError(
+            userName: GraphQLApiClient.userName ?? 'null',
+            messageError: result.exception.toString(),
+            body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
+            url: query.operationName.toString()
+          );
+        }
+        return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
       }
-
-      debugPrint('result.exception ${result.exception}');
-      if (GraphQLApiClient.userName != null) {
-        await Util.pulishLogError(
-          userName: GraphQLApiClient.userName ?? 'null',
-          messageError: result.exception.toString(),
-          body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
-          url: query.operationName.toString()
-        );
-      }
-      return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
     }
     final data = query.parse(result.data as Map<String, dynamic>) as T;
 
