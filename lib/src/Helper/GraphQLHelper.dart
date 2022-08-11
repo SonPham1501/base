@@ -112,15 +112,14 @@ class GraphQLApiClient {
         }
         // navigationService.logout();
       } else {
-        if (_hasStopAccountError(result.exception!.graphqlErrors)) {
-          final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
+        // if (_hasStopAccountError(result.exception!.graphqlErrors)) {
+        //   final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
 
-          // navigationService?.showStopAccountMessage(
-          //   result.exception!.graphqlErrors.first.message,
-          //   loginId,
-          // );
-        }
-
+        //   navigationService?.showStopAccountMessage(
+        //     result.exception!.graphqlErrors.first.message,
+        //     loginId,
+        //   );
+        // }
         debugPrint('result.exception ${result.exception}');
         if (GraphQLApiClient.userName != null) {
           await Util.pulishLogError(
@@ -147,14 +146,14 @@ class GraphQLApiClient {
         error.extensions!['code'].toString() == '401';
   }
 
-  bool _hasStopAccountError(List<GraphQLError> errors) {
-    return errors.any((e) => _isStopAccountError(e));
-  }
+  // bool _hasStopAccountError(List<GraphQLError> errors) {
+  //   return errors.any((e) => _isStopAccountError(e));
+  // }
 
-  bool _isStopAccountError(GraphQLError error) {
-    return error.extensions?.containsKey('code') == true &&
-        error.extensions!['code'] == 'BAD_REQUEST';
-  }
+  // bool _isStopAccountError(GraphQLError error) {
+  //   return error.extensions?.containsKey('code') == true &&
+  //       error.extensions!['code'] == 'BAD_REQUEST';
+  // }
 
   Future<NetworkResourceState<T>>
       mutation<T, U extends json_annotation.JsonSerializable>(
@@ -169,14 +168,6 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
-        if (countRequest == 1 && GraphQLApiClient.userName != null) {
-          await Util.pulishLogError(
-            userName: GraphQLApiClient.userName ?? 'null',
-            messageError: result.exception.toString(),
-            body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
-            url: query.operationName.toString()
-          );
-        }
         if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.actionNotRefeshToken != null) {
           var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
@@ -190,27 +181,26 @@ class GraphQLApiClient {
           }
         }
         // navigationService.logout();
-      }
+      } else {
+        // if (_hasStopAccountError(result.exception!.graphqlErrors)) {
+        //   final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
 
-      if (_hasStopAccountError(result.exception!.graphqlErrors)) {
-        final loginId = result.exception!.graphqlErrors.first.extensions!['details']['login_id'];
-
-        // navigationService?.showStopAccountMessage(
-        //   result.exception!.graphqlErrors.first.message,
-        //   loginId,
-        // );
+        //   navigationService?.showStopAccountMessage(
+        //     result.exception!.graphqlErrors.first.message,
+        //     loginId,
+        //   );
+        // }
+        debugPrint('result.exception ${result.exception}');
+        if (GraphQLApiClient.userName != null) {
+          await Util.pulishLogError(
+            userName: GraphQLApiClient.userName ?? 'null',
+            messageError: result.exception.toString(),
+            body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
+            url: query.operationName.toString()
+          );
+        }
+        return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
       }
-
-      debugPrint('result.exception ${result.exception}');
-      if (GraphQLApiClient.userName != null) {
-        await Util.pulishLogError(
-          userName: GraphQLApiClient.userName ?? 'null',
-          messageError: result.exception.toString(),
-          body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
-          url: query.operationName.toString()
-        );
-      }
-      return NetworkResourceState<T>.error(result.exception!.graphqlErrors);
     }
 
     final errors = convertToError(result.data, query.operationName!);
