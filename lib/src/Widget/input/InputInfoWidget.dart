@@ -42,6 +42,7 @@ class InputInfoWidget extends StatefulWidget {
   final String colorInputText;
   final FontWeight fontWeight;
   final Size iconSize;
+  final List<BoxShadow>? boxShadow;
 
   const InputInfoWidget({Key? key, 
     this.controller,
@@ -82,6 +83,7 @@ class InputInfoWidget extends StatefulWidget {
     this.fontSize = 14,
     this.colorInputText = '4F4F4F',
     this.fontWeight = FontWeight.w400,
+    this.boxShadow,
   }) : super(key: key);
 
   @override
@@ -192,6 +194,7 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                   width: 1,
                 ),
             borderRadius: widget.borderRadiusBackground ?? BorderRadius.circular(8),
+            boxShadow: widget.boxShadow,
           ),
           child: Row(
             children: [
