@@ -41,6 +41,7 @@ class InputInfoWidget extends StatefulWidget {
   final bool isHasExtend;
   final String colorInputText;
   final FontWeight fontWeight;
+  final Size iconSize;
 
   const InputInfoWidget({Key? key, 
     this.controller,
@@ -63,6 +64,7 @@ class InputInfoWidget extends StatefulWidget {
     this.suffixIcon,
     this.isCusor = true,
     this.enable = true,
+    this.iconSize = const Size(40, 40),
     this.isEnableMultiLine = false,
     this.borderRadiusBackground,
     this.textAlign = TextAlign.left,
@@ -201,8 +203,8 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                       Padding(
                         padding: const EdgeInsets.only(left: 4),
                         child: SizedBox(
-                          height: 40,
-                          width: 40,
+                          height: widget.iconSize.height,
+                          width: widget.iconSize.width,
                           child: widget.icon,
                         ),
                       ),
