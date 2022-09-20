@@ -13,6 +13,7 @@ class InputSelectorWidget extends StatelessWidget {
   final Stream<InputOptionObject>? inputOptionObject;
   final String colorInputText;
   final FontWeight fontWeight;
+  final bool isShowHintTitle;
 
   const InputSelectorWidget({
     Key? key,
@@ -26,6 +27,7 @@ class InputSelectorWidget extends StatelessWidget {
     this.enable = true,
     this.colorInputText = '4F4F4F',
     this.fontWeight = FontWeight.w400,
+    this.isShowHintTitle = true,
   }) : super(key: key);
 
   @override
@@ -115,16 +117,18 @@ class InputSelectorWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    title ?? "",
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: ColorExtends(colorInputText),
+                  if (isShowHintTitle) ...[
+                    Text(
+                      title ?? "",
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: ColorExtends(colorInputText),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                  ],
                   Text(
                     content ?? "",
                     style: const TextStyle(
