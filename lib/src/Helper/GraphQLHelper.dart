@@ -2,6 +2,7 @@ import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
 import 'package:base/base.dart';
+import 'package:base/src/Helper/api_base.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';
@@ -71,9 +72,6 @@ GraphQLClient _buildClient({
 }
 
 class GraphQLApiClient {
-  static Future<bool> Function()? refeshToken;
-  static Future Function()? actionNotRefeshToken;
-  static String? userName;
 
   GraphQLApiClient({
     required String uri,
@@ -98,17 +96,19 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
-        if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.actionNotRefeshToken != null) {
-          var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
+        if (ApiBase.refeshToken != null && ApiBase.actionNotRefeshToken != null) {
+          var isGetAccessTokenSuccess = await ApiBase.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
             if (countRequest < 2) {
               return await this.query(query, countRequest: countRequest + 1);
             } else {
-              await GraphQLApiClient.actionNotRefeshToken!.call();
+              await ApiBase.actionNotRefeshToken!.call();
             }
           } else {
-            await GraphQLApiClient.actionNotRefeshToken!.call();
+            await ApiBase.actionNotRefeshToken!.call();
           }
+        } else if (ApiBase.actionNotRefeshToken != null) {
+          await ApiBase.actionNotRefeshToken!.call();
         }
         // navigationService.logout();
       } else {
@@ -121,9 +121,9 @@ class GraphQLApiClient {
         //   );
         // }
         debugPrint('result.exception ${result.exception}');
-        if (GraphQLApiClient.userName != null) {
+        if (ApiBase.userName != null) {
           await Util.pulishLogError(
-            userName: GraphQLApiClient.userName ?? 'null',
+            userName: ApiBase.userName ?? 'null',
             messageError: result.exception.toString(),
             body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
             url: query.operationName.toString()
@@ -168,17 +168,19 @@ class GraphQLApiClient {
     if (result.hasException) {
       if (_hasUnauthorizedError(result.exception!.graphqlErrors)) {
         debugPrint('errr ---');
-        if (GraphQLApiClient.refeshToken != null && GraphQLApiClient.actionNotRefeshToken != null) {
-          var isGetAccessTokenSuccess = await GraphQLApiClient.refeshToken!.call();
+        if (ApiBase.refeshToken != null && ApiBase.actionNotRefeshToken != null) {
+          var isGetAccessTokenSuccess = await ApiBase.refeshToken!.call();
           if (isGetAccessTokenSuccess) {
             if (countRequest < 2) {
               return await mutation(query, countRequest: countRequest + 1);
             } else {
-              await GraphQLApiClient.actionNotRefeshToken!.call();
+              await ApiBase.actionNotRefeshToken!.call();
             }
           } else {
-            await GraphQLApiClient.actionNotRefeshToken!.call();
+            await ApiBase.actionNotRefeshToken!.call();
           }
+        } else if (ApiBase.actionNotRefeshToken != null) {
+          await ApiBase.actionNotRefeshToken!.call();
         }
         // navigationService.logout();
       } else {
@@ -191,9 +193,9 @@ class GraphQLApiClient {
         //   );
         // }
         debugPrint('result.exception ${result.exception}');
-        if (GraphQLApiClient.userName != null) {
+        if (ApiBase.userName != null) {
           await Util.pulishLogError(
-            userName: GraphQLApiClient.userName ?? 'null',
+            userName: ApiBase.userName ?? 'null',
             messageError: result.exception.toString(),
             body: query.variables == null ? {}.toString() : query.variables!.toJson().toString(),
             url: query.operationName.toString()
