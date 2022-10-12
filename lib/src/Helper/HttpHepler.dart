@@ -1,15 +1,11 @@
-import 'dart:io';
 
-import 'package:base/src/AppBase.dart';
-import 'package:base/src/Helper/LogHelper.dart';
-import 'package:base/src/Helper/TrackingHelper.dart';
-import 'package:base/src/Utils/export_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart' as mime;
 
 import '../../base.dart';
+import 'api_base.dart';
 
 enum HttpMethod { get, post, delete, put, patch }
 
@@ -70,9 +66,9 @@ class HttpHelper {
           DioError error,
           ErrorInterceptorHandler handler,
         ) async {
-          if (GraphQLApiClient.userName != null) {
+          if (ApiBase.userName != null) {
             await Util.pulishLogError(
-              userName: GraphQLApiClient.userName ?? 'null',
+              userName: ApiBase.userName ?? 'null',
               messageError: error.toString(),
               body: params.toString(),
               url: url,
@@ -106,7 +102,9 @@ class HttpHelper {
                     .contains('firebase/unsubscribe-device')) {
                   //UserService.unRegisterFirebase();
                 }
-                await SecureStorageUtil.removeString(SecureStorageUtil.Token);
+                if (error.response?.statusCode == 401 && ApiBase.actionNotRefeshToken != null) {
+                  await ApiBase.actionNotRefeshToken!.call();
+                }
               }
               break;
             case DioErrorType.sendTimeout:

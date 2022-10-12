@@ -10,3 +10,4 @@ export './TrackingHelper.dart';
 export './UpdateHelper.dart';
 export './locator.dart';
 export './navigator.dart';
+export './api_base.dart';
