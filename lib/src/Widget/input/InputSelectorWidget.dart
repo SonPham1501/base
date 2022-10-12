@@ -65,6 +65,8 @@ class InputSelectorWidget extends StatelessWidget {
                       Expanded(
                         child: Text(
                           title ?? "",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 13,
                             color: ColorExtends(colorInputText),
@@ -131,6 +133,8 @@ class InputSelectorWidget extends StatelessWidget {
                   ],
                   Text(
                     content ?? "",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 13,
                     ),
