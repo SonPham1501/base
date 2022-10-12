@@ -2,7 +2,6 @@ import 'dart:io' as io;
 
 import 'package:artemis/schema/graphql_query.dart';
 import 'package:base/base.dart';
-import 'package:base/src/Helper/api_base.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql/client.dart';

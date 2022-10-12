@@ -5,7 +5,6 @@ import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart' as mime;
 
 import '../../base.dart';
-import 'api_base.dart';
 
 enum HttpMethod { get, post, delete, put, patch }
 
