@@ -14,9 +14,11 @@ class InputSelectorWidget extends StatelessWidget {
   final String colorInputText;
   final FontWeight fontWeight;
   final bool isShowHintTitle;
+  final int maxLines;
 
   const InputSelectorWidget({
     Key? key,
+    this.maxLines = 1,
     this.icon,
     this.suffixIcon,
     this.title,
@@ -65,7 +67,7 @@ class InputSelectorWidget extends StatelessWidget {
                       Expanded(
                         child: Text(
                           title ?? "",
-                          maxLines: 2,
+                          maxLines: maxLines,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 13,
@@ -133,7 +135,7 @@ class InputSelectorWidget extends StatelessWidget {
                   ],
                   Text(
                     content ?? "",
-                    maxLines: 2,
+                    maxLines: maxLines,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 13,
