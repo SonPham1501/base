@@ -7,7 +7,7 @@ class ValidateUtil {
   }
 
   static bool isValidSpecialCharacters(String value) {
-    var pattern = r'^[a-zA-Z0-9\+]*$';
+    var pattern = r'^[a-zA-Z0-9_ ]*$';
     RegExp regex = RegExp(pattern);
     return regex.hasMatch(value);
   }
