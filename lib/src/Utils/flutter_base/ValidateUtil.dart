@@ -6,6 +6,12 @@ class ValidateUtil {
     return regex.hasMatch(value);
   }
 
+  static bool isValidSpecialCharacters(String value) {
+    var pattern = r'^[a-zA-Z0-9\+]*$';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(value);
+  }
+
   static bool isValidPhone(String value) {
     RegExp regex = RegExp(r'(^(?:[+])?[0-9]{10,12}$)');
     return regex.hasMatch(value);
@@ -154,12 +160,16 @@ class ValidateUtil {
 
   static InputOptionObject validateFullName(String fullName) {
     var option = InputOptionObject();
+    final isNotSpeccialCharacter = !isValidSpecialCharacters(fullName);
     if (fullName.trim().isEmpty) {
       option.isError = true;
       option.message = "Trường này là bắt buộc!";
-    }else if (fullName.trim().isNotEmpty && !fullName.trim().contains(" ")) {
+    } else if (fullName.trim().isNotEmpty && !fullName.trim().contains(" ")) {
       option.isError = true;
       option.message = "Tên phải bao gồm họ và tên";
+    } else if (isNotSpeccialCharacter) {
+      option.isError = true;
+      option.message = 'Tên không được chứa ký tự đặc biệt';
     } else {
       option.isError = false;
     }
