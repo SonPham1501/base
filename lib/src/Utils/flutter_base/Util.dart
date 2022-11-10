@@ -822,10 +822,10 @@ class Util {
   }
 
   //thoát số màn hình
-  static void popCountScreen(int countScreen) {
+  static void popCountScreen(int countScreen, { Object? result }) {
     int count = 0;
     while (count < countScreen) {
-      Navigator.of(navigationService.context).pop();
+      Navigator.of(navigationService.context).pop(result);
       count++;
     }
   }
