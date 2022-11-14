@@ -7,9 +7,13 @@ class ValidateUtil {
   }
 
   static bool isValidSpecialCharacters(String value) {
-    var pattern = r'^[a-zA-Z0-9_ ]*$';
-    RegExp regex = RegExp(pattern);
-    return regex.hasMatch(value);
+    List<String> convert8 = "!|@|%|^|*|(|)|+|=|<|>|?|/|,|.|:|;|'|\"|&|#|[|]|~|\$|_|`|-|{|}|||\\".split('|')..add('|');
+    for (int i = 0; i < value.length; i++) {
+      if (convert8.contains(value[i])) {
+        return false;
+      }
+    }
+    return true;
   }
 
   static bool isValidPhone(String value) {
