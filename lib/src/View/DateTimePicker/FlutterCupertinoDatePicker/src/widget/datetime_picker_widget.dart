@@ -1,8 +1,8 @@
 import 'dart:math';
 
+import 'package:base/src/View/DateTimePicker/FlutterCupertinoDatePicker/src/widget/bottom_action_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../date_time_formatter.dart';
 import '../date_picker.dart';
@@ -21,9 +21,9 @@ class DateTimePickerWidget extends StatefulWidget {
     this.minDateTime,
     this.maxDateTime,
     this.initDateTime,
-    this.dateFormat: DATETIME_PICKER_TIME_FORMAT,
-    this.locale: DATETIME_PICKER_LOCALE_DEFAULT,
-    this.pickerTheme: DateTimePickerTheme.Default,
+    this.dateFormat = DATETIME_PICKER_TIME_FORMAT,
+    this.locale = DATETIME_PICKER_LOCALE_DEFAULT,
+    this.pickerTheme = DateTimePickerTheme.Default,
     this.minuteDivider = 1,
     this.onCancel,
     this.onChange,
@@ -44,7 +44,7 @@ class DateTimePickerWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() =>
-      _DateTimePickerWidgetState(this.minDateTime, this.maxDateTime, this.initDateTime, this.minuteDivider);
+      _DateTimePickerWidgetState(minDateTime, maxDateTime, initDateTime, minuteDivider);
 }
 
 class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
@@ -63,17 +63,11 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   _DateTimePickerWidgetState(DateTime? minTime, DateTime? maxTime, DateTime? initTime, int? minuteDivider) {
     // check minTime value
-    if (minTime == null) {
-      minTime = DateTime.parse(DATE_PICKER_MIN_DATETIME);
-    }
+    minTime ??= DateTime.parse(DATE_PICKER_MIN_DATETIME);
     // check maxTime value
-    if (maxTime == null) {
-      maxTime = DateTime.parse(DATE_PICKER_MAX_DATETIME);
-    }
+    maxTime ??= DateTime.parse(DATE_PICKER_MAX_DATETIME);
     // check initTime value
-    if (initTime == null) {
-      initTime = DateTime.now();
-    }
+    initTime ??= DateTime.now();
     // limit initTime value
     if (initTime.compareTo(minTime) < 0) {
       initTime = minTime;
@@ -82,30 +76,30 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
       initTime = maxTime;
     }
 
-    this._minTime = minTime;
-    this._maxTime = maxTime;
-    this._currHour = initTime.hour;
-    this._currMinute = initTime.minute;
-    this._currSecond = initTime.second;
+    _minTime = minTime;
+    _maxTime = maxTime;
+    _currHour = initTime.hour;
+    _currMinute = initTime.minute;
+    _currSecond = initTime.second;
 
-    this._minuteDivider = minuteDivider!;
+    _minuteDivider = minuteDivider!;
 
     // limit the range of date
-    this._dayRange = _calcDayRange();
+    _dayRange = _calcDayRange();
     int currDate = initTime.difference(_baselineDate).inDays;
-    this._currDay = min(max(_dayRange.first, currDate), _dayRange.last);
+    _currDay = min(max(_dayRange.first, currDate), _dayRange.last);
 
     // limit the range of hour
-    this._hourRange = _calcHourRange();
-    this._currHour = min(max(_hourRange.first, _currHour), _hourRange.last);
+    _hourRange = _calcHourRange();
+    _currHour = min(max(_hourRange.first, _currHour), _hourRange.last);
 
     // limit the range of minute
-    this._minuteRange = _calcMinuteRange();
-    this._currMinute = min(max(_minuteRange.first, _currMinute), _minuteRange.last);
+    _minuteRange = _calcMinuteRange();
+    _currMinute = min(max(_minuteRange.first, _currMinute), _minuteRange.last);
 
     // limit the range of second
-    this._secondRange = _calcSecondRange();
-    this._currSecond = min(max(_secondRange.first, _currSecond), _secondRange.last);
+    _secondRange = _calcSecondRange();
+    _currSecond = min(max(_secondRange.first, _currSecond), _secondRange.last);
 
     // create scroll controller
     _dayScrollCtrl = FixedExtentScrollController(initialItem: _currDay - _dayRange.first);
@@ -136,7 +130,11 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
         onCancel: () => _onPressedCancel(),
         onConfirm: () => _onPressedConfirm(),
       );
-      return Column(children: <Widget>[titleWidget, pickerWidget]);
+      Widget bottomActionWidget = BottomActionWidget(
+        onCancel: () => _onPressedCancel(),
+        onConfirm: () => _onPressedConfirm(),
+      );
+      return Column(children: <Widget>[titleWidget, pickerWidget, bottomActionWidget]);
     }
     return pickerWidget;
   }
@@ -210,7 +208,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
     pickers.add(dayPickerColumn);
 
     // render time picker column
-    formatArr.forEach((format) {
+    for (var format in formatArr) {
       List<int> valueRange = _findPickerItemRange(format)!;
 
       Widget pickerColumn = _renderDatePickerColumnComponent(
@@ -230,7 +228,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
         },
       );
       pickers.add(pickerColumn);
-    });
+    }
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: pickers);
   }
 
@@ -244,7 +242,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
     IndexedWidgetBuilder? itemBuilder,
   }) {
     Widget columnWidget = Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       width: double.infinity,
       height: widget.pickerTheme.pickerHeight,
       decoration: BoxDecoration(color: widget.pickerTheme.backgroundColor),
@@ -446,9 +444,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   /// calculate the range of minute
   List<int> _calcMinuteRange({currHour}) {
     int minMinute = 0, maxMinute = 59;
-    if (currHour == null) {
-      currHour = _currHour;
-    }
+    currHour ??= _currHour;
 
     if (_currDay == _dayRange.first && currHour == _minTime.hour) {
       // selected minimum day、hour, limit minute range
@@ -465,12 +461,8 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
   List<int> _calcSecondRange({currHour, currMinute}) {
     int minSecond = 0, maxSecond = 59;
 
-    if (currHour == null) {
-      currHour = _currHour;
-    }
-    if (currMinute == null) {
-      currMinute = _currMinute;
-    }
+    currHour ??= _currHour;
+    currMinute ??= _currMinute;
 
     if (_currDay == _dayRange.first && currHour == _minTime.hour && currMinute == _minTime.minute) {
       // selected minimum hour and minute, limit second range
