@@ -15,6 +15,8 @@ class InputSelectorWidget extends StatelessWidget {
   final FontWeight fontWeight;
   final bool isShowHintTitle;
   final int maxLines;
+  final bool autofocus;
+  final FocusNode? focusNode;
 
   const InputSelectorWidget({
     Key? key,
@@ -30,6 +32,8 @@ class InputSelectorWidget extends StatelessWidget {
     this.colorInputText = '4F4F4F',
     this.fontWeight = FontWeight.w400,
     this.isShowHintTitle = true,
+    this.autofocus = false,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -49,6 +53,9 @@ class InputSelectorWidget extends StatelessWidget {
             children: [
               InkWell(
                 onTap: enable ? onTap : null,
+                canRequestFocus: enable,
+                focusNode: focusNode,
+                autofocus: autofocus,
                 child: Container(
                   decoration: decoratedBox ?? BoxDecoration(
                     color: Colors.transparent,
@@ -102,6 +109,9 @@ class InputSelectorWidget extends StatelessWidget {
     }
     return InkWell(
       onTap: enable ? onTap : null,
+      canRequestFocus: enable,
+      focusNode: focusNode,
+      autofocus: autofocus,
       child: Container(
         decoration: decoratedBox ?? BoxDecoration(
           color: enable ? Colors.transparent : Constant.kColorInputDisable,
